@@ -6,23 +6,29 @@
 <title>むすひ｜埼玉・所沢の黄土よもぎ蒸し専門サロン｜初回体験 ¥3,000〜</title>
 <meta name="description" content="埼玉・所沢の黄土よもぎ蒸し専門サロン「むすひ」。国産無農薬よもぎと黄土の蒸し窯で、冷え・巡り・心をまるごと整える。初回体験 ¥3,000〜／妊活ペアコース「産霊蒸し」もご用意。所沢駅・航空公園駅 徒歩12分。">
 <meta name="keywords" content="よもぎ蒸し,所沢,埼玉,黄土,妊活,温活,冷え性,産霊蒸し,むすひ">
+<meta name="robots" content="index,follow">
 
-<!-- Open Graph / SNS -->
+<!-- Open Graph / Twitter -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="むすひ｜埼玉・所沢の黄土よもぎ蒸し専門サロン">
 <meta property="og:description" content="命はいつも、温かい場所に宿る。初回体験 ¥3,000〜。所沢駅・航空公園駅 徒歩12分。">
-<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image" content="images/ogp.jpg">
+<meta property="og:url" content="https://example.com/">
 <meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="むすひ｜よもぎ蒸し処">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="むすひ｜埼玉・所沢の黄土よもぎ蒸し専門サロン">
+<meta name="twitter:description" content="命はいつも、温かい場所に宿る。初回体験 ¥3,000〜。">
+<meta name="twitter:image" content="images/ogp.jpg">
 
 <!-- Favicons -->
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
-<link rel="shortcut icon" href="assets/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+<link rel="shortcut icon" href="images/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 <meta name="theme-color" content="#0a0807">
 
-<!-- Fonts -->
+<!-- Fonts (external CDN — required for Japanese serif fonts) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -116,42 +122,25 @@ section { padding: 64px 0; position: relative; }
 }
 
 /* ============================================================
-   Image Placeholder（差し替え用）
+   Image utilities
    ============================================================ */
-.img-ph {
-  background:
-    linear-gradient(135deg, rgba(201, 168, 124, 0.04) 0%, rgba(139, 38, 53, 0.06) 100%),
-    linear-gradient(180deg, #1f1a17 0%, #14110f 100%);
-  border: 1px dashed var(--border-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  overflow: hidden;
-  position: relative;
-}
-.img-ph::before {
-  content: attr(data-label);
-  font-family: var(--serif);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-}
-.ratio-16-9 { aspect-ratio: 16 / 9; }
-.ratio-4-3  { aspect-ratio: 4 / 3; }
-.ratio-1-1  { aspect-ratio: 1 / 1; }
-.ratio-3-4  { aspect-ratio: 3 / 4; }
-
-/* Real image inside aspect-ratio containers */
-img.menu-card-img,
-img.pair-card-img,
-img.commitment-img,
-img.map-placeholder,
-img.flow-step-img {
+.menu-card-img,
+.pair-card-img,
+.commitment-img,
+.flow-step-img,
+.map-image,
+.band-image,
+.full-bg-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
   display: block;
+  object-fit: cover;
 }
+.menu-card-img    { aspect-ratio: 4 / 3; }
+.pair-card-img    { aspect-ratio: 16 / 10; }
+.commitment-img   { aspect-ratio: 4 / 3; }
+.flow-step-img    { aspect-ratio: 4 / 3; }
+.map-image        { aspect-ratio: 4 / 3; }
+.full-bg-image    { width: 100%; height: 100%; }
 
 /* ============================================================
    Buttons
@@ -204,11 +193,6 @@ img.flow-step-img {
   border-color: var(--gold);
   color: var(--gold);
 }
-.btn-line {
-  background: #06c755;
-  color: #fff;
-}
-.btn-line:hover { background: #05b94f; }
 .btn-block { width: 100%; }
 .btn .arrow { transition: transform .25s; }
 .btn:hover .arrow { transform: translateX(4px); }
@@ -356,19 +340,18 @@ img.flow-step-img {
   position: relative;
   padding: 100px 0 80px;
   overflow: hidden;
+  background: #0a0807;
 }
 .hero-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
 }
-.hero-bg .img-ph {
-  width: 100%; height: 100%;
-  border: none;
-  background:
-    radial-gradient(ellipse at 75% 30%, rgba(201, 168, 124, 0.18) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 80%, rgba(139, 38, 53, 0.12) 0%, transparent 45%),
-    linear-gradient(180deg, #14110f 0%, #0a0807 100%);
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
 }
 .hero-bg::after {
   content: '';
@@ -520,7 +503,7 @@ img.flow-step-img {
 }
 
 /* ============================================================
-   Trust Strip（ヒーロー直下の安心バー）
+   Trust Strip
    ============================================================ */
 .trust-strip {
   background: var(--bg-soft);
@@ -619,9 +602,15 @@ img.flow-step-img {
   margin-left: auto;
   margin-right: auto;
 }
+.concept-image img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
 
 /* ============================================================
-   Menu + Pricing 統合セクション
+   Menu
    ============================================================ */
 .menus-grid {
   display: grid;
@@ -642,7 +631,6 @@ img.flow-step-img {
   position: relative;
 }
 .menu-card:hover { border-color: var(--gold); transform: translateY(-2px); }
-.menu-card-img { aspect-ratio: 4 / 3; }
 .menu-card-body {
   padding: 24px 22px;
   flex: 1;
@@ -740,7 +728,6 @@ img.flow-step-img {
   display: flex;
   flex-direction: column;
 }
-.pair-card-img { aspect-ratio: 16 / 10; }
 .pair-card-body { padding: 28px 24px; flex: 1; display: flex; flex-direction: column; }
 .pair-card.featured { border: 1px solid var(--accent); position: relative; }
 .pair-card.featured::before {
@@ -763,7 +750,7 @@ img.flow-step-img {
   align-self: flex-start;
 }
 
-/* Pricing summary card */
+/* Pricing summary */
 .pricing-summary {
   margin-top: 56px;
   background: var(--bg-card);
@@ -782,10 +769,7 @@ img.flow-step-img {
   color: var(--gold);
   text-align: center;
 }
-.pricing-list {
-  display: grid;
-  gap: 12px;
-}
+.pricing-list { display: grid; gap: 12px; }
 .pricing-row {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -835,7 +819,7 @@ img.flow-step-img {
 }
 
 /* ============================================================
-   Commitment（Three Pillars統合済み）
+   Commitment
    ============================================================ */
 .commitments {
   display: flex;
@@ -877,9 +861,8 @@ img.flow-step-img {
   color: var(--text);
   line-height: 2;
 }
-.commitment-img { aspect-ratio: 4 / 3; }
 
-/* Big picture band */
+/* Picture band */
 .picture-band {
   position: relative;
   height: 280px;
@@ -890,7 +873,12 @@ img.flow-step-img {
 @media (min-width: 768px) {
   .picture-band { height: 420px; }
 }
-.picture-band .img-ph { width: 100%; height: 100%; border: none; }
+.picture-band img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 /* ============================================================
    Voice / Reviews
@@ -983,7 +971,12 @@ img.flow-step-img {
 @media (min-width: 768px) {
   .instagram-grid { grid-template-columns: repeat(6, 1fr); }
 }
-.instagram-grid .img-ph { aspect-ratio: 1; }
+.instagram-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
 
 /* ============================================================
    Flow
@@ -1022,7 +1015,7 @@ img.flow-step-img {
 }
 .flow-img-wrap { display: none; }
 @media (min-width: 768px) {
-  .flow-img-wrap { display: block; aspect-ratio: 4 / 3; }
+  .flow-img-wrap { display: block; }
 }
 .flow-content h3 {
   font-family: var(--serif);
@@ -1179,7 +1172,6 @@ img.flow-step-img {
   color: var(--gold);
 }
 .access-tel:hover { color: var(--text); }
-.map-placeholder { aspect-ratio: 4 / 3; }
 
 /* ============================================================
    Final CTA
@@ -1199,13 +1191,11 @@ img.flow-step-img {
   inset: 0;
   z-index: 0;
 }
-.final-cta-bg .img-ph {
-  width: 100%; height: 100%;
-  border: none;
-  background:
-    radial-gradient(ellipse at 50% 30%, rgba(201, 168, 124, 0.18) 0%, transparent 60%),
-    radial-gradient(ellipse at 30% 80%, rgba(139, 38, 53, 0.14) 0%, transparent 50%),
-    linear-gradient(180deg, #0a0807 0%, #14110f 100%);
+.final-cta-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
 }
 .final-cta-bg::after {
   content: '';
@@ -1344,8 +1334,6 @@ img.flow-step-img {
 @media (min-width: 1024px) {
   .float-cta { display: none; }
 }
-
-/* Body bottom padding when float-cta is visible (mobile) */
 @media (max-width: 1023px) {
   body.float-cta-visible { padding-bottom: 70px; }
 }
@@ -1369,25 +1357,6 @@ img.flow-step-img {
 .text-center { text-align: center; }
 .mt-32 { margin-top: 32px; }
 .mt-48 { margin-top: 48px; }
-.divider {
-  text-align: center;
-  margin: 40px 0;
-  font-family: var(--serif);
-  color: var(--gold);
-  font-size: 14px;
-  letter-spacing: 0.4em;
-  position: relative;
-}
-.divider::before, .divider::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 60px;
-  height: 1px;
-  background: var(--border-light);
-}
-.divider::before { right: calc(50% + 36px); }
-.divider::after { left: calc(50% + 36px); }
 </style>
 </head>
 <body>
@@ -1398,7 +1367,7 @@ img.flow-step-img {
 <header class="header">
   <div class="header-inner">
     <a href="#" class="logo-link" aria-label="むすひ ホーム">
-      <img src="assets/logo-white.png" alt="むすひ｜よもぎ蒸し処" loading="eager">
+      <img src="images/logo.png" alt="むすひ｜よもぎ蒸し処" width="44" height="58">
       <span class="logo-tag">所沢｜黄土よもぎ蒸し</span>
     </a>
     <nav class="nav" aria-label="グローバルナビ">
@@ -1440,14 +1409,8 @@ img.flow-step-img {
      ============================================================ -->
 <section class="hero">
   <div class="hero-bg">
-    <!--
-      image-01｜HERO BACKGROUND
-      配置: ファーストビュー全面背景
-      目的: 第一印象でブランドの世界観を伝える最重要画像
-      構図: 右側〜中央に湯気と提灯／左半分はテキスト用の暗い余白
-      サイズ: 2400×1350px（16:9）／最低1920×1080px
-    -->
-    <div class="img-ph" data-label="image-01｜HERO BACKGROUND"></div>
+    <!-- IMAGE: images/hero.jpg ｜ファーストビュー全面背景／湯気の立つ黄土の蒸し窯と提灯／2400×1350px推奨 -->
+    <img src="images/hero.jpg" alt="" width="1920" height="1080" fetchpriority="high">
   </div>
   <div class="container hero-content">
     <div class="hero-badges">
@@ -1560,14 +1523,8 @@ img.flow-step-img {
       その命の火を、あなたの体の中に灯す場所。
     </p>
     <div class="concept-image">
-      <!--
-        image-02｜CONCEPT IMAGE
-        配置: コンセプトセクション末尾
-        目的: 「産霊」の精神性・和の世界観の象徴
-        構図: 暗い和紙／木目の上に、よもぎ・漢方素材・小さな器を静物配置（45度俯瞰）
-        サイズ: 1600×900px（16:9）
-      -->
-      <div class="img-ph ratio-16-9" data-label="image-02｜CONCEPT IMAGE"></div>
+      <!-- IMAGE: images/image-02.jpg ｜コンセプト用静物／和の素材を暗背景で／1600×900px -->
+      <img src="images/image-02.jpg" alt="むすひ コンセプトイメージ" loading="lazy" width="1600" height="900">
     </div>
   </div>
 </section>
@@ -1586,8 +1543,8 @@ img.flow-step-img {
     <div class="menus-grid">
 
       <article class="menu-card">
-        <!-- image-03｜よもぎ蒸し（Basic）｜徳島県産・国産無農薬よもぎ -->
-        <img src="assets/photo-yomogi-basic.avif" alt="徳島県産・国産無農薬よもぎ" class="menu-card-img" loading="lazy" width="800" height="600">
+        <!-- IMAGE: images/image-03.jpg ｜よもぎ蒸し（基本）／徳島県産無農薬よもぎ／1200×900px -->
+        <img src="images/image-03.jpg" alt="徳島県産・国産無農薬よもぎ" class="menu-card-img" loading="lazy" width="800" height="600">
         <div class="menu-card-body">
           <span class="menu-tag">Basic</span>
           <h3 class="menu-name">よもぎ蒸し<small>所要時間 60分</small></h3>
@@ -1604,8 +1561,8 @@ img.flow-step-img {
       </article>
 
       <article class="menu-card">
-        <!-- image-04｜漢方よもぎ蒸し（Kanpo）｜3種類の漢方ブレンドパッケージ -->
-        <img src="assets/photo-kanpo-blend.avif" alt="3種類の漢方ブレンド" class="menu-card-img" loading="lazy" width="800" height="600">
+        <!-- IMAGE: images/image-04.jpg ｜漢方よもぎ蒸し／3種ブレンドのパッケージ／1200×900px -->
+        <img src="images/image-04.jpg" alt="3種類の漢方ブレンド" class="menu-card-img" loading="lazy" width="800" height="600">
         <div class="menu-card-body">
           <span class="menu-tag">Kanpo</span>
           <h3 class="menu-name">漢方よもぎ蒸し<small>所要時間 60分</small></h3>
@@ -1622,8 +1579,8 @@ img.flow-step-img {
       </article>
 
       <article class="menu-card">
-        <!-- image-05｜発酵よもぎ蒸し（Fermented）｜よもぎ・玄米・豆麹・米ぬかブレンド -->
-        <img src="assets/photo-fermented.webp" alt="よもぎ・玄米・豆麹・米ぬかの発酵ブレンド" class="menu-card-img" loading="lazy" width="800" height="600">
+        <!-- IMAGE: images/image-05.jpg ｜発酵よもぎ蒸し／よもぎ・玄米・豆麹・米ぬかブレンド／1200×900px -->
+        <img src="images/image-05.jpg" alt="よもぎ・玄米・豆麹・米ぬかの発酵ブレンド" class="menu-card-img" loading="lazy" width="800" height="600">
         <div class="menu-card-body">
           <span class="menu-tag">Fermented</span>
           <h3 class="menu-name">発酵よもぎ蒸し<small>所要時間 60分</small></h3>
@@ -1664,8 +1621,8 @@ img.flow-step-img {
     <div class="pair-grid">
 
       <article class="pair-card">
-        <!-- image-06｜ペア蒸し｜2名がガウン姿で並ぶ様子 -->
-        <img src="assets/photo-pair-burgundy.avif" alt="ペアでよもぎ蒸しを受けるおふたり" class="pair-card-img" loading="lazy" width="800" height="500">
+        <!-- IMAGE: images/image-06.jpg ｜ペア蒸し／2名がガウン姿で並ぶ／1200×750px -->
+        <img src="images/image-06.jpg" alt="ペアでよもぎ蒸しを受けるおふたり" class="pair-card-img" loading="lazy" width="800" height="500">
         <div class="pair-card-body">
           <h3 class="menu-name">ペア蒸し<small>所要時間 60分</small></h3>
           <p class="menu-desc">3つの基本メニューから、それぞれお好みを選べる。ご友人・パートナー・男性同伴も歓迎。</p>
@@ -1681,8 +1638,8 @@ img.flow-step-img {
       </article>
 
       <article class="pair-card featured">
-        <!-- image-07｜産霊蒸し（妊活ペア）｜ガウン姿の2人の後ろ姿 -->
-        <img src="assets/photo-pair-musuhi.avif" alt="産霊蒸しを受けるご夫婦" class="pair-card-img" loading="lazy" width="800" height="500">
+        <!-- IMAGE: images/image-07.jpg ｜産霊蒸し（妊活ペア）／ガウン姿の2人の後ろ姿／1200×750px -->
+        <img src="images/image-07.jpg" alt="産霊蒸しを受けるご夫婦" class="pair-card-img" loading="lazy" width="800" height="500">
         <div class="pair-card-body">
           <span class="pair-badge">妊活ご夫婦専用</span>
           <h3 class="menu-name">産霊蒸し<small>むすひむし／所要時間 80分</small></h3>
@@ -1738,7 +1695,7 @@ img.flow-step-img {
 </section>
 
 <!-- ============================================================
-     COMMITMENT（Three Pillars統合済み）
+     COMMITMENT
      ============================================================ -->
 <section id="commitment">
   <div class="container">
@@ -1757,14 +1714,8 @@ img.flow-step-img {
           <h3 class="commitment-title">国産・無農薬の素材</h3>
           <p class="commitment-desc">よもぎは徳島県産の無農薬。漢方・発酵素材も国産・無農薬を厳選しています。お客様一人ひとりのお悩みに合わせて配合する、むすひ独自のブレンド。安心・安全な素材だけを使うこと、それを私たちはお約束します。</p>
         </div>
-        <!--
-          image-08｜こだわり①素材
-          配置: こだわりセクション01
-          目的: 国産無農薬素材への信頼感・誠実さ
-          構図: 漢方生薬・乾燥よもぎ・小さなガラス瓶などを並べたアポセカリー風静物
-          サイズ: 1200×900px（4:3）
-        -->
-        <div class="img-ph commitment-img" data-label="image-08｜素材"></div>
+        <!-- IMAGE: images/image-08.jpg ｜こだわり①素材／アポセカリー風静物／1200×900px -->
+        <img src="images/image-08.jpg" alt="国産・無農薬の素材" class="commitment-img" loading="lazy" width="600" height="450">
       </div>
 
       <div class="commitment reverse">
@@ -1773,14 +1724,8 @@ img.flow-step-img {
           <h3 class="commitment-title">黄土の座器・蒸し窯</h3>
           <p class="commitment-desc">身体だけでなく心までほぐされるように、座器・蒸し窯にはすべて黄土を採用。遠赤外線でじんわりと身体の芯から温まる、深く穏やかな心地良さを感じていただけます。</p>
         </div>
-        <!--
-          image-09｜こだわり②黄土
-          配置: こだわりセクション02
-          目的: 黄土窯の遠赤外線・芯から温まる心地よさを伝える
-          構図: 黄土の蒸し窯／座器のクローズアップ。湯気が立ちのぼる瞬間（バックライト）
-          サイズ: 1200×900px（4:3）
-        -->
-        <div class="img-ph commitment-img" data-label="image-09｜黄土"></div>
+        <!-- IMAGE: images/image-09.jpg ｜こだわり②黄土／湯気立ちのぼる蒸し窯／1200×900px -->
+        <img src="images/image-09.jpg" alt="黄土の座器・蒸し窯" class="commitment-img" loading="lazy" width="600" height="450">
       </div>
 
       <div class="commitment">
@@ -1789,8 +1734,8 @@ img.flow-step-img {
           <h3 class="commitment-title">30種以上のミネラルを含む水</h3>
           <p class="commitment-desc">よもぎ蒸しは経皮吸収が高い施術だからこそ、お水にもこだわりました。不純物を除き、30種類以上のミネラルを含んだ高品質のお水を、惜しみなく使用しています。</p>
         </div>
-        <!-- image-10｜こだわり③お水｜黄土窯にお水が注がれる瞬間（湯気付き）-->
-        <img src="assets/photo-water-pouring.avif" alt="黄土の蒸し窯に注がれるミネラル豊富な水" class="commitment-img" loading="lazy" width="600" height="450">
+        <!-- IMAGE: images/image-10.jpg ｜こだわり③お水／水が注がれる瞬間／1200×900px -->
+        <img src="images/image-10.jpg" alt="黄土の蒸し窯に注がれるミネラル豊富な水" class="commitment-img" loading="lazy" width="600" height="450">
       </div>
 
     </div>
@@ -1804,21 +1749,15 @@ img.flow-step-img {
 </section>
 
 <!-- ============================================================
-     PICTURE BAND（中盤の視覚ブレイク）
+     PICTURE BAND
      ============================================================ -->
 <div class="picture-band">
-  <!--
-    image-band｜セクション間ビジュアルブレイク
-    配置: こだわり〜お客様の声 の間
-    目的: 中盤のだれ防止・没入感の再構築
-    構図: 湯気と提灯／黄土の壺など、和の世界観をフルブリードで
-    サイズ: 2400×840px（横長帯）
-  -->
-  <div class="img-ph" data-label="image-band｜世界観の帯"></div>
+  <!-- IMAGE: images/image-band.jpg ｜中盤の世界観帯／湯気と提灯のフルブリード／2400×840px -->
+  <img src="images/image-band.jpg" alt="むすひの世界観" loading="lazy" width="2400" height="840">
 </div>
 
 <!-- ============================================================
-     VOICE / Reviews
+     VOICE
      ============================================================ -->
 <section class="voice" id="voice">
   <div class="container">
@@ -1867,22 +1806,17 @@ img.flow-step-img {
 
     </div>
 
-    <!-- Instagram Strip -->
     <div class="instagram-strip">
       <p class="instagram-strip-title">Instagram</p>
       <p class="instagram-strip-sub">サロンの様子を、随時発信しています</p>
       <div class="instagram-grid">
-        <!--
-          image-16〜21｜Instagram風 正方形6枚
-          配置: Voice / Instagram セクション
-          共通サイズ: 1080×1080px（1:1）
-        -->
-        <div class="img-ph" data-label="image-16｜サロン全景"></div>
-        <div class="img-ph" data-label="image-17｜素材マクロ"></div>
-        <div class="img-ph" data-label="image-18｜湯気"></div>
-        <div class="img-ph" data-label="image-19｜お茶"></div>
-        <div class="img-ph" data-label="image-20｜ガウン"></div>
-        <div class="img-ph" data-label="image-21｜提灯"></div>
+        <!-- IMAGES: images/image-16.jpg 〜 image-21.jpg ｜Instagram風6枚／各1080×1080px -->
+        <img src="images/image-16.jpg" alt="サロン全景" loading="lazy" width="800" height="800">
+        <img src="images/image-17.jpg" alt="素材マクロ" loading="lazy" width="800" height="800">
+        <img src="images/image-18.jpg" alt="湯気" loading="lazy" width="800" height="800">
+        <img src="images/image-19.jpg" alt="お茶" loading="lazy" width="800" height="800">
+        <img src="images/image-20.jpg" alt="ガウン質感" loading="lazy" width="800" height="800">
+        <img src="images/image-21.jpg" alt="提灯" loading="lazy" width="800" height="800">
       </div>
       <a href="https://www.instagram.com/musuhi_yomogi/" target="_blank" rel="noopener" class="btn btn-outline">
         @musuhi_yomogi をフォローする <span class="arrow">→</span>
@@ -1907,8 +1841,8 @@ img.flow-step-img {
       <div class="flow-step">
         <div class="flow-num">01</div>
         <div class="flow-img-wrap">
-          <!-- image-11｜流れ①ご来店：サロン入口・店名サイン・暖簾。サイズ800×600px（4:3） -->
-          <div class="img-ph" data-label="image-11｜来店"></div>
+          <!-- IMAGE: images/image-11.jpg ｜流れ①ご来店／800×600px -->
+          <img src="images/image-11.jpg" alt="ご来店" class="flow-step-img" loading="lazy" width="800" height="600">
         </div>
         <div class="flow-content">
           <span class="duration">約5分</span>
@@ -1920,8 +1854,8 @@ img.flow-step-img {
       <div class="flow-step">
         <div class="flow-num">02</div>
         <div class="flow-img-wrap">
-          <!-- image-12｜流れ②カウンセリング：シート・ペン・お茶。サイズ800×600px（4:3） -->
-          <div class="img-ph" data-label="image-12｜カウンセリング"></div>
+          <!-- IMAGE: images/image-12.jpg ｜流れ②カウンセリング／800×600px -->
+          <img src="images/image-12.jpg" alt="カウンセリング" class="flow-step-img" loading="lazy" width="800" height="600">
         </div>
         <div class="flow-content">
           <span class="duration">約10分</span>
@@ -1933,8 +1867,8 @@ img.flow-step-img {
       <div class="flow-step">
         <div class="flow-num">03</div>
         <div class="flow-img-wrap">
-          <!-- image-13｜流れ③よもぎの調合：計量器・スプーンの手元。サイズ800×600px（4:3） -->
-          <div class="img-ph" data-label="image-13｜調合"></div>
+          <!-- IMAGE: images/image-13.jpg ｜流れ③よもぎの調合／800×600px -->
+          <img src="images/image-13.jpg" alt="よもぎの調合" class="flow-step-img" loading="lazy" width="800" height="600">
         </div>
         <div class="flow-content">
           <span class="duration">約5分</span>
@@ -1946,8 +1880,8 @@ img.flow-step-img {
       <div class="flow-step">
         <div class="flow-num">04</div>
         <div class="flow-img-wrap">
-          <!-- image-14｜流れ④お着替え：畳まれたガウン。サイズ800×600px（4:3） -->
-          <div class="img-ph" data-label="image-14｜着替え"></div>
+          <!-- IMAGE: images/image-14.jpg ｜流れ④お着替え／800×600px -->
+          <img src="images/image-14.jpg" alt="お着替え" class="flow-step-img" loading="lazy" width="800" height="600">
         </div>
         <div class="flow-content">
           <span class="duration">約5分</span>
@@ -1959,8 +1893,8 @@ img.flow-step-img {
       <div class="flow-step">
         <div class="flow-num">05</div>
         <div class="flow-img-wrap">
-          <!-- image-15｜流れ⑤蒸し体験：湯気に包まれた後ろ姿。サイズ800×600px（4:3） -->
-          <div class="img-ph" data-label="image-15｜蒸し体験"></div>
+          <!-- IMAGE: images/image-15.jpg ｜流れ⑤蒸し体験／800×600px -->
+          <img src="images/image-15.jpg" alt="蒸し体験" class="flow-step-img" loading="lazy" width="800" height="600">
         </div>
         <div class="flow-content">
           <span class="duration">30〜45分</span>
@@ -2122,7 +2056,7 @@ img.flow-step-img {
     <div class="access-grid">
       <div class="access-info">
         <div class="access-name">
-          <img src="assets/logo-white.png" alt="むすひ ロゴ">
+          <img src="images/logo.png" alt="むすひ ロゴ" width="40" height="53">
           <span class="access-name-text">むすひ</span>
         </div>
         <dl>
@@ -2159,14 +2093,8 @@ img.flow-step-img {
         </dl>
       </div>
       <div>
-        <!--
-          image-22｜MAP / 入口
-          配置: アクセスセクション右側
-          目的: 場所の特定・「奥の階段」のわかりにくさへのフォロー
-          構図: サロン入口の外観、または駐車場側からの道順写真
-          サイズ: 1200×900px（4:3）／最終的にはGoogleマップ埋め込み推奨
-        -->
-        <div class="img-ph map-placeholder" data-label="image-22｜MAP / 入口"></div>
+        <!-- IMAGE: images/image-22.jpg ｜入口外観 or Googleマップ／1200×900px -->
+        <img src="images/image-22.jpg" alt="むすひ 入口" class="map-image" loading="lazy" width="1200" height="900">
       </div>
     </div>
   </div>
@@ -2177,17 +2105,11 @@ img.flow-step-img {
      ============================================================ -->
 <section class="final-cta">
   <div class="final-cta-bg">
-    <!--
-      image-23｜FINAL CTA BACKGROUND
-      配置: 最終CTAセクション全面背景
-      目的: 行動への背中押し、ブランド世界観の最終確認
-      構図: 提灯のあるサロンの夜景／湯気が立ち上る情緒的シーン
-      サイズ: 2400×1350px（16:9）
-    -->
-    <div class="img-ph" data-label="image-23｜FINAL BG"></div>
+    <!-- IMAGE: images/image-23.jpg ｜最終CTA背景／提灯のあるサロンの夜景／2400×1350px -->
+    <img src="images/image-23.jpg" alt="" loading="lazy" width="1920" height="1080">
   </div>
   <div class="container">
-    <img src="assets/logo-white.png" alt="むすひ" class="final-cta-logo">
+    <img src="images/logo.png" alt="むすひ" class="final-cta-logo" width="88" height="116">
     <span class="section-label">Reservation</span>
     <h2 class="section-title">あなたの「結ぶ」時間を、<br>むすひで。</h2>
     <p class="final-cta-msg">
@@ -2214,7 +2136,7 @@ img.flow-step-img {
 <footer class="footer">
   <div class="container">
     <div class="footer-logo">
-      <img src="assets/logo-white.png" alt="むすひ｜よもぎ蒸し処">
+      <img src="images/logo.png" alt="むすひ｜よもぎ蒸し処" width="64" height="85">
     </div>
     <p class="footer-info">
       〒359-1122 埼玉県所沢市寿町25-7 CENTRAL GINZA 201<br>
@@ -2236,7 +2158,8 @@ img.flow-step-img {
     電話
     <small>10-20時</small>
   </a>
-  <a href="https://line.me/" target="_blank" rel="noopener" class="float-line">
+  <!-- LINE: 仮リンク。LINE公式アカウントURLに差し替えてください -->
+  <a href="#" target="_blank" rel="noopener" class="float-line" data-placeholder="LINE公式URL未設定">
     LINE
     <small>気軽に相談</small>
   </a>
