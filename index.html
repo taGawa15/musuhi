@@ -141,6 +141,18 @@ section { padding: 64px 0; position: relative; }
 .ratio-1-1  { aspect-ratio: 1 / 1; }
 .ratio-3-4  { aspect-ratio: 3 / 4; }
 
+/* Real image inside aspect-ratio containers */
+img.menu-card-img,
+img.pair-card-img,
+img.commitment-img,
+img.map-placeholder,
+img.flow-step-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* ============================================================
    Buttons
    ============================================================ */
@@ -1574,14 +1586,8 @@ section { padding: 64px 0; position: relative; }
     <div class="menus-grid">
 
       <article class="menu-card">
-        <!--
-          image-03｜よもぎ蒸し（Basic）
-          配置: メニューカード（よもぎ蒸し）
-          目的: 国産無農薬よもぎの素朴な素材感・基本メニューの安心感
-          構図: 木のお盆／麻布の上に乾燥よもぎを盛った写真（45度俯瞰）
-          サイズ: 1200×900px（4:3）
-        -->
-        <div class="img-ph menu-card-img" data-label="image-03｜よもぎ蒸し"></div>
+        <!-- image-03｜よもぎ蒸し（Basic）｜徳島県産・国産無農薬よもぎ -->
+        <img src="assets/photo-yomogi-basic.avif" alt="徳島県産・国産無農薬よもぎ" class="menu-card-img" loading="lazy" width="800" height="600">
         <div class="menu-card-body">
           <span class="menu-tag">Basic</span>
           <h3 class="menu-name">よもぎ蒸し<small>所要時間 60分</small></h3>
@@ -1598,14 +1604,8 @@ section { padding: 64px 0; position: relative; }
       </article>
 
       <article class="menu-card">
-        <!--
-          image-04｜漢方よもぎ蒸し（Kanpo）
-          配置: メニューカード（漢方よもぎ蒸し）
-          目的: 漢方の専門性・3種ブレンドから選べる豊かさ
-          構図: 3つの小皿／木升に異なる漢方ブレンドを並列配置（トップダウン俯瞰）
-          サイズ: 1200×900px（4:3）
-        -->
-        <div class="img-ph menu-card-img" data-label="image-04｜漢方よもぎ蒸し"></div>
+        <!-- image-04｜漢方よもぎ蒸し（Kanpo）｜3種類の漢方ブレンドパッケージ -->
+        <img src="assets/photo-kanpo-blend.avif" alt="3種類の漢方ブレンド" class="menu-card-img" loading="lazy" width="800" height="600">
         <div class="menu-card-body">
           <span class="menu-tag">Kanpo</span>
           <h3 class="menu-name">漢方よもぎ蒸し<small>所要時間 60分</small></h3>
@@ -1622,14 +1622,8 @@ section { padding: 64px 0; position: relative; }
       </article>
 
       <article class="menu-card">
-        <!--
-          image-05｜発酵よもぎ蒸し（Fermented）
-          配置: メニューカード（発酵よもぎ蒸し）
-          目的: 発酵素材の贅沢さ・美容ケア訴求
-          構図: 透明ガラスボウル／白磁に層状に盛った発酵素材＋よもぎ（俯瞰）
-          サイズ: 1200×900px（4:3）
-        -->
-        <div class="img-ph menu-card-img" data-label="image-05｜発酵よもぎ蒸し"></div>
+        <!-- image-05｜発酵よもぎ蒸し（Fermented）｜よもぎ・玄米・豆麹・米ぬかブレンド -->
+        <img src="assets/photo-fermented.webp" alt="よもぎ・玄米・豆麹・米ぬかの発酵ブレンド" class="menu-card-img" loading="lazy" width="800" height="600">
         <div class="menu-card-body">
           <span class="menu-tag">Fermented</span>
           <h3 class="menu-name">発酵よもぎ蒸し<small>所要時間 60分</small></h3>
@@ -1670,14 +1664,8 @@ section { padding: 64px 0; position: relative; }
     <div class="pair-grid">
 
       <article class="pair-card">
-        <!--
-          image-06｜ペア蒸し
-          配置: ペアメニューカード（左）
-          目的: 友人・パートナーとの特別な時間の情緒・親密感
-          構図: ガウン姿の2人の後ろ姿が並んで座る様子（顔NG）
-          サイズ: 1200×750px（16:10）
-        -->
-        <div class="img-ph pair-card-img" data-label="image-06｜ペア蒸し"></div>
+        <!-- image-06｜ペア蒸し｜2名がガウン姿で並ぶ様子 -->
+        <img src="assets/photo-pair-burgundy.avif" alt="ペアでよもぎ蒸しを受けるおふたり" class="pair-card-img" loading="lazy" width="800" height="500">
         <div class="pair-card-body">
           <h3 class="menu-name">ペア蒸し<small>所要時間 60分</small></h3>
           <p class="menu-desc">3つの基本メニューから、それぞれお好みを選べる。ご友人・パートナー・男性同伴も歓迎。</p>
@@ -1693,14 +1681,8 @@ section { padding: 64px 0; position: relative; }
       </article>
 
       <article class="pair-card featured">
-        <!--
-          image-07｜産霊蒸し（妊活ペア）
-          配置: ペアメニューカード（右・featured）
-          目的: 夫婦の絆・素材を一緒に調合する儀式的な体験の特別感
-          構図: 男女2人の手元で素材をブレンドする瞬間のクローズアップ（顔NG）
-          サイズ: 1200×750px（16:10）
-        -->
-        <div class="img-ph pair-card-img" data-label="image-07｜産霊蒸し"></div>
+        <!-- image-07｜産霊蒸し（妊活ペア）｜ガウン姿の2人の後ろ姿 -->
+        <img src="assets/photo-pair-musuhi.avif" alt="産霊蒸しを受けるご夫婦" class="pair-card-img" loading="lazy" width="800" height="500">
         <div class="pair-card-body">
           <span class="pair-badge">妊活ご夫婦専用</span>
           <h3 class="menu-name">産霊蒸し<small>むすひむし／所要時間 80分</small></h3>
@@ -1807,14 +1789,8 @@ section { padding: 64px 0; position: relative; }
           <h3 class="commitment-title">30種以上のミネラルを含む水</h3>
           <p class="commitment-desc">よもぎ蒸しは経皮吸収が高い施術だからこそ、お水にもこだわりました。不純物を除き、30種類以上のミネラルを含んだ高品質のお水を、惜しみなく使用しています。</p>
         </div>
-        <!--
-          image-10｜こだわり③お水
-          配置: こだわりセクション03
-          目的: 水質への徹底的なこだわり・経皮吸収への安心感
-          構図: 蒸し窯にお水が注がれる瞬間。水滴の動きを高速シャッターで凍結
-          サイズ: 1200×900px（4:3）
-        -->
-        <div class="img-ph commitment-img" data-label="image-10｜お水"></div>
+        <!-- image-10｜こだわり③お水｜黄土窯にお水が注がれる瞬間（湯気付き）-->
+        <img src="assets/photo-water-pouring.avif" alt="黄土の蒸し窯に注がれるミネラル豊富な水" class="commitment-img" loading="lazy" width="600" height="450">
       </div>
 
     </div>
