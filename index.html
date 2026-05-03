@@ -140,6 +140,7 @@ section { padding: 64px 0; position: relative; }
 .commitment-img   { aspect-ratio: 4 / 3; }
 .flow-step-img    { aspect-ratio: 4 / 3; }
 .map-image        { aspect-ratio: 4 / 3; }
+iframe.map-image  { border: 0; border-radius: 2px; }
 .full-bg-image    { width: 100%; height: 100%; }
 
 /* ============================================================
@@ -967,19 +968,25 @@ section { padding: 64px 0; position: relative; }
 }
 .instagram-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-  max-width: 720px;
-  margin: 0 auto 24px;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto 32px;
 }
-@media (min-width: 768px) {
-  .instagram-grid { grid-template-columns: repeat(6, 1fr); }
+@media (min-width: 600px) {
+  .instagram-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 }
-.instagram-grid img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  display: block;
+@media (min-width: 1024px) {
+  .instagram-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+}
+/* Instagram official blockquote embeds — rendered by embed.js */
+.instagram-grid .instagram-media {
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 /* ============================================================
@@ -1814,13 +1821,16 @@ section { padding: 64px 0; position: relative; }
       <p class="instagram-strip-title">Instagram</p>
       <p class="instagram-strip-sub">サロンの様子を、随時発信しています</p>
       <div class="instagram-grid">
-        <!-- IMAGES: images/image-16.jpg 〜 image-21.jpg ｜Instagram風6枚／各1080×1080px -->
-        <img src="images/image-16.jpg" alt="サロン全景" loading="lazy" width="800" height="800">
-        <img src="images/image-17.jpg" alt="素材マクロ" loading="lazy" width="800" height="800">
-        <img src="images/image-18.jpg" alt="湯気" loading="lazy" width="800" height="800">
-        <img src="images/image-19.jpg" alt="お茶" loading="lazy" width="800" height="800">
-        <img src="images/image-20.jpg" alt="ガウン質感" loading="lazy" width="800" height="800">
-        <img src="images/image-21.jpg" alt="提灯" loading="lazy" width="800" height="800">
+        <!--
+          Instagram公式埋め込み（@musuhi_yomogi の最新6投稿／embed.jsで自動描画）
+          差し替え時：data-instgrm-permalink を新しい投稿URLに更新するだけ
+        -->
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DX3nZkuiRms/" data-instgrm-version="14"></blockquote>
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DX0PmmeBVma/" data-instgrm-version="14"></blockquote>
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DXwjZ3mifCB/" data-instgrm-version="14"></blockquote>
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DXwdVUEpYVJ/" data-instgrm-version="14"></blockquote>
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DXu-oC9ATta/" data-instgrm-version="14"></blockquote>
+        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DXtq1C1iano/" data-instgrm-version="14"></blockquote>
       </div>
       <a href="https://www.instagram.com/musuhi_yomogi/" target="_blank" rel="noopener" class="btn btn-outline">
         @musuhi_yomogi をフォローする <span class="arrow">→</span>
@@ -2097,8 +2107,18 @@ section { padding: 64px 0; position: relative; }
         </dl>
       </div>
       <div>
-        <!-- IMAGE: images/image-22.jpg ｜入口外観 or Googleマップ／1200×900px -->
-        <img src="images/image-22.jpg" alt="むすひ 入口" class="map-image" loading="lazy" width="1200" height="900">
+        <!--
+          Google Maps 埋め込み（API key不要の検索クエリ方式）
+          より正確な位置にピンを立てる場合は、Google Maps の「共有 > 地図を埋め込む」で
+          取得した iframe コードに src の値を差し替えてください
+        -->
+        <iframe
+          src="https://maps.google.com/maps?q=%E5%9F%BC%E7%8E%89%E7%9C%8C%E6%89%80%E6%B2%A2%E5%B8%82%E5%AF%BF%E7%94%BA25-7&amp;z=16&amp;output=embed"
+          class="map-image"
+          loading="lazy"
+          title="むすひ 所在地マップ"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -2224,6 +2244,9 @@ section { padding: 64px 0; position: relative; }
     observer.observe(el);
   });
 </script>
+
+<!-- Instagram embed.js — for blockquote.instagram-media auto-rendering -->
+<script async src="https://www.instagram.com/embed.js"></script>
 
 </body>
 </html>
