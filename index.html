@@ -147,12 +147,13 @@ section { padding: 64px 0; position: relative; }
    ============================================================ */
 .btn {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 18px 28px;
+  gap: 4px 8px;
+  padding: 16px 24px;
   font-size: 14px;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   font-weight: 500;
   border-radius: 2px;
   transition: all .25s ease;
@@ -162,6 +163,7 @@ section { padding: 64px 0; position: relative; }
   white-space: nowrap;
   font-family: inherit;
   position: relative;
+  line-height: 1.4;
 }
 .btn-primary {
   background: var(--accent);
@@ -198,13 +200,15 @@ section { padding: 64px 0; position: relative; }
 .btn:hover .arrow { transform: translateX(4px); }
 .btn-micro {
   display: block;
+  flex-basis: 100%;
   font-size: 10px;
   letter-spacing: 0.2em;
   color: rgba(255,255,255,0.7);
   font-weight: 400;
-  margin-top: 4px;
+  text-align: center;
 }
 .btn-gold .btn-micro { color: rgba(28, 24, 21, 0.7); }
+.btn-outline .btn-micro { color: var(--text-muted); }
 
 /* ============================================================
    Header
