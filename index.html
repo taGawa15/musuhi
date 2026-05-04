@@ -278,6 +278,24 @@ iframe.map-image  { border: 1px solid var(--color-ohdo-pale); border-radius: var
   border-color: var(--color-kinari);
 }
 
+/* Hero primary CTA — 最終CTAと同じ金ボタンに揃える */
+.hero .btn-gold,
+.hero .btn-primary {
+  background: var(--color-gold);
+  color: var(--color-kurenai-deep);
+  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.32);
+}
+.hero .btn-gold:hover,
+.hero .btn-primary:hover {
+  background: var(--color-gold-bright);
+  color: var(--color-kurenai-deep);
+  box-shadow: 0 12px 28px rgba(212, 175, 55, 0.45);
+}
+.hero .btn-gold .btn-micro,
+.hero .btn-primary .btn-micro {
+  color: rgba(90, 20, 20, 0.7);
+}
+
 /* Final CTA on dark background */
 .final-cta .btn-outline {
   color: var(--color-kinari);
@@ -1272,53 +1290,6 @@ iframe.map-image  { border: 1px solid var(--color-ohdo-pale); border-radius: var
 }
 
 /* ============================================================
-   Instagram strip
-   ============================================================ */
-.instagram-strip {
-  margin-top: 80px;
-  text-align: center;
-  padding-top: 56px;
-  border-top: 1px solid var(--color-ohdo-pale);
-}
-.instagram-strip-title {
-  font-family: var(--serif-en);
-  font-size: 14px;
-  letter-spacing: 0.32em;
-  color: var(--color-ohdo);
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
-.instagram-strip-sub {
-  font-family: var(--serif);
-  font-size: 13px;
-  color: var(--color-sumi-soft);
-  margin-bottom: 32px;
-  letter-spacing: 0.1em;
-}
-.instagram-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  max-width: 1200px;
-  margin: 0 auto 40px;
-}
-@media (min-width: 600px) {
-  .instagram-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-}
-@media (min-width: 1024px) {
-  .instagram-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
-}
-.instagram-grid .instagram-media {
-  margin: 0 !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important;
-  border-radius: var(--radius-image);
-  overflow: hidden;
-  box-shadow: var(--shadow-soft);
-}
-
-/* ============================================================
    Flow — 施術の流れ
    ============================================================ */
 .flow-list {
@@ -1808,6 +1779,282 @@ iframe.map-image  { border: 1px solid var(--color-ohdo-pale); border-radius: var
 }
 
 /* ============================================================
+   Voice & Moments — お客様の声 + ギャラリー統合セクション
+   ============================================================ */
+.voice-moments {
+  background: var(--color-sakura-pale);
+  position: relative;
+  overflow: hidden;
+}
+.voice-moments .vm-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(122, 30, 30, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 100%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+  z-index: 0;
+}
+.voice-moments > .container { position: relative; z-index: 1; }
+
+/* ── 上段：レビュー3件 ── */
+.vm-reviews {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  margin-top: 8px;
+  margin-bottom: 88px;
+}
+@media (min-width: 768px) {
+  .vm-reviews { grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 112px; }
+}
+.voice-moments .voice-card {
+  padding: 36px 32px;
+}
+
+/* ── 中段：ギャラリー見出し ── */
+.vm-gallery-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-ohdo-pale);
+  padding-top: 56px;
+}
+.vm-gallery-title { text-align: left; }
+.vm-gallery-en {
+  font-family: var(--serif-en);
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--color-ohdo);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.vm-gallery-ja {
+  font-family: var(--serif);
+  font-size: 22px;
+  letter-spacing: 0.14em;
+  color: var(--color-sumi);
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .vm-gallery-ja { font-size: 26px; }
+}
+.vm-gallery-controls {
+  display: none;
+  gap: 10px;
+}
+@media (min-width: 768px) {
+  .vm-gallery-controls { display: flex; }
+}
+.vm-arrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--color-ohdo);
+  background: var(--color-kinari-light);
+  color: var(--color-kurenai);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .25s cubic-bezier(.4,0,.2,1);
+}
+.vm-arrow:hover {
+  background: var(--color-kurenai);
+  color: var(--color-kinari);
+  border-color: var(--color-kurenai);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-cta);
+}
+.vm-arrow svg { width: 22px; height: 22px; }
+.vm-arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── ギャラリー本体（CSS scroll-snap） ── */
+.vm-gallery {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 24px;
+  padding: 8px 24px 32px;
+  margin: 0 -24px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ohdo-pale) transparent;
+  scroll-behavior: smooth;
+}
+@media (min-width: 768px) {
+  .vm-gallery {
+    gap: 22px;
+    padding: 8px 0 36px;
+    margin: 0;
+    scroll-padding-inline: 0;
+  }
+}
+.vm-gallery::-webkit-scrollbar { height: 8px; }
+.vm-gallery::-webkit-scrollbar-track { background: transparent; }
+.vm-gallery::-webkit-scrollbar-thumb {
+  background: var(--color-ohdo-pale);
+  border-radius: 999px;
+}
+.vm-gallery::-webkit-scrollbar-thumb:hover { background: var(--color-ohdo); }
+
+.vm-card {
+  flex: 0 0 auto;
+  width: 70vw;
+  max-width: 280px;
+  scroll-snap-align: start;
+  border-radius: var(--radius-image);
+  overflow: hidden;
+  margin: 0;
+  background: var(--color-kinari-light);
+  box-shadow: var(--shadow-soft);
+  transition: transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s;
+  position: relative;
+}
+.vm-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+.vm-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.95) sepia(0.04);
+  transition: transform .6s cubic-bezier(.4,0,.2,1);
+}
+.vm-card:hover img { transform: scale(1.04); }
+.vm-card--tall img { aspect-ratio: 4 / 5; }
+
+/* スマホ：縦長カードは少し幅広く見せて存在感を出す */
+.vm-card--tall {
+  width: 64vw;
+  max-width: 260px;
+}
+
+@media (min-width: 600px) {
+  .vm-card { width: 36vw; max-width: 240px; }
+  .vm-card--tall { width: 32vw; max-width: 220px; }
+}
+@media (min-width: 1024px) {
+  .vm-card { width: 220px; max-width: none; }
+  .vm-card--tall { width: 200px; max-width: none; }
+}
+@media (min-width: 1280px) {
+  .vm-card { width: 240px; }
+  .vm-card--tall { width: 220px; }
+}
+
+.vm-card figcaption {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--color-sumi);
+  text-align: center;
+  padding: 14px 12px 16px;
+  background: var(--color-kinari-light);
+  line-height: 1.5;
+}
+@media (min-width: 768px) {
+  .vm-card figcaption { font-size: 13px; padding: 16px 14px 18px; }
+}
+
+/* スクロールヒント（モバイルで初回のみ薄く右端に出す） */
+.vm-gallery::after {
+  content: '';
+  flex: 0 0 1px;
+  width: 1px;
+}
+
+/* ── Instagram導線 ── */
+.vm-instagram {
+  text-align: center;
+  margin-top: 64px;
+  padding-top: 56px;
+  border-top: 1px solid var(--color-ohdo-pale);
+  position: relative;
+}
+.vm-instagram::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 1px;
+  background: var(--color-gold);
+}
+.vm-instagram-sub {
+  font-family: var(--serif);
+  font-size: 14px;
+  color: var(--color-sumi-soft);
+  letter-spacing: 0.08em;
+  line-height: 1.95;
+  margin-bottom: 24px;
+}
+.vm-instagram-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.vm-ig-icon {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+}
+.vm-ig-icon svg { width: 100%; height: 100%; }
+
+/* ── 締めCTA ── */
+.vm-closing {
+  text-align: center;
+  margin-top: 80px;
+  padding-top: 56px;
+  border-top: 1px solid var(--color-ohdo-pale);
+  position: relative;
+}
+.vm-closing::before {
+  content: '❀';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-sakura-pale);
+  color: var(--color-gold);
+  padding: 0 16px;
+  font-size: 16px;
+  line-height: 1;
+}
+.vm-closing-text {
+  font-family: var(--serif);
+  font-size: 18px;
+  letter-spacing: 0.16em;
+  color: var(--color-kurenai);
+  margin-bottom: 28px;
+  line-height: 1.8;
+}
+@media (min-width: 768px) {
+  .vm-closing-text { font-size: 22px; margin-bottom: 32px; }
+}
+.vm-closing-cta {
+  min-width: 280px;
+}
+
+/* ============================================================
    Animations
    ============================================================ */
 .fade-in {
@@ -2251,22 +2498,26 @@ section .text-center { text-align: center; }
 </div>
 
 <!-- ============================================================
-     VOICE
+     VOICE & MOMENTS — お客様の、声と余韻。
      ============================================================ -->
-<section class="voice" id="voice">
+<section class="voice-moments" id="voice">
+  <div class="vm-decor" aria-hidden="true"></div>
   <div class="container">
-    <span class="section-label">Voice</span>
-    <h2 class="section-title">お客様の、声。</h2>
+    <span class="section-label">Voice &amp; Moments</span>
+    <h2 class="section-title">お客様の、声と余韻。</h2>
     <p class="section-lead">
-      ※ ダミーテキストです。実際のお客様の声に差し替えてご利用ください。
+      実際に体験された方の声と、サロンに流れる静かな時間。<br>
+      言葉だけでは伝えきれない温もりを、写真とともにお届けします。
     </p>
-    <div class="voice-grid">
+
+    <!-- ── 上段：レビュー3件 ── -->
+    <div class="vm-reviews">
 
       <article class="voice-card">
-        <div class="voice-stars">★★★★★</div>
+        <div class="voice-stars" aria-label="評価 5段階中5">★★★★★</div>
         <p class="voice-text">「半年通って、長年の冷え性が驚くほど改善しました。漢方ブレンドを毎回相談できるのが心強くて、自分の体と向き合う時間そのものがご褒美です。」</p>
         <div class="voice-meta">
-          <div class="voice-avatar">A</div>
+          <div class="voice-avatar" aria-hidden="true">A</div>
           <div class="voice-author">
             <strong>30代女性 A様</strong>
             漢方よもぎ蒸し 月4回会員
@@ -2275,10 +2526,10 @@ section .text-center { text-align: center; }
       </article>
 
       <article class="voice-card">
-        <div class="voice-stars">★★★★★</div>
+        <div class="voice-stars" aria-label="評価 5段階中5">★★★★★</div>
         <p class="voice-text">「夫婦で産霊蒸しを体験しました。一緒に素材を選んで蒸す時間が、想像以上に静かで温かくて。妊活が義務感ではなく、楽しみに変わりました。」</p>
         <div class="voice-meta">
-          <div class="voice-avatar">M</div>
+          <div class="voice-avatar" aria-hidden="true">M</div>
           <div class="voice-author">
             <strong>30代ご夫婦 M様</strong>
             産霊蒸し 体験コース
@@ -2287,10 +2538,10 @@ section .text-center { text-align: center; }
       </article>
 
       <article class="voice-card">
-        <div class="voice-stars">★★★★★</div>
+        <div class="voice-stars" aria-label="評価 5段階中5">★★★★★</div>
         <p class="voice-text">「PMSと更年期の入り口で揺らいでいた時期、友人に勧められて。発酵よもぎ蒸しは肌の調子も整って、心の重さも自然と軽くなっていきました。」</p>
         <div class="voice-meta">
-          <div class="voice-avatar">K</div>
+          <div class="voice-avatar" aria-hidden="true">K</div>
           <div class="voice-author">
             <strong>40代女性 K様</strong>
             発酵よもぎ蒸し
@@ -2300,23 +2551,138 @@ section .text-center { text-align: center; }
 
     </div>
 
-    <div class="instagram-strip">
-      <p class="instagram-strip-title">Instagram</p>
-      <p class="instagram-strip-sub">サロンの様子を、随時発信しています</p>
-      <div class="instagram-grid">
-        <!--
-          Instagram公式埋め込み（@musuhi_yomogi の最新6投稿／embed.jsで自動描画）
-          差し替え時：data-instgrm-permalink を新しい投稿URLに更新するだけ
-        -->
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DX3nZkuiRms/" data-instgrm-version="14"></blockquote>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DX0PmmeBVma/" data-instgrm-version="14"></blockquote>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DXwjZ3mifCB/" data-instgrm-version="14"></blockquote>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DXwdVUEpYVJ/" data-instgrm-version="14"></blockquote>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DXu-oC9ATta/" data-instgrm-version="14"></blockquote>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DXtq1C1iano/" data-instgrm-version="14"></blockquote>
+    <!-- ── 中段：写真ギャラリー（横スクロール式スナップスライダー） ── -->
+    <div class="vm-gallery-head">
+      <div class="vm-gallery-title">
+        <span class="vm-gallery-en">Moments in Musuhi</span>
+        <p class="vm-gallery-ja">体験のあとに、残るもの。</p>
       </div>
-      <a href="https://www.instagram.com/musuhi_yomogi/" target="_blank" rel="noopener" class="btn btn-outline">
-        @musuhi_yomogi をフォローする <span class="arrow">→</span>
+      <div class="vm-gallery-controls" aria-hidden="true">
+        <button type="button" class="vm-arrow vm-arrow--prev" data-target="vmGallery" aria-label="前の写真へ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" class="vm-arrow vm-arrow--next" data-target="vmGallery" aria-label="次の写真へ">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="vm-gallery" id="vmGallery" role="region" aria-label="サロンの様子の写真ギャラリー">
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-01.jpg" alt="サロンの静かな個室" loading="lazy" width="800" height="1000">
+        <figcaption>静かな個室時間</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-02.jpg" alt="黄土の蒸し窯のあたたかさ" loading="lazy" width="800" height="800">
+        <figcaption>黄土のぬくもり</figcaption>
+      </figure>
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-03.jpg" alt="蒸したあとに飲む一杯" loading="lazy" width="800" height="1000">
+        <figcaption>蒸したあとの一杯</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-04.jpg" alt="今日のよもぎ" loading="lazy" width="800" height="800">
+        <figcaption>今日のよもぎ</figcaption>
+      </figure>
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-05.jpg" alt="素材を調合するひととき" loading="lazy" width="800" height="1000">
+        <figcaption>調合のひととき</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-06.jpg" alt="立ちのぼる湯気" loading="lazy" width="800" height="800">
+        <figcaption>立ちのぼる湯気</figcaption>
+      </figure>
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-07.jpg" alt="朝の静かな準備" loading="lazy" width="800" height="1000">
+        <figcaption>朝の準備</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-08.jpg" alt="季節の生薬" loading="lazy" width="800" height="800">
+        <figcaption>季節の生薬</figcaption>
+      </figure>
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-09.jpg" alt="香りを選ぶ時間" loading="lazy" width="800" height="1000">
+        <figcaption>香りを選ぶ</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-10.jpg" alt="漢方のブレンド" loading="lazy" width="800" height="800">
+        <figcaption>漢方ブレンド</figcaption>
+      </figure>
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-11.jpg" alt="発酵素材のいろどり" loading="lazy" width="800" height="1000">
+        <figcaption>発酵素材の力</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-12.jpg" alt="季節の暦と歳時記" loading="lazy" width="800" height="800">
+        <figcaption>暦と歳時記</figcaption>
+      </figure>
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-13.jpg" alt="ガウンに包まれてくつろぐ" loading="lazy" width="800" height="1000">
+        <figcaption>ガウンに包まれて</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-14.jpg" alt="足元のあたたかさ" loading="lazy" width="800" height="800">
+        <figcaption>足元のあたたかさ</figcaption>
+      </figure>
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-15.jpg" alt="窓辺に差し込む光" loading="lazy" width="800" height="1000">
+        <figcaption>窓辺の光</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-16.jpg" alt="一服の余韻" loading="lazy" width="800" height="800">
+        <figcaption>一服の余韻</figcaption>
+      </figure>
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-17.jpg" alt="お茶を淹れる手元" loading="lazy" width="800" height="1000">
+        <figcaption>お茶を淹れる</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-18.jpg" alt="季節のしつらえ" loading="lazy" width="800" height="800">
+        <figcaption>季節のしつらえ</figcaption>
+      </figure>
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-19.jpg" alt="道具のたたずまい" loading="lazy" width="800" height="1000">
+        <figcaption>道具のたたずまい</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-20.jpg" alt="火を灯す瞬間" loading="lazy" width="800" height="800">
+        <figcaption>火を灯す</figcaption>
+      </figure>
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-21.jpg" alt="整える時間" loading="lazy" width="800" height="1000">
+        <figcaption>整える時間</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-22.jpg" alt="静かな佇まいの店構え" loading="lazy" width="800" height="800">
+        <figcaption>静かな佇まい</figcaption>
+      </figure>
+      <figure class="vm-card vm-card--tall">
+        <img src="images/voice/voice-23.jpg" alt="お見送り" loading="lazy" width="800" height="1000">
+        <figcaption>お見送り</figcaption>
+      </figure>
+      <figure class="vm-card">
+        <img src="images/voice/voice-24.jpg" alt="産霊のしるし" loading="lazy" width="800" height="800">
+        <figcaption>産霊のしるし</figcaption>
+      </figure>
+    </div>
+
+    <!-- ── 下段：Instagram導線 ── -->
+    <div class="vm-instagram">
+      <p class="vm-instagram-sub">最新の営業日・サロンの空気感は、Instagramでも発信しています。</p>
+      <a href="https://www.instagram.com/musuhi_yomogi/" target="_blank" rel="noopener" class="btn btn-outline vm-instagram-btn">
+        <span class="vm-ig-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+        </span>
+        @musuhi_yomogi で日々の様子を見る <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- ── 締めCTA ── -->
+    <div class="vm-closing">
+      <p class="vm-closing-text">はじめての方も、どうぞ安心してお越しください。</p>
+      <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary vm-closing-cta">
+        初回体験のご予約はこちら <span class="arrow">→</span>
+        <span class="btn-micro">前日までキャンセル無料</span>
       </a>
     </div>
   </div>
@@ -2573,7 +2939,7 @@ section .text-center { text-align: center; }
 
           <dt>駐車場</dt>
           <dd>
-            お車でお越しの方はお店裏側駐車場をご利用ください。
+            お車でお越しの方はお店横の駐車場をご利用ください。
             <small>30分無料／1時間110円</small>
           </dd>
 
@@ -2726,10 +3092,34 @@ section .text-center { text-align: center; }
     el.classList.add('fade-in');
     observer.observe(el);
   });
-</script>
 
-<!-- Instagram embed.js — for blockquote.instagram-media auto-rendering -->
-<script async src="https://www.instagram.com/embed.js"></script>
+  // ===== Voice & Moments — gallery arrow controls =====
+  document.querySelectorAll('.vm-arrow').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      if (!target) return;
+      const card = target.querySelector('.vm-card');
+      const step = card ? card.getBoundingClientRect().width + 22 : 240;
+      const dir = btn.classList.contains('vm-arrow--next') ? 1 : -1;
+      target.scrollBy({ left: step * dir * 2, behavior: 'smooth' });
+    });
+  });
+
+  // 端に到達した時、矢印を視覚的に無効化
+  const vmGallery = document.getElementById('vmGallery');
+  if (vmGallery) {
+    const prevBtn = document.querySelector('.vm-arrow--prev');
+    const nextBtn = document.querySelector('.vm-arrow--next');
+    const updateArrows = () => {
+      const max = vmGallery.scrollWidth - vmGallery.clientWidth;
+      if (prevBtn) prevBtn.disabled = vmGallery.scrollLeft <= 4;
+      if (nextBtn) nextBtn.disabled = vmGallery.scrollLeft >= max - 4;
+    };
+    vmGallery.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
+  }
+</script>
 
 </body>
 </html>
