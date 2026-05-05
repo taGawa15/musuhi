@@ -1026,22 +1026,56 @@ iframe.map-image  { border: 1px solid var(--color-ohdo-pale); border-radius: var
   margin-top: 64px;
   background: var(--color-kinari-light);
   border: 1px solid rgba(212, 175, 55, 0.3);
-  padding: 36px 28px;
+  padding: 0;
   border-radius: var(--radius-card);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: box-shadow .35s;
+}
+.pricing-summary[data-pricing-open="true"] {
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18);
+}
+
+/* トグルボタン (タップで開閉) */
+.pricing-summary-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 26px 28px;
+  font-family: inherit;
+  color: inherit;
+  position: relative;
+  transition: background .25s;
 }
 @media (min-width: 768px) {
-  .pricing-summary { padding: 48px; }
+  .pricing-summary-toggle { padding: 32px 48px; gap: 20px; }
 }
+.pricing-summary-toggle:hover { background: rgba(212, 175, 55, 0.05); }
+.pricing-summary-toggle:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: -4px;
+  border-radius: var(--radius-card);
+}
+
 .pricing-summary-title {
   font-family: var(--serif);
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 0.2em;
-  margin-bottom: 28px;
   color: var(--color-kurenai);
   text-align: center;
   position: relative;
-  padding-bottom: 16px;
+  padding-bottom: 14px;
+  margin: 0;
+  display: inline-block;
+  font-weight: 500;
+}
+@media (min-width: 768px) {
+  .pricing-summary-title { font-size: 20px; }
 }
 .pricing-summary-title::after {
   content: '';
@@ -1052,6 +1086,80 @@ iframe.map-image  { border: 1px solid var(--color-ohdo-pale); border-radius: var
   width: 40px;
   height: 1px;
   background: var(--color-gold);
+}
+
+/* 「タップで開く」のヒント */
+.pricing-summary-hint {
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--color-sumi-pale);
+  align-self: center;
+  white-space: nowrap;
+  display: none;
+}
+@media (min-width: 600px) {
+  .pricing-summary-hint { display: inline; }
+}
+.pricing-summary[data-pricing-open="true"] .pricing-summary-hint::before {
+  content: '閉じる';
+}
+.pricing-summary[data-pricing-open="true"] .pricing-summary-hint {
+  font-size: 0;
+}
+.pricing-summary[data-pricing-open="true"] .pricing-summary-hint::before {
+  font-size: 11px;
+}
+
+/* +/× アイコン (FAQ と同じパターン) */
+.pricing-summary-icon {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  flex-shrink: 0;
+  align-self: center;
+  border: 1px solid var(--color-ohdo);
+  border-radius: 50%;
+  transition: all .35s cubic-bezier(.4,0,.2,1);
+}
+.pricing-summary-icon::before,
+.pricing-summary-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--color-kurenai);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+}
+.pricing-summary-icon::before { width: 10px; height: 1px; }
+.pricing-summary-icon::after  { width: 1px; height: 10px; }
+.pricing-summary[data-pricing-open="true"] .pricing-summary-icon {
+  background: var(--color-kurenai);
+  border-color: var(--color-kurenai);
+  transform: rotate(180deg);
+}
+.pricing-summary[data-pricing-open="true"] .pricing-summary-icon::before,
+.pricing-summary[data-pricing-open="true"] .pricing-summary-icon::after {
+  background: var(--color-kinari);
+}
+.pricing-summary[data-pricing-open="true"] .pricing-summary-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* 折りたたみコンテンツ */
+.pricing-summary-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .55s cubic-bezier(.4,0,.2,1);
+}
+.pricing-summary-inner {
+  padding: 0 28px 36px;
+  border-top: 1px solid var(--color-ohdo-pale);
+  padding-top: 32px;
+}
+@media (min-width: 768px) {
+  .pricing-summary-inner { padding: 32px 48px 48px; }
 }
 .pricing-list { display: grid; gap: 0; }
 .pricing-row {
@@ -2164,13 +2272,15 @@ section .text-center { text-align: center; }
 }
 
 /* ============================================================
-   Menu Card — クリック可能化と「詳しく見る」導線
+   Menu Card / Pair Card — クリック可能化と「詳しく見る」導線
    ============================================================ */
-.menu-card {
+.menu-card[data-menu-modal],
+.pair-card[data-menu-modal] {
   cursor: pointer;
   outline: none;
 }
-.menu-card:focus-visible {
+.menu-card[data-menu-modal]:focus-visible,
+.pair-card[data-menu-modal]:focus-visible {
   outline: 2px solid var(--color-gold);
   outline-offset: 4px;
 }
@@ -2189,12 +2299,18 @@ section .text-center { text-align: center; }
   transition: color .25s, gap .25s;
   align-self: flex-start;
 }
+.pair-card-body { display: flex; flex-direction: column; }
 .menu-card-more .arrow { transition: transform .3s; }
-.menu-card:hover .menu-card-more {
+.menu-card[data-menu-modal]:hover .menu-card-more,
+.pair-card[data-menu-modal]:hover .menu-card-more {
   color: var(--color-kurenai-deep);
   gap: 10px;
 }
-.menu-card:hover .menu-card-more .arrow { transform: translateX(4px); }
+.menu-card[data-menu-modal]:hover .menu-card-more .arrow,
+.pair-card[data-menu-modal]:hover .menu-card-more .arrow { transform: translateX(4px); }
+/* ペアセクションの濃紅背景上で「詳しく見る」を金色寄りに */
+.pair-section .menu-card-more { color: var(--color-kurenai); }
+.pair-section .pair-card[data-menu-modal]:hover .menu-card-more { color: var(--color-kurenai-deep); }
 
 /* ============================================================
    Menu Modal — メニュー詳細ポップアップ
@@ -2585,6 +2701,99 @@ body.menu-modal-open { overflow: hidden; }
 @media (min-width: 768px) {
   .menu-modal__cta { padding: 18px 32px; font-size: 14px; }
 }
+
+/* ペアモーダル専用：3バリエーション比較テーブル */
+.menu-modal__variant-table {
+  background: var(--color-sakura-pale);
+  border-radius: var(--radius-image);
+  padding: 22px 22px 18px;
+  margin: 0 0 24px;
+}
+.menu-modal__variant-title {
+  font-family: var(--serif);
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  color: var(--color-kurenai);
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-ohdo-pale);
+}
+.menu-modal__variant-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  padding: 12px 0;
+  border-bottom: 1px dashed rgba(200, 154, 100, 0.3);
+}
+.menu-modal__variant-row:last-of-type { border-bottom: none; }
+.menu-modal__variant-name {
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--color-sumi);
+  font-weight: 500;
+}
+@media (min-width: 768px) {
+  .menu-modal__variant-name { font-size: 14px; }
+}
+.menu-modal__variant-price {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--serif-en);
+}
+.menu-modal__variant-trial {
+  font-size: 16px;
+  color: var(--color-kurenai);
+  font-weight: 500;
+}
+.menu-modal__variant-normal {
+  font-size: 12px;
+  color: var(--color-sumi-pale);
+  text-decoration: line-through;
+}
+.menu-modal__variant-note {
+  font-family: var(--sans);
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--color-sumi-soft);
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-ohdo-pale);
+  letter-spacing: 0.04em;
+}
+
+/* 全メニュー料金一覧：グループ見出し */
+.pricing-group-title {
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--color-kurenai);
+  font-weight: 500;
+  margin: 28px 0 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-ohdo-pale);
+  position: relative;
+  padding-left: 20px;
+}
+.pricing-group-title:first-of-type { margin-top: 0; }
+.pricing-group-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 1px;
+  background: var(--color-gold);
+}
+@media (min-width: 768px) {
+  .pricing-group-title { font-size: 14px; }
+}
 </style>
 </head>
 <body>
@@ -2851,7 +3060,7 @@ body.menu-modal-open { overflow: hidden; }
     </p>
     <div class="pair-grid">
 
-      <article class="pair-card">
+      <article class="pair-card" data-menu-modal="pair-basic" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="menuModal-pair-basic" aria-label="ペア蒸しの詳細を開く">
         <!-- IMAGE: images/image-06.jpg ｜ペア蒸し／2名がガウン姿で並ぶ／1200×750px -->
         <img src="images/image-06.jpg" alt="ペアでよもぎ蒸しを受けるおふたり" class="pair-card-img" loading="lazy" width="800" height="500">
         <div class="pair-card-body">
@@ -2865,62 +3074,118 @@ body.menu-modal-open { overflow: hidden; }
               <span class="menu-meta-price-normal">¥7,000〜</span>
             </span>
           </div>
+          <span class="menu-card-more" aria-hidden="true">詳しく見る <span class="arrow">→</span></span>
         </div>
       </article>
 
-      <article class="pair-card featured">
+      <article class="pair-card featured" data-menu-modal="musuhi" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="menuModal-musuhi" aria-label="産霊蒸しの詳細を開く">
         <!-- IMAGE: images/image-07.jpg ｜産霊蒸し（妊活ペア）／ガウン姿の2人の後ろ姿／1200×750px -->
         <img src="images/image-07.jpg" alt="産霊蒸しを受けるご夫婦" class="pair-card-img" loading="lazy" width="800" height="500">
         <div class="pair-card-body">
           <span class="pair-badge">妊活ご夫婦専用</span>
-          <h3 class="menu-name">産霊蒸し<small>むすひむし／所要時間 80分</small></h3>
+          <h3 class="menu-name">産霊蒸し<small>むすひむし／所要時間 70分</small></h3>
           <p class="menu-desc">妊活されているご夫婦・パートナー専用のペア蒸し。お二人の手で素材を調合し、女性用・男性用それぞれのブレンドをお作りいただきます。</p>
           <div class="menu-meta">
-            <span class="menu-meta-time">体験 80分／2名</span>
+            <span class="menu-meta-time">体験 70分／2名</span>
             <span class="menu-meta-price">
               <span class="menu-meta-trial-tag">初回</span>
               <span class="menu-meta-price-trial">¥12,000</span>
               <span class="menu-meta-price-normal">¥13,000</span>
             </span>
           </div>
+          <span class="menu-card-more" aria-hidden="true">詳しく見る <span class="arrow">→</span></span>
         </div>
       </article>
 
     </div>
 
-    <!-- Pricing Summary -->
-    <div class="pricing-summary">
-      <p class="pricing-summary-title">— 全メニュー料金一覧 —</p>
+    <!-- Pricing Summary (アコーディオン) -->
+    <div class="pricing-summary" data-pricing-open="false">
+      <button type="button" class="pricing-summary-toggle"
+              aria-expanded="false" aria-controls="pricingSummaryContent">
+        <span class="pricing-summary-title">— 全メニュー料金一覧 —</span>
+        <span class="pricing-summary-hint">タップで開く</span>
+        <span class="pricing-summary-icon" aria-hidden="true"></span>
+      </button>
+      <div class="pricing-summary-content" id="pricingSummaryContent">
+        <div class="pricing-summary-inner">
+
+      <h4 class="pricing-group-title">通常メニュー（1名様）</h4>
       <div class="pricing-list">
         <div class="pricing-row">
-          <div class="pricing-row-name"><strong>よもぎ蒸し</strong><small>60分</small></div>
+          <div class="pricing-row-name"><strong>よもぎ蒸し</strong><small>国産無農薬よもぎ／60分</small></div>
           <div class="pricing-row-price"><span class="pricing-row-price-trial">初回 ¥3,000</span><span class="pricing-row-price-normal">¥4,000</span></div>
         </div>
         <div class="pricing-row">
-          <div class="pricing-row-name"><strong>漢方よもぎ蒸し</strong><small>60分</small></div>
+          <div class="pricing-row-name"><strong>漢方よもぎ蒸し</strong><small>3種から選択／60分</small></div>
           <div class="pricing-row-price"><span class="pricing-row-price-trial">初回 ¥4,500</span><span class="pricing-row-price-normal">¥5,500</span></div>
         </div>
         <div class="pricing-row">
-          <div class="pricing-row-name"><strong>発酵よもぎ蒸し</strong><small>60分</small></div>
+          <div class="pricing-row-name"><strong>発酵よもぎ蒸し</strong><small>オリジナルブレンド／60分</small></div>
           <div class="pricing-row-price"><span class="pricing-row-price-trial">初回 ¥4,500</span><span class="pricing-row-price-normal">¥5,500</span></div>
-        </div>
-        <div class="pricing-row">
-          <div class="pricing-row-name"><strong>ペア蒸し</strong><small>60分／2名</small></div>
-          <div class="pricing-row-price"><span class="pricing-row-price-trial">初回 ¥6,000〜</span><span class="pricing-row-price-normal">¥7,000〜</span></div>
-        </div>
-        <div class="pricing-row">
-          <div class="pricing-row-name"><strong>産霊蒸し（妊活ペア）</strong><small>80分／2名</small></div>
-          <div class="pricing-row-price"><span class="pricing-row-price-trial">初回 ¥12,000</span><span class="pricing-row-price-normal">¥13,000</span></div>
-        </div>
-        <div class="pricing-row">
-          <div class="pricing-row-name"><strong>月4回会員プラン</strong><small>各種メニュー対応</small></div>
-          <div class="pricing-row-price"><span class="pricing-row-price-trial">¥13,000〜</span></div>
         </div>
       </div>
+
+      <h4 class="pricing-group-title">ペアメニュー（2名様）</h4>
+      <div class="pricing-list">
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>よもぎ蒸し・シンプル（ペア）</strong><small>60分／どなたでも</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">初回 ¥6,000</span><span class="pricing-row-price-normal">¥7,000</span></div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>漢方よもぎ蒸し（ペア）</strong><small>60分／友人・ペア</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">初回 ¥9,000</span><span class="pricing-row-price-normal">¥10,000</span></div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>発酵よもぎ蒸し（ペア）</strong><small>60分／友人・ペア</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">初回 ¥9,000</span><span class="pricing-row-price-normal">¥10,000</span></div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>産霊蒸し（むすひむし）</strong><small>70分／カップル・夫婦限定</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">初回 ¥12,000</span><span class="pricing-row-price-normal">¥13,000</span></div>
+        </div>
+      </div>
+
+      <h4 class="pricing-group-title">月会員プラン</h4>
+      <div class="pricing-list">
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>よもぎ蒸し 月4回まで</strong><small>1名様／月額</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">創業会員 ¥12,000</span><span class="pricing-row-price-normal">¥13,000</span></div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>漢方蒸し・発酵蒸し 月4回まで</strong><small>1名様／月額</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">創業会員 ¥13,000</span><span class="pricing-row-price-normal">¥14,000</span></div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>産霊プラン 月4回まで</strong><small>カップル・夫婦／月額</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">創業会員 ¥25,000</span><span class="pricing-row-price-normal">¥27,000</span></div>
+        </div>
+      </div>
+
+      <h4 class="pricing-group-title">回数券</h4>
+      <div class="pricing-list">
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>よもぎ蒸し 10回券</strong><small>有効期限 5ヶ月</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">¥38,000</span><span class="pricing-row-price-normal">¥40,000</span></div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>漢方・発酵蒸し 10回券</strong><small>有効期限 5ヶ月</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">¥50,000</span><span class="pricing-row-price-normal">¥55,000</span></div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>体験3回券</strong><small>よもぎ→漢方→発酵／2ヶ月以内</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">¥10,000</span><span class="pricing-row-price-normal">¥12,000</span></div>
+        </div>
+      </div>
+
       <p class="pricing-note">
         ※ 表示はすべて税込価格です／お支払いは現金・PayPayがご利用いただけます<br>
-        ※ 前日までのキャンセルは無料です
+        ※ 創業会員：個人10名・産霊（カップル夫婦）10組限定。体験当日ご入会の方のみ適用。永続割引。<br>
+        ※ 体験3回券は初回体験者限定／前日までのキャンセルは無料です
       </p>
+
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -3588,6 +3853,31 @@ body.menu-modal-open { overflow: hidden; }
     observer.observe(el);
   });
 
+  // ===== Pricing Summary — accordion toggle =====
+  document.querySelectorAll('.pricing-summary').forEach((panel) => {
+    const toggle  = panel.querySelector('.pricing-summary-toggle');
+    const content = panel.querySelector('.pricing-summary-content');
+    if (!toggle || !content) return;
+
+    const setOpen = (open) => {
+      panel.dataset.pricingOpen = open ? 'true' : 'false';
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      content.style.maxHeight = open ? content.scrollHeight + 'px' : '0';
+    };
+
+    toggle.addEventListener('click', () => {
+      const isOpen = panel.dataset.pricingOpen === 'true';
+      setOpen(!isOpen);
+    });
+
+    // 開いた状態でウィンドウサイズ変更時の高さ再計算
+    window.addEventListener('resize', () => {
+      if (panel.dataset.pricingOpen === 'true') {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+
   // ===== Voice & Moments — gallery arrow controls =====
   document.querySelectorAll('.vm-arrow').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -3831,11 +4121,11 @@ body.menu-modal-open { overflow: hidden; }
         </div>
         <div>
           <dt>初回価格</dt>
-          <dd class="menu-modal__price-trial">¥4,000<small>(税込)</small></dd>
+          <dd class="menu-modal__price-trial">¥4,500<small>(税込)</small></dd>
         </div>
         <div>
           <dt>通常価格</dt>
-          <dd class="menu-modal__price-normal">¥5,000<small>(税込)</small></dd>
+          <dd class="menu-modal__price-normal">¥5,500<small>(税込)</small></dd>
         </div>
       </dl>
 
@@ -3886,7 +4176,7 @@ body.menu-modal-open { overflow: hidden; }
     <footer class="menu-modal__footer">
       <div class="menu-modal__footer-price">
         <span class="menu-modal__footer-label">初回体験</span>
-        <span class="menu-modal__footer-amount">¥4,000<small>〜</small></span>
+        <span class="menu-modal__footer-amount">¥4,500<small>〜</small></span>
       </div>
       <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary menu-modal__cta">
         ご予約はこちら <span class="arrow">→</span>
@@ -3977,6 +4267,211 @@ body.menu-modal-open { overflow: hidden; }
       <div class="menu-modal__footer-price">
         <span class="menu-modal__footer-label">初回体験</span>
         <span class="menu-modal__footer-amount">¥4,500<small>〜</small></span>
+      </div>
+      <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary menu-modal__cta">
+        ご予約はこちら <span class="arrow">→</span>
+      </a>
+    </footer>
+  </div>
+</div>
+
+<!-- ④ ペア蒸し（友人・パートナー・男性同伴OK） -->
+<div class="menu-modal" id="menuModal-pair-basic" role="dialog" aria-modal="true" aria-labelledby="menuModal-pair-basic-title" aria-hidden="true">
+  <div class="menu-modal__backdrop" data-modal-close></div>
+  <div class="menu-modal__dialog" role="document">
+    <button type="button" class="menu-modal__close" data-modal-close aria-label="詳細を閉じる">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <figure class="menu-modal__hero">
+      <img src="images/image-06.jpg" alt="ペアでよもぎ蒸しを受けるおふたり" loading="lazy" width="1200" height="750">
+    </figure>
+    <div class="menu-modal__body">
+      <header class="menu-modal__head">
+        <span class="menu-modal__en">For Two</span>
+        <h2 class="menu-modal__title" id="menuModal-pair-basic-title">ペア蒸し</h2>
+        <p class="menu-modal__lead">ご友人・パートナー・ご家族と並んで蒸す、ふたりだけのあたたかな時間。3つの基本メニューから、お一人ずつお好みのブレンドを選べます。男性同伴も歓迎です。</p>
+      </header>
+
+      <div class="menu-modal__variant-table">
+        <h3 class="menu-modal__variant-title">3つのブレンドから選べます</h3>
+        <div class="menu-modal__variant-row">
+          <div class="menu-modal__variant-name">よもぎ蒸し（シンプル）</div>
+          <div class="menu-modal__variant-price">
+            <span class="menu-modal__variant-trial">初回 ¥6,000</span>
+            <span class="menu-modal__variant-normal">通常 ¥7,000</span>
+          </div>
+        </div>
+        <div class="menu-modal__variant-row">
+          <div class="menu-modal__variant-name">漢方よもぎ蒸し</div>
+          <div class="menu-modal__variant-price">
+            <span class="menu-modal__variant-trial">初回 ¥9,000</span>
+            <span class="menu-modal__variant-normal">通常 ¥10,000</span>
+          </div>
+        </div>
+        <div class="menu-modal__variant-row">
+          <div class="menu-modal__variant-name">発酵よもぎ蒸し</div>
+          <div class="menu-modal__variant-price">
+            <span class="menu-modal__variant-trial">初回 ¥9,000</span>
+            <span class="menu-modal__variant-normal">通常 ¥10,000</span>
+          </div>
+        </div>
+        <p class="menu-modal__variant-note">※ お二人で別々のブレンドもお選びいただけます（料金はお高い方の組み合わせ価格）</p>
+      </div>
+
+      <dl class="menu-modal__price">
+        <div>
+          <dt>所要時間</dt>
+          <dd>60分／2名</dd>
+        </div>
+        <div>
+          <dt>初回価格</dt>
+          <dd class="menu-modal__price-trial">¥6,000<small>〜</small></dd>
+        </div>
+        <div>
+          <dt>通常価格</dt>
+          <dd class="menu-modal__price-normal">¥7,000<small>〜</small></dd>
+        </div>
+      </dl>
+
+      <div class="menu-modal__cards">
+        <section class="menu-modal__card">
+          <h3>こんな方におすすめ</h3>
+          <ul>
+            <li>お友達と一緒に温活したい方</li>
+            <li>ご家族とゆっくり過ごしたい方</li>
+            <li>男性も同伴で体験してみたい方</li>
+            <li>まずは気軽にペアで始めたい方</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>期待できる体感</h3>
+          <ul>
+            <li>大切な方と並んで温まる安心感</li>
+            <li>会話とともに、心ほどけるひととき</li>
+            <li>体の芯から整うあたたかさ</li>
+            <li>静かで上質な、ふたりだけの時間</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>使用素材</h3>
+          <ul>
+            <li>国産無農薬よもぎ（全ブレンド共通）</li>
+            <li>漢方素材（漢方ブレンド選択時）</li>
+            <li>玄米・豆麹・米ぬか（発酵ブレンド選択時）</li>
+            <li>30種類以上のミネラルを含む水</li>
+            <li>黄土の座器・蒸し窯</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>施術の流れ</h3>
+          <ol>
+            <li>カウンセリング（おふたり）</li>
+            <li>各自のブレンド選択</li>
+            <li>素材の香りを確認</li>
+            <li>お着替え</li>
+            <li>並んで蒸し体験</li>
+            <li>アフターティーをご一緒に</li>
+          </ol>
+        </section>
+      </div>
+
+      <p class="menu-modal__note">男性のご利用は「ペア蒸し」「産霊蒸し」のペアメニューのみとなります。妊娠中の方のご利用はお控えください。</p>
+    </div>
+
+    <footer class="menu-modal__footer">
+      <div class="menu-modal__footer-price">
+        <span class="menu-modal__footer-label">初回体験</span>
+        <span class="menu-modal__footer-amount">¥6,000<small>〜</small></span>
+      </div>
+      <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary menu-modal__cta">
+        ご予約はこちら <span class="arrow">→</span>
+      </a>
+    </footer>
+  </div>
+</div>
+
+<!-- ⑤ 産霊蒸し（妊活ご夫婦専用） -->
+<div class="menu-modal" id="menuModal-musuhi" role="dialog" aria-modal="true" aria-labelledby="menuModal-musuhi-title" aria-hidden="true">
+  <div class="menu-modal__backdrop" data-modal-close></div>
+  <div class="menu-modal__dialog" role="document">
+    <button type="button" class="menu-modal__close" data-modal-close aria-label="詳細を閉じる">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <figure class="menu-modal__hero">
+      <img src="images/image-07.jpg" alt="産霊蒸しを受けるご夫婦" loading="lazy" width="1200" height="750">
+    </figure>
+    <div class="menu-modal__body">
+      <header class="menu-modal__head">
+        <span class="menu-modal__en">Musuhi-mushi｜Couples Only</span>
+        <h2 class="menu-modal__title" id="menuModal-musuhi-title">産霊蒸し<small style="display:block;font-size:14px;letter-spacing:0.18em;color:var(--color-sumi-pale);font-weight:400;margin-top:6px;">むすひむし</small></h2>
+        <p class="menu-modal__lead">妊活されているご夫婦・パートナー専用のペア蒸し。お二人の手で素材を一から調合し、女性用・男性用それぞれの体に寄り添うブレンドをお作りいただきます。命を「結ぶ」というむすひの願いを込めた、特別なメニューです。</p>
+      </header>
+
+      <dl class="menu-modal__price">
+        <div>
+          <dt>所要時間</dt>
+          <dd>70分／2名</dd>
+        </div>
+        <div>
+          <dt>初回価格</dt>
+          <dd class="menu-modal__price-trial">¥12,000<small>(税込)</small></dd>
+        </div>
+        <div>
+          <dt>通常価格</dt>
+          <dd class="menu-modal__price-normal">¥13,000<small>(税込)</small></dd>
+        </div>
+      </dl>
+
+      <div class="menu-modal__cards">
+        <section class="menu-modal__card">
+          <h3>こんな方におすすめ</h3>
+          <ul>
+            <li>妊活に取り組まれているご夫婦</li>
+            <li>パートナーと一緒に温活したい方</li>
+            <li>男性側も体質改善に関心がある方</li>
+            <li>特別な記念日に、ふたりで深く整えたい方</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>期待できる体感</h3>
+          <ul>
+            <li>女性用・男性用ブレンドのきめ細かさ</li>
+            <li>お二人の手で素材を選ぶ特別な時間</li>
+            <li>身体の深部から整うじんわりとした熱</li>
+            <li>「結ぶ」を体感する静かな心地よさ</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>使用素材</h3>
+          <ul>
+            <li>国産無農薬よもぎ</li>
+            <li>女性用 妊活漢方ブレンド</li>
+            <li>男性用 妊活漢方ブレンド</li>
+            <li>発酵素材（玄米・豆麹・米ぬか）</li>
+            <li>30種類以上のミネラルを含む水</li>
+            <li>黄土の座器・蒸し窯</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>施術の流れ</h3>
+          <ol>
+            <li>ご夫婦カウンセリング（ご相談含む）</li>
+            <li>女性用・男性用それぞれの素材選び</li>
+            <li>お二人の手で調合</li>
+            <li>香りの確認とお着替え</li>
+            <li>並んで蒸し体験（70分）</li>
+            <li>アフターティーとご感想</li>
+          </ol>
+        </section>
+      </div>
+
+      <p class="menu-modal__note">本メニューはカップル・ご夫婦限定です。妊娠中の方のご利用はお控えください。漢方素材にアレルギーがある方は、事前にスタッフへお知らせください。</p>
+    </div>
+
+    <footer class="menu-modal__footer">
+      <div class="menu-modal__footer-price">
+        <span class="menu-modal__footer-label">初回体験</span>
+        <span class="menu-modal__footer-amount">¥12,000<small>〜</small></span>
       </div>
       <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary menu-modal__cta">
         ご予約はこちら <span class="arrow">→</span>
