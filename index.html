@@ -1166,30 +1166,103 @@ iframe.map-image  { border: 1px solid var(--color-ohdo-pale); border-radius: var
   letter-spacing: 0.05em;
 }
 
-/* Picture band */
+/* Picture band — オートスライド (5枚クロスフェード) */
 .picture-band {
   position: relative;
   height: 280px;
   overflow: hidden;
   border-top: 1px solid var(--color-ohdo-pale);
   border-bottom: 1px solid var(--color-ohdo-pale);
+  background: var(--color-kurenai-deep);
 }
 @media (min-width: 768px) {
   .picture-band { height: 460px; }
 }
-.picture-band img {
+.band-slides {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.band-slides img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   filter: saturate(0.92) sepia(0.06);
+  opacity: 0;
+  animation: bandFade 30s infinite cubic-bezier(.4, 0, .2, 1);
+  will-change: opacity;
 }
+/* 5枚 × 各6秒表示 (フェード1秒含む) — 30秒サイクル */
+.band-slides img:nth-child(1) { animation-delay:  0s; opacity: 1; } /* 初期表示確保 */
+.band-slides img:nth-child(2) { animation-delay:  6s; }
+.band-slides img:nth-child(3) { animation-delay: 12s; }
+.band-slides img:nth-child(4) { animation-delay: 18s; }
+.band-slides img:nth-child(5) { animation-delay: 24s; }
+
+@keyframes bandFade {
+  0%   { opacity: 0; }
+  3%   { opacity: 1; }   /* 約1秒でフェードイン */
+  20%  { opacity: 1; }   /* 6秒間表示 */
+  23%  { opacity: 0; }   /* 約1秒でフェードアウト */
+  100% { opacity: 0; }
+}
+
+/* 1枚目だけ初回表示時のフェードイン待ちを避ける */
+.band-slides img:nth-child(1) { animation-name: bandFadeFirst; }
+@keyframes bandFadeFirst {
+  0%   { opacity: 1; }
+  20%  { opacity: 1; }
+  23%  { opacity: 0; }
+  80%  { opacity: 0; }   /* 24秒経過 = 5枚目表示中 */
+  97%  { opacity: 0; }
+  100% { opacity: 1; }   /* 30秒で1枚目に戻る瞬間 */
+}
+
 .picture-band::after {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(245, 239, 230, 0.05) 0%, transparent 50%, rgba(122, 30, 30, 0.12) 100%);
   pointer-events: none;
+  z-index: 1;
+}
+
+/* インジケータ (右下に5つの小さな金ドット) */
+.picture-band::before {
+  content: '';
+  position: absolute;
+  right: 24px;
+  bottom: 16px;
+  width: 60px;
+  height: 4px;
+  background:
+    linear-gradient(90deg,
+      var(--color-gold) 0%, var(--color-gold) 16%,
+      rgba(212, 175, 55, 0.3) 16%, rgba(212, 175, 55, 0.3) 100%);
+  background-size: 500% 100%;
+  border-radius: 2px;
+  z-index: 2;
+  animation: bandIndicator 30s infinite steps(5);
+  pointer-events: none;
+}
+@keyframes bandIndicator {
+  0%   { background-position:    0% 0; }
+  20%  { background-position:  -25% 0; }
+  40%  { background-position:  -50% 0; }
+  60%  { background-position:  -75% 0; }
+  80%  { background-position: -100% 0; }
+  100% { background-position:    0% 0; }
+}
+
+/* prefers-reduced-motion : 1枚目静止表示 */
+@media (prefers-reduced-motion: reduce) {
+  .band-slides img { animation: none; opacity: 0; }
+  .band-slides img:nth-child(1) { opacity: 1; }
+  .picture-band::before { animation: none; }
 }
 
 /* ============================================================
@@ -2089,6 +2162,429 @@ section .text-center { text-align: center; }
     scroll-behavior: auto !important;
   }
 }
+
+/* ============================================================
+   Menu Card — クリック可能化と「詳しく見る」導線
+   ============================================================ */
+.menu-card {
+  cursor: pointer;
+  outline: none;
+}
+.menu-card:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 4px;
+}
+.menu-card-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--color-ohdo-pale);
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--color-kurenai);
+  font-weight: 500;
+  transition: color .25s, gap .25s;
+  align-self: flex-start;
+}
+.menu-card-more .arrow { transition: transform .3s; }
+.menu-card:hover .menu-card-more {
+  color: var(--color-kurenai-deep);
+  gap: 10px;
+}
+.menu-card:hover .menu-card-more .arrow { transform: translateX(4px); }
+
+/* ============================================================
+   Menu Modal — メニュー詳細ポップアップ
+   ============================================================ */
+body.menu-modal-open { overflow: hidden; }
+
+.menu-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  visibility: hidden;
+  pointer-events: none;
+  -webkit-overflow-scrolling: touch;
+}
+@media (min-width: 768px) {
+  .menu-modal { align-items: center; padding: 40px 24px; }
+}
+.menu-modal.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.menu-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(122, 30, 30, 0.55) 0%, rgba(28, 28, 28, 0.78) 100%);
+  opacity: 0;
+  transition: opacity .35s cubic-bezier(.4,0,.2,1);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.menu-modal.is-open .menu-modal__backdrop { opacity: 1; }
+
+.menu-modal__dialog {
+  position: relative;
+  width: 100%;
+  max-width: 880px;
+  max-height: 100dvh;
+  background: var(--color-kinari);
+  border-radius: 24px 24px 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateY(40px);
+  opacity: 0;
+  transition:
+    transform .45s cubic-bezier(.2, .8, .2, 1),
+    opacity .35s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 -20px 60px rgba(28, 28, 28, 0.35);
+}
+@media (min-width: 768px) {
+  .menu-modal__dialog {
+    width: calc(100% - 0px);
+    max-height: calc(100dvh - 80px);
+    border-radius: 24px;
+    transform: translateY(20px) scale(.98);
+    box-shadow: 0 24px 80px rgba(28, 28, 28, 0.4);
+  }
+}
+.menu-modal.is-open .menu-modal__dialog {
+  transform: translateY(0);
+  opacity: 1;
+}
+@media (min-width: 768px) {
+  .menu-modal.is-open .menu-modal__dialog {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.menu-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(245, 239, 230, 0.92);
+  color: var(--color-kurenai);
+  cursor: pointer;
+  transition: all .25s;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(4px);
+}
+.menu-modal__close:hover {
+  background: var(--color-kurenai);
+  color: var(--color-kinari);
+  transform: rotate(90deg);
+}
+.menu-modal__close svg { width: 20px; height: 20px; }
+
+.menu-modal__hero {
+  margin: 0;
+  position: relative;
+  flex-shrink: 0;
+  background: var(--color-kinari-warm);
+}
+.menu-modal__hero img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.95) sepia(0.04);
+}
+@media (min-width: 768px) {
+  .menu-modal__hero img { aspect-ratio: 16 / 8; }
+}
+.menu-modal__hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 60%;
+  background: linear-gradient(180deg, transparent 0%, rgba(245, 239, 230, 0.6) 80%, var(--color-kinari) 100%);
+  pointer-events: none;
+}
+
+.menu-modal__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 24px 24px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ohdo-pale) transparent;
+}
+@media (min-width: 768px) {
+  .menu-modal__body { padding: 0 48px 32px; }
+}
+.menu-modal__body::-webkit-scrollbar { width: 6px; }
+.menu-modal__body::-webkit-scrollbar-thumb {
+  background: var(--color-ohdo-pale);
+  border-radius: 999px;
+}
+
+.menu-modal__head {
+  text-align: center;
+  margin-top: -28px;
+  position: relative;
+  z-index: 2;
+  padding-bottom: 24px;
+}
+.menu-modal__en {
+  font-family: var(--serif-en);
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--color-ohdo);
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-block;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.menu-modal__en::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 1px;
+  background: var(--color-gold);
+}
+.menu-modal__title {
+  font-family: var(--serif);
+  font-size: 28px;
+  letter-spacing: 0.14em;
+  color: var(--color-sumi);
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+@media (min-width: 768px) {
+  .menu-modal__title { font-size: 34px; }
+}
+.menu-modal__lead {
+  font-size: 14px;
+  line-height: 2.05;
+  color: var(--color-sumi-soft);
+  letter-spacing: 0.05em;
+  max-width: 640px;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .menu-modal__lead { font-size: 15px; }
+}
+
+/* 価格3カラム */
+.menu-modal__price {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin: 28px 0;
+  padding: 20px 0;
+  border-top: 1px solid var(--color-ohdo-pale);
+  border-bottom: 1px solid var(--color-ohdo-pale);
+  background: var(--color-kinari-light);
+  border-radius: 12px;
+}
+.menu-modal__price > div {
+  text-align: center;
+  padding: 8px 6px;
+  border-right: 1px solid var(--color-ohdo-pale);
+}
+.menu-modal__price > div:last-child { border-right: none; }
+.menu-modal__price dt {
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--color-sumi-pale);
+  margin-bottom: 8px;
+}
+.menu-modal__price dd {
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--color-sumi);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.menu-modal__price-trial {
+  color: var(--color-kurenai) !important;
+  font-family: var(--serif-en) !important;
+  font-size: 22px !important;
+}
+.menu-modal__price-normal {
+  color: var(--color-sumi-pale) !important;
+  font-family: var(--serif-en) !important;
+  font-size: 18px !important;
+  text-decoration: line-through;
+  text-decoration-color: var(--color-sumi-pale);
+}
+.menu-modal__price small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--color-sumi-pale);
+  margin-top: 2px;
+  font-weight: 400;
+}
+@media (min-width: 768px) {
+  .menu-modal__price-trial { font-size: 26px !important; }
+  .menu-modal__price-normal { font-size: 20px !important; }
+}
+
+/* 4枚カード */
+.menu-modal__cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+@media (min-width: 600px) {
+  .menu-modal__cards { grid-template-columns: 1fr 1fr; gap: 18px; }
+}
+.menu-modal__card {
+  background: var(--color-kinari-light);
+  border: 1px solid var(--color-ohdo-pale);
+  border-radius: var(--radius-image);
+  padding: 22px 22px 24px;
+}
+.menu-modal__card h3 {
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  color: var(--color-kurenai);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-ohdo-pale);
+  font-weight: 500;
+}
+.menu-modal__card ul,
+.menu-modal__card ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.menu-modal__card li {
+  font-size: 13px;
+  line-height: 1.95;
+  color: var(--color-sumi);
+  padding: 4px 0 4px 22px;
+  position: relative;
+  letter-spacing: 0.04em;
+}
+.menu-modal__card ul li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 14px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-gold);
+}
+.menu-modal__card ol {
+  counter-reset: step;
+}
+.menu-modal__card ol li {
+  counter-increment: step;
+}
+.menu-modal__card ol li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-kurenai);
+  color: var(--color-kinari);
+  font-family: var(--serif-en);
+  font-size: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+.menu-modal__note {
+  font-family: var(--serif);
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--color-sumi-soft);
+  background: var(--color-sakura-pale);
+  padding: 14px 18px;
+  border-radius: 10px;
+  border-left: 3px solid var(--color-ohdo);
+  letter-spacing: 0.04em;
+}
+
+/* 下部フッター（CTA） */
+.menu-modal__footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  background: var(--color-kinari);
+  border-top: 1px solid var(--color-ohdo-pale);
+  box-shadow: 0 -8px 20px rgba(60, 30, 20, 0.06);
+  padding-bottom: calc(14px + env(safe-area-inset-bottom));
+}
+@media (min-width: 768px) {
+  .menu-modal__footer { padding: 18px 28px; gap: 20px; padding-bottom: 18px; }
+}
+.menu-modal__footer-price {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.menu-modal__footer-label {
+  font-family: var(--serif);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--color-sumi-pale);
+  margin-bottom: 4px;
+}
+.menu-modal__footer-amount {
+  font-family: var(--serif-en);
+  font-size: 22px;
+  color: var(--color-kurenai);
+  font-weight: 500;
+}
+.menu-modal__footer-amount small {
+  font-size: 12px;
+  color: var(--color-sumi-pale);
+  margin-left: 2px;
+}
+.menu-modal__cta {
+  flex: 1;
+  max-width: 280px;
+  padding: 16px 24px;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+}
+@media (min-width: 768px) {
+  .menu-modal__cta { padding: 18px 32px; font-size: 14px; }
+}
 </style>
 </head>
 <body>
@@ -2274,7 +2770,7 @@ section .text-center { text-align: center; }
     </p>
     <div class="menus-grid">
 
-      <article class="menu-card">
+      <article class="menu-card" data-menu-modal="basic" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="menuModal-basic" aria-label="よもぎ蒸しの詳細を開く">
         <!-- IMAGE: images/image-03.jpg ｜よもぎ蒸し（基本）／徳島県産無農薬よもぎ／1200×900px -->
         <img src="images/image-03.jpg" alt="徳島県産・国産無農薬よもぎ" class="menu-card-img" loading="lazy" width="800" height="600">
         <div class="menu-card-body">
@@ -2289,10 +2785,11 @@ section .text-center { text-align: center; }
               <span class="menu-meta-price-normal">¥4,000</span>
             </span>
           </div>
+          <span class="menu-card-more" aria-hidden="true">詳しく見る <span class="arrow">→</span></span>
         </div>
       </article>
 
-      <article class="menu-card">
+      <article class="menu-card" data-menu-modal="kanpo" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="menuModal-kanpo" aria-label="漢方よもぎ蒸しの詳細を開く">
         <!-- IMAGE: images/image-04.jpg ｜漢方よもぎ蒸し／3種ブレンドのパッケージ／1200×900px -->
         <img src="images/image-04.jpg" alt="3種類の漢方ブレンド" class="menu-card-img" loading="lazy" width="800" height="600">
         <div class="menu-card-body">
@@ -2307,10 +2804,11 @@ section .text-center { text-align: center; }
               <span class="menu-meta-price-normal">¥5,500</span>
             </span>
           </div>
+          <span class="menu-card-more" aria-hidden="true">詳しく見る <span class="arrow">→</span></span>
         </div>
       </article>
 
-      <article class="menu-card">
+      <article class="menu-card" data-menu-modal="fermented" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="menuModal-fermented" aria-label="発酵よもぎ蒸しの詳細を開く">
         <!-- IMAGE: images/image-05.jpg ｜発酵よもぎ蒸し／よもぎ・玄米・豆麹・米ぬかブレンド／1200×900px -->
         <img src="images/image-05.jpg" alt="よもぎ・玄米・豆麹・米ぬかの発酵ブレンド" class="menu-card-img" loading="lazy" width="800" height="600">
         <div class="menu-card-body">
@@ -2325,6 +2823,7 @@ section .text-center { text-align: center; }
               <span class="menu-meta-price-normal">¥5,500</span>
             </span>
           </div>
+          <span class="menu-card-more" aria-hidden="true">詳しく見る <span class="arrow">→</span></span>
         </div>
       </article>
 
@@ -2483,9 +2982,14 @@ section .text-center { text-align: center; }
 <!-- ============================================================
      PICTURE BAND
      ============================================================ -->
-<div class="picture-band">
-  <!-- IMAGE: images/image-band.jpg ｜中盤の世界観帯／湯気と提灯のフルブリード／2400×840px -->
-  <img src="images/image-band.jpg" alt="むすひの世界観" loading="lazy" width="2400" height="840">
+<div class="picture-band" role="region" aria-label="むすひの世界観 自動スライド">
+  <div class="band-slides">
+    <img src="images/image-band-1.jpg" alt="むすひの世界観 1" width="2120" height="742" fetchpriority="low" decoding="async">
+    <img src="images/image-band-2.jpg" alt="むすひの世界観 2" width="2120" height="742" loading="lazy" decoding="async">
+    <img src="images/image-band-3.jpg" alt="むすひの世界観 3" width="2120" height="742" loading="lazy" decoding="async">
+    <img src="images/image-band-4.jpg" alt="むすひの世界観 4" width="2120" height="742" loading="lazy" decoding="async">
+    <img src="images/image-band-5.jpg" alt="むすひの世界観 5" width="2120" height="742" loading="lazy" decoding="async">
+  </div>
 </div>
 
 <!-- ============================================================
@@ -2930,7 +3434,7 @@ section .text-center { text-align: center; }
 
           <dt>駐車場</dt>
           <dd>
-            お車でお越しの方はお店横の駐車場をご利用ください。
+            お車でお越しの方はお店横の所沢市寿町市営駐車場をご利用ください。
             <small>30分無料／1時間110円</small>
           </dd>
 
@@ -3110,7 +3614,376 @@ section .text-center { text-align: center; }
     window.addEventListener('resize', updateArrows);
     updateArrows();
   }
+
+  // ===== Menu Modal — メニュー詳細ポップアップ =====
+  document.addEventListener('DOMContentLoaded', () => {
+    const triggers = document.querySelectorAll('[data-menu-modal]');
+    const modals   = document.querySelectorAll('.menu-modal');
+    if (!triggers.length || !modals.length) return;
+
+    let lastTrigger = null;       // 直前にクリックされたカード（フォーカス戻し用）
+    let scrollY = 0;              // body 固定時のスクロール位置保持
+
+    const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    const openModal = (key, fromEl) => {
+      const modal = document.getElementById('menuModal-' + key);
+      if (!modal) return;
+      lastTrigger = fromEl || null;
+
+      // body スクロールロック (位置を保持)
+      scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + scrollY + 'px';
+      document.body.style.width = '100%';
+      document.body.classList.add('menu-modal-open');
+
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+
+      // 閉じるボタンに初期フォーカス
+      requestAnimationFrame(() => {
+        const closeBtn = modal.querySelector('.menu-modal__close');
+        if (closeBtn) closeBtn.focus();
+      });
+    };
+
+    const closeModal = (modal) => {
+      if (!modal || !modal.classList.contains('is-open')) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+
+      // body スクロールロック解除
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.classList.remove('menu-modal-open');
+      window.scrollTo(0, scrollY);
+
+      // 元のカードにフォーカスを戻す
+      if (lastTrigger && typeof lastTrigger.focus === 'function') {
+        lastTrigger.focus({ preventScroll: true });
+      }
+    };
+
+    const closeAllModals = () => modals.forEach(closeModal);
+
+    // カードクリック / Enter・Space で開く
+    triggers.forEach((card) => {
+      const key = card.dataset.menuModal;
+      card.addEventListener('click', (e) => {
+        // 内部のリンクや button をクリックした場合は無視（CTAなどがあれば優先）
+        if (e.target.closest('a, button')) return;
+        openModal(key, card);
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          openModal(key, card);
+        }
+      });
+    });
+
+    // 閉じる操作: ×ボタン / 背景クリック
+    modals.forEach((modal) => {
+      modal.querySelectorAll('[data-modal-close]').forEach((el) => {
+        el.addEventListener('click', () => closeModal(modal));
+      });
+
+      // フォーカストラップ (Tab 循環)
+      modal.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+        const focusables = modal.querySelectorAll(FOCUSABLE);
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last  = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+    });
+
+    // ESC で閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const opened = document.querySelector('.menu-modal.is-open');
+        if (opened) closeModal(opened);
+      }
+    });
+  });
 </script>
+
+<!-- ============================================================
+     MENU MODALS — メニュー詳細ポップアップ
+     ============================================================ -->
+
+<!-- ① よもぎ蒸し -->
+<div class="menu-modal" id="menuModal-basic" role="dialog" aria-modal="true" aria-labelledby="menuModal-basic-title" aria-hidden="true">
+  <div class="menu-modal__backdrop" data-modal-close></div>
+  <div class="menu-modal__dialog" role="document">
+    <button type="button" class="menu-modal__close" data-modal-close aria-label="詳細を閉じる">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <figure class="menu-modal__hero">
+      <img src="images/image-03.jpg" alt="徳島県産・国産無農薬よもぎ" loading="lazy" width="1200" height="900">
+    </figure>
+    <div class="menu-modal__body">
+      <header class="menu-modal__head">
+        <span class="menu-modal__en">Basic</span>
+        <h2 class="menu-modal__title" id="menuModal-basic-title">よもぎ蒸し</h2>
+        <p class="menu-modal__lead">徳島県産・無農薬よもぎを使用した、むすひの基本メニューです。よもぎ本来の力強い香りと、黄土の蒸し窯から立ちのぼる温かな湯気で、身体を芯からじんわり温めます。はじめての方にもおすすめです。</p>
+      </header>
+
+      <dl class="menu-modal__price">
+        <div>
+          <dt>所要時間</dt>
+          <dd>60分</dd>
+        </div>
+        <div>
+          <dt>初回価格</dt>
+          <dd class="menu-modal__price-trial">¥3,000<small>(税込)</small></dd>
+        </div>
+        <div>
+          <dt>通常価格</dt>
+          <dd class="menu-modal__price-normal">¥4,000<small>(税込)</small></dd>
+        </div>
+      </dl>
+
+      <div class="menu-modal__cards">
+        <section class="menu-modal__card">
+          <h3>こんな方におすすめ</h3>
+          <ul>
+            <li>よもぎ蒸しが初めての方</li>
+            <li>冷えが気になる方</li>
+            <li>まずは基本メニューから試したい方</li>
+            <li>リラックスしたい方</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>期待できる体感</h3>
+          <ul>
+            <li>身体の芯から温まる感覚</li>
+            <li>よもぎの香りによる深いリラックス</li>
+            <li>巡りが整うような軽さ</li>
+            <li>施術後のぽかぽか感</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>使用素材</h3>
+          <ul>
+            <li>徳島県産 無農薬よもぎ</li>
+            <li>30種類以上のミネラルを含む水</li>
+            <li>黄土の座器・蒸し窯</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>施術の流れ</h3>
+          <ol>
+            <li>カウンセリング</li>
+            <li>よもぎの準備</li>
+            <li>お着替え</li>
+            <li>黄土座器で蒸し体験</li>
+            <li>アフターティー</li>
+          </ol>
+        </section>
+      </div>
+
+      <p class="menu-modal__note">体調に不安がある方、生理中の方、妊娠中の方は事前にご相談ください。</p>
+    </div>
+
+    <footer class="menu-modal__footer">
+      <div class="menu-modal__footer-price">
+        <span class="menu-modal__footer-label">初回体験</span>
+        <span class="menu-modal__footer-amount">¥3,000<small>〜</small></span>
+      </div>
+      <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary menu-modal__cta">
+        ご予約はこちら <span class="arrow">→</span>
+      </a>
+    </footer>
+  </div>
+</div>
+
+<!-- ② 漢方よもぎ蒸し -->
+<div class="menu-modal" id="menuModal-kanpo" role="dialog" aria-modal="true" aria-labelledby="menuModal-kanpo-title" aria-hidden="true">
+  <div class="menu-modal__backdrop" data-modal-close></div>
+  <div class="menu-modal__dialog" role="document">
+    <button type="button" class="menu-modal__close" data-modal-close aria-label="詳細を閉じる">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <figure class="menu-modal__hero">
+      <img src="images/image-04.jpg" alt="3種類の漢方ブレンド" loading="lazy" width="1200" height="900">
+    </figure>
+    <div class="menu-modal__body">
+      <header class="menu-modal__head">
+        <span class="menu-modal__en">Kanpo</span>
+        <h2 class="menu-modal__title" id="menuModal-kanpo-title">漢方よもぎ蒸し</h2>
+        <p class="menu-modal__lead">よもぎに加え、体質やお悩みに合わせた漢方ブレンドを選べるメニューです。3種類のブレンドから、その日の状態に合わせてご提案します。冷え、巡り、女性特有のゆらぎが気になる方におすすめです。</p>
+      </header>
+
+      <dl class="menu-modal__price">
+        <div>
+          <dt>所要時間</dt>
+          <dd>60分</dd>
+        </div>
+        <div>
+          <dt>初回価格</dt>
+          <dd class="menu-modal__price-trial">¥4,000<small>(税込)</small></dd>
+        </div>
+        <div>
+          <dt>通常価格</dt>
+          <dd class="menu-modal__price-normal">¥5,000<small>(税込)</small></dd>
+        </div>
+      </dl>
+
+      <div class="menu-modal__cards">
+        <section class="menu-modal__card">
+          <h3>こんな方におすすめ</h3>
+          <ul>
+            <li>冷えや巡りの滞りが気になる方</li>
+            <li>月経前後の不調が気になる方</li>
+            <li>更年期のゆらぎが気になる方</li>
+            <li>体質に合わせたケアをしたい方</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>期待できる体感</h3>
+          <ul>
+            <li>じんわり深く温まる感覚</li>
+            <li>身体がゆるむような安心感</li>
+            <li>汗とともに軽くなる感覚</li>
+            <li>自分に合ったブレンドを選べる特別感</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>使用素材</h3>
+          <ul>
+            <li>国産無農薬よもぎ</li>
+            <li>漢方素材</li>
+            <li>30種類以上のミネラルを含む水</li>
+            <li>黄土の座器・蒸し窯</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>施術の流れ</h3>
+          <ol>
+            <li>カウンセリング</li>
+            <li>体質やお悩みに合わせたブレンド選択</li>
+            <li>素材の香りを確認</li>
+            <li>お着替え</li>
+            <li>蒸し体験</li>
+            <li>アフターティー</li>
+          </ol>
+        </section>
+      </div>
+
+      <p class="menu-modal__note">漢方素材にアレルギーがある方は、事前にスタッフへお知らせください。</p>
+    </div>
+
+    <footer class="menu-modal__footer">
+      <div class="menu-modal__footer-price">
+        <span class="menu-modal__footer-label">初回体験</span>
+        <span class="menu-modal__footer-amount">¥4,000<small>〜</small></span>
+      </div>
+      <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary menu-modal__cta">
+        ご予約はこちら <span class="arrow">→</span>
+      </a>
+    </footer>
+  </div>
+</div>
+
+<!-- ③ 発酵よもぎ蒸し -->
+<div class="menu-modal" id="menuModal-fermented" role="dialog" aria-modal="true" aria-labelledby="menuModal-fermented-title" aria-hidden="true">
+  <div class="menu-modal__backdrop" data-modal-close></div>
+  <div class="menu-modal__dialog" role="document">
+    <button type="button" class="menu-modal__close" data-modal-close aria-label="詳細を閉じる">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <figure class="menu-modal__hero">
+      <img src="images/image-05.jpg" alt="よもぎ・玄米・豆麹・米ぬかの発酵ブレンド" loading="lazy" width="1200" height="900">
+    </figure>
+    <div class="menu-modal__body">
+      <header class="menu-modal__head">
+        <span class="menu-modal__en">Fermented</span>
+        <h2 class="menu-modal__title" id="menuModal-fermented-title">発酵よもぎ蒸し</h2>
+        <p class="menu-modal__lead">よもぎに玄米・豆麹・米ぬかをブレンドした、美容ケア向けのよもぎ蒸しです。発酵素材のやさしい香りと温かな湯気に包まれながら、内側から整えるような時間をお過ごしいただけます。</p>
+      </header>
+
+      <dl class="menu-modal__price">
+        <div>
+          <dt>所要時間</dt>
+          <dd>60分</dd>
+        </div>
+        <div>
+          <dt>初回価格</dt>
+          <dd class="menu-modal__price-trial">¥4,500<small>(税込)</small></dd>
+        </div>
+        <div>
+          <dt>通常価格</dt>
+          <dd class="menu-modal__price-normal">¥5,500<small>(税込)</small></dd>
+        </div>
+      </dl>
+
+      <div class="menu-modal__cards">
+        <section class="menu-modal__card">
+          <h3>こんな方におすすめ</h3>
+          <ul>
+            <li>美肌・美髪ケアに関心がある方</li>
+            <li>発酵素材が好きな方</li>
+            <li>ホルモンバランスのゆらぎが気になる方</li>
+            <li>少し贅沢なセルフケアをしたい方</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>期待できる体感</h3>
+          <ul>
+            <li>やわらかな発汗</li>
+            <li>肌がうるおうような感覚</li>
+            <li>心までほどけるリラックス感</li>
+            <li>発酵素材ならではのまろやかな香り</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>使用素材</h3>
+          <ul>
+            <li>国産無農薬よもぎ</li>
+            <li>玄米</li>
+            <li>豆麹</li>
+            <li>米ぬか</li>
+            <li>30種類以上のミネラルを含む水</li>
+            <li>黄土の座器・蒸し窯</li>
+          </ul>
+        </section>
+        <section class="menu-modal__card">
+          <h3>施術の流れ</h3>
+          <ol>
+            <li>カウンセリング</li>
+            <li>発酵ブレンドの確認</li>
+            <li>香りの確認</li>
+            <li>お着替え</li>
+            <li>蒸し体験</li>
+            <li>アフターティー</li>
+          </ol>
+        </section>
+      </div>
+
+      <p class="menu-modal__note">米ぬか・豆由来素材に不安がある方は、事前にご相談ください。</p>
+    </div>
+
+    <footer class="menu-modal__footer">
+      <div class="menu-modal__footer-price">
+        <span class="menu-modal__footer-label">初回体験</span>
+        <span class="menu-modal__footer-amount">¥4,500<small>〜</small></span>
+      </div>
+      <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary menu-modal__cta">
+        ご予約はこちら <span class="arrow">→</span>
+      </a>
+    </footer>
+  </div>
+</div>
 
 </body>
 </html>
