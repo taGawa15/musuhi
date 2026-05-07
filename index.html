@@ -2880,6 +2880,209 @@ body.menu-modal-open { overflow: hidden; }
 }
 
 /* ============================================================
+   Mobile Card Slider — 通常メニュー / ペアメニューを横スワイプ化
+   ============================================================ */
+.mobile-swipe-hint { display: none; }
+
+@media (max-width: 767px) {
+  .mobile-swipe-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: -16px 0 16px;
+    font-family: var(--serif);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--color-sumi-pale);
+  }
+  .mobile-swipe-hint__line {
+    flex: 0 0 auto;
+    width: 28px;
+    height: 1px;
+    background: var(--color-gold);
+    opacity: 0.7;
+  }
+  .mobile-swipe-hint--on-dark {
+    color: rgba(245, 239, 230, 0.78);
+  }
+  .mobile-swipe-hint--on-dark .mobile-swipe-hint__line {
+    background: var(--color-gold);
+    opacity: 0.55;
+  }
+
+  /* ── 通常メニュー: 横スナップ ── */
+  .menus-grid--mobile-snap {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 18px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 24px;
+    padding: 6px 24px 18px;
+    margin: 0 -24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    align-items: stretch;
+  }
+  .menus-grid--mobile-snap::-webkit-scrollbar { display: none; height: 0; }
+  .menus-grid--mobile-snap > .menu-card {
+    flex: 0 0 82%;
+    max-width: 320px;
+    scroll-snap-align: start;
+  }
+
+  /* ── ペアメニュー: 横スナップ ── */
+  .pair-grid--mobile-snap {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 18px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 24px;
+    padding: 6px 24px 18px;
+    margin: 0 -24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    align-items: stretch;
+  }
+  .pair-grid--mobile-snap::-webkit-scrollbar { display: none; height: 0; }
+  .pair-grid--mobile-snap > .pair-card {
+    flex: 0 0 86%;
+    max-width: 340px;
+    scroll-snap-align: start;
+  }
+
+  /* スライダーを内包する section に左右フェードを掛ける */
+  #menu .container,
+  .pair-section .container {
+    position: relative;
+  }
+  .menus-grid--mobile-snap::before,
+  .menus-grid--mobile-snap::after,
+  .pair-grid--mobile-snap::before,
+  .pair-grid--mobile-snap::after {
+    content: '';
+    position: sticky;
+    top: 0;
+    flex: 0 0 0;
+    width: 0;
+    height: 100%;
+    pointer-events: none;
+  }
+  /* メニュー側（生成り背景）右端フェード */
+  #menu {
+    position: relative;
+  }
+  #menu::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 100%;
+    background: linear-gradient(270deg, var(--color-kinari) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  /* ペア側（濃紅背景）右端フェード */
+  .pair-section { position: relative; }
+  .pair-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 100%;
+    background: linear-gradient(270deg, var(--color-kurenai) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  /* container 内のコンテンツが上に乗るように */
+  #menu > .container,
+  .pair-section > .container { z-index: 2; }
+}
+
+/* ============================================================
+   Floating Gift CTA — モバイル右下独立ボタン
+   ============================================================ */
+.float-gift-cta {
+  position: fixed;
+  right: 14px;
+  bottom: calc(86px + env(safe-area-inset-bottom));
+  z-index: 60;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: var(--color-sakura-pale);
+  color: var(--color-kurenai);
+  border: 1px solid var(--color-gold);
+  box-shadow: 0 8px 22px rgba(60, 30, 20, 0.22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  padding: 0;
+  transition: transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s, background .3s;
+  /* 初期は非表示、scroll後に出現させる */
+  opacity: 0;
+  transform: translateY(120%);
+  pointer-events: none;
+}
+.float-gift-cta.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.float-gift-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(60, 30, 20, 0.28);
+  background: var(--color-kurenai);
+  color: var(--color-kinari);
+  border-color: var(--color-kurenai);
+}
+.float-gift-cta:hover .float-gift-cta-icon { color: var(--color-gold); }
+.float-gift-cta:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+.float-gift-cta-icon {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  color: var(--color-kurenai);
+  transition: color .25s;
+}
+.float-gift-cta-icon svg { width: 100%; height: 100%; }
+.float-gift-cta-text {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--color-kurenai);
+  font-weight: 500;
+  transition: color .25s;
+}
+.float-gift-cta:hover .float-gift-cta-text { color: var(--color-kinari); }
+
+/* モーダル表示中は隠して邪魔しない */
+body.menu-modal-open .float-gift-cta {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(120%);
+}
+
+/* PCでは完全非表示 */
+@media (min-width: 1024px) {
+  .float-gift-cta { display: none; }
+}
+
+/* ============================================================
    Gift Ticket — ギフトチケット（ワイドカード + 専用モーダル）
    ============================================================ */
 .gift-menu {
@@ -3466,7 +3669,12 @@ body.menu-modal-open { overflow: hidden; }
       シンプルな基本メニューから、漢方ブレンド、発酵素材まで。<br>
       初めての方には、お得な「初回体験価格」をご用意しています。
     </p>
-    <div class="menus-grid">
+    <p class="mobile-swipe-hint" aria-hidden="true">
+      <span class="mobile-swipe-hint__line"></span>
+      横にスワイプしてご覧いただけます
+      <span class="mobile-swipe-hint__line"></span>
+    </p>
+    <div class="menus-grid menus-grid--mobile-snap">
 
       <article class="menu-card" data-menu-modal="basic" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="menuModal-basic" aria-label="よもぎ蒸しの詳細を開く">
         <!-- IMAGE: images/image-03.jpg ｜よもぎ蒸し（基本）／徳島県産無農薬よもぎ／1200×900px -->
@@ -3573,7 +3781,12 @@ body.menu-modal-open { overflow: hidden; }
       大切な人と並んで蒸す、特別な時間。<br>
       むすひだけのペアメニューを2種類ご用意しています。
     </p>
-    <div class="pair-grid">
+    <p class="mobile-swipe-hint mobile-swipe-hint--on-dark" aria-hidden="true">
+      <span class="mobile-swipe-hint__line"></span>
+      横にスワイプしてご覧いただけます
+      <span class="mobile-swipe-hint__line"></span>
+    </p>
+    <div class="pair-grid pair-grid--mobile-snap">
 
       <article class="pair-card" data-menu-modal="pair-basic" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="menuModal-pair-basic" aria-label="ペア蒸しの詳細を開く">
         <!-- IMAGE: images/image-06.jpg ｜ペア蒸し／2名がガウン姿で並ぶ／1200×750px -->
@@ -4337,6 +4550,22 @@ body.menu-modal-open { overflow: hidden; }
   </a>
 </div>
 
+<!-- 独立ギフトCTA (モバイル右下浮遊／既存ギフトモーダルを開く) -->
+<button type="button" class="float-gift-cta" id="floatGiftCta"
+        data-menu-modal-trigger="gift"
+        aria-label="ギフトチケットの詳細を見る">
+  <span class="float-gift-cta-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="9" width="18" height="12" rx="1.5"/>
+      <path d="M3 13h18"/>
+      <path d="M12 9v12"/>
+      <path d="M8.5 9c-1.4 0-2.5-1.1-2.5-2.5S7.1 4 8.5 4c1.5 0 3.5 2.5 3.5 5"/>
+      <path d="M15.5 9c1.4 0 2.5-1.1 2.5-2.5S16.9 4 15.5 4C14 4 12 6.5 12 9"/>
+    </svg>
+  </span>
+  <span class="float-gift-cta-text">ギフト</span>
+</button>
+
 <script>
   // ===== FAQ accordion =====
   document.querySelectorAll('.faq-q').forEach(btn => {
@@ -4360,18 +4589,47 @@ body.menu-modal-open { overflow: hidden; }
     document.body.style.overflow = '';
   }));
 
-  // ===== Floating CTA visibility =====
+  // ===== Floating CTA visibility (予約バー + ギフトボタン) =====
   const floatCta = document.getElementById('floatCta');
+  const floatGiftCta = document.getElementById('floatGiftCta');
   const heroHeight = window.innerHeight * 0.6;
   window.addEventListener('scroll', () => {
     if (window.scrollY > heroHeight) {
       floatCta.classList.add('show');
       document.body.classList.add('float-cta-visible');
+      if (floatGiftCta) floatGiftCta.classList.add('show');
     } else {
       floatCta.classList.remove('show');
       document.body.classList.remove('float-cta-visible');
+      if (floatGiftCta) floatGiftCta.classList.remove('show');
     }
   }, { passive: true });
+
+  // ===== Floating Gift CTA — 既存ギフトモーダルを開く =====
+  if (floatGiftCta) {
+    floatGiftCta.addEventListener('click', () => {
+      const giftModal = document.getElementById('menuModal-gift');
+      if (giftModal) {
+        // 既存モーダル制御の openModal 相当を再現（独立処理で干渉なし）
+        const scrollY = window.scrollY;
+        document.body.style.position = 'fixed';
+        document.body.style.top = '-' + scrollY + 'px';
+        document.body.style.width = '100%';
+        document.body.classList.add('menu-modal-open');
+        giftModal.classList.add('is-open');
+        giftModal.setAttribute('aria-hidden', 'false');
+        giftModal.dataset.openedFrom = 'floatGiftCta';
+        requestAnimationFrame(() => {
+          const closeBtn = giftModal.querySelector('.menu-modal__close');
+          if (closeBtn) closeBtn.focus();
+        });
+      } else {
+        // フォールバック: ギフトモーダルが無い場合は #menu へスクロール
+        const target = document.getElementById('menu');
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
 
   // ===== Fade-in observer =====
   const observer = new IntersectionObserver((entries) => {
