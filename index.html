@@ -470,6 +470,23 @@ iframe.map-image  { border: 1px solid var(--color-ohdo-pale); border-radius: var
   letter-spacing: 0.2em;
   color: var(--color-sumi);
 }
+/* CTAボタンは btn の本来の色を維持 (.mobile-menu a の color 上書きを打ち消す) */
+.mobile-menu a.btn-gold,
+.mobile-menu a.btn-primary {
+  color: var(--color-kinari);
+}
+.mobile-menu a.btn-secondary {
+  color: #fff;
+}
+.mobile-menu a.btn-outline {
+  color: var(--color-sumi);
+}
+.mobile-menu a.btn .btn-micro {
+  color: rgba(245, 239, 230, 0.78);
+}
+.mobile-menu a.btn-outline .btn-micro {
+  color: var(--color-sumi-soft);
+}
 .mobile-menu .btn { margin-top: 16px; min-width: 260px; }
 
 /* ============================================================
