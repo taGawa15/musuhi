@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>むすひ｜埼玉・所沢の黄土よもぎ蒸し専門サロン｜初回体験 ¥3,000〜</title>
-<meta name="description" content="埼玉・所沢の黄土よもぎ蒸し専門サロン「むすひ」。国産無農薬よもぎと黄土の蒸し窯で、冷え・巡り・心をまるごと整える。初回体験 ¥3,000〜／妊活ペアコース「産霊蒸し」もご用意。所沢駅・航空公園駅 徒歩12分。">
+<meta name="description" content="埼玉・所沢の黄土よもぎ蒸し専門サロン「むすひ」。国産無農薬よもぎと黄土の蒸し壺で、冷え・巡り・心をまるごと整える。初回体験 ¥3,000〜／妊活ペアコース「産霊蒸し」もご用意。所沢駅・航空公園駅 徒歩12分。">
 <meta name="keywords" content="よもぎ蒸し,所沢,埼玉,黄土,妊活,温活,冷え性,産霊蒸し,むすひ">
 <meta name="robots" content="index,follow">
 
@@ -2767,6 +2767,129 @@ body.menu-modal-open { overflow: hidden; }
   letter-spacing: 0.04em;
 }
 
+/* ============================================================
+   修正対応（v2）
+   ============================================================ */
+
+/* 価格 ¥X,XXX〜 を改行させない */
+.menu-meta-price,
+.menu-meta-price-trial,
+.menu-meta-price-normal,
+.pricing-row-price,
+.pricing-row-price-trial,
+.pricing-row-price-normal,
+.menu-modal__variant-trial,
+.menu-modal__variant-normal,
+.menu-modal__price-trial,
+.menu-modal__price-normal,
+.menu-modal__footer-amount {
+  white-space: nowrap;
+}
+.menu-meta { gap: 8px 12px; }
+@media (max-width: 480px) {
+  .menu-meta-price-trial { font-size: 19px; }
+}
+
+/* モーダル画像 — PCのみ表示、モバイルは非表示で本文を最大化 */
+.menu-modal__hero img {
+  aspect-ratio: 16 / 9;
+  max-height: 34vh;
+}
+@media (min-width: 768px) {
+  .menu-modal__hero img {
+    aspect-ratio: 16 / 7;
+    max-height: 40vh;
+  }
+}
+@media (max-width: 767px) {
+  .menu-modal__hero { display: none; }
+  /* 画像が無いため見出しの「画像オーバーラップ」用負マージンを解除 */
+  .menu-modal__head {
+    margin-top: 0;
+    padding-top: 28px;
+  }
+  /* 本文上端の余白を整える */
+  .menu-modal__body { padding-top: 8px; }
+  /* 閉じるボタンを生成り背景上で見やすく */
+  .menu-modal__close {
+    background: var(--color-kinari-light);
+    box-shadow: 0 2px 10px rgba(60, 30, 20, 0.14);
+  }
+}
+.menu-modal__head { padding-bottom: 28px; }
+.menu-modal__lead { line-height: 2.15; }
+.menu-modal__cards { gap: 18px; }
+@media (min-width: 600px) {
+  .menu-modal__cards { gap: 20px; }
+}
+.menu-modal__card { padding: 26px 24px 28px; }
+.menu-modal__card h3 { font-size: 16px; margin-bottom: 16px; }
+.menu-modal__card li { font-size: 14px; line-height: 2.05; padding: 5px 0 5px 22px; }
+
+/* PCで2カラム配置を強化 */
+@media (min-width: 768px) {
+  .menu-modal__cards { grid-template-columns: 1fr 1fr; gap: 22px; }
+  .menu-modal__card--wide { grid-column: 1 / -1; }
+}
+
+/* 「こんな方におすすめ」をチェックリスト風に */
+.menu-modal__check-list { padding: 4px 0; }
+.menu-modal__check-list li {
+  padding: 9px 0 9px 32px;
+  border-bottom: 1px dashed var(--color-ohdo-pale);
+  font-family: var(--serif);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  position: relative;
+}
+.menu-modal__check-list li:last-child { border-bottom: none; }
+.menu-modal__check-list li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 14px;
+  width: 14px;
+  height: 8px;
+  border-left: 1.5px solid var(--color-kurenai);
+  border-bottom: 1.5px solid var(--color-kurenai);
+  transform: rotate(-45deg);
+  background: none;
+  border-radius: 0;
+}
+.menu-modal__card--check { background: var(--color-sakura-pale); }
+.menu-modal__card--check h3 { color: var(--color-kurenai); }
+
+/* 産霊蒸し 使用素材：女性用/男性用/共通 グループ */
+.menu-modal__material-group { margin-bottom: 18px; }
+.menu-modal__material-group:last-child { margin-bottom: 0; }
+.menu-modal__material-title {
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: var(--color-kurenai);
+  font-weight: 500;
+  margin: 0 0 10px;
+  padding: 6px 12px;
+  background: var(--color-kinari-warm);
+  border-left: 3px solid var(--color-gold);
+  border-radius: 4px;
+}
+.menu-modal__material-group ul { display: grid; grid-template-columns: 1fr; gap: 0; }
+@media (min-width: 600px) {
+  .menu-modal__material-group ul { grid-template-columns: 1fr 1fr; gap: 0 16px; }
+}
+
+/* お客様の声 注釈 */
+.voice-disclaimer {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--color-sumi-soft);
+  text-align: center;
+  margin-top: 24px;
+  letter-spacing: 0.04em;
+  line-height: 1.8;
+}
+
 /* 全メニュー料金一覧：グループ見出し */
 .pricing-group-title {
   font-family: var(--serif);
@@ -2846,19 +2969,20 @@ body.menu-modal-open { overflow: hidden; }
      ============================================================ -->
 <section class="hero">
   <div class="hero-bg">
-    <!-- IMAGE: images/hero.jpg ｜ファーストビュー全面背景／湯気の立つ黄土の蒸し窯と提灯／2400×1350px推奨 -->
+    <!-- IMAGE: images/hero.jpg ｜ファーストビュー全面背景／湯気の立つ黄土の蒸し壺と提灯／2400×1350px推奨 -->
     <img src="images/hero.jpg" alt="" width="1920" height="1080" fetchpriority="high">
   </div>
   <div class="container hero-content">
     <div class="hero-badges">
       <span class="hero-badge">埼玉・所沢</span>
-      <span class="hero-badge">2017年〜運営</span>
+      <span class="hero-badge">2017年よりLe lien運営</span>
+      <span class="hero-badge">2026年 専門店として新たに展開</span>
       <span class="hero-badge">妊活ペアコース有り</span>
     </div>
     <p class="hero-subtitle">黄土よもぎ蒸し専門サロン</p>
     <h1 class="hero-title">命はいつも、<br>温かい場所に宿る。</h1>
     <p class="hero-sub">
-      国産・無農薬のよもぎと黄土の蒸し窯で、<br>
+      国産・無農薬のよもぎと黄土の蒸し壺で、<br>
       冷え・巡り・心をまるごと整える温活サロン。<br>
       所沢駅・航空公園駅から徒歩12分。
     </p>
@@ -2879,7 +3003,7 @@ body.menu-modal-open { overflow: hidden; }
     <div class="hero-trust">
       <span>前日までキャンセル無料</span>
       <span>女性専用個室</span>
-      <span>男性ペアOK</span>
+      <span>パートナーとのご来店もご相談ください</span>
     </div>
   </div>
   <div class="hero-scroll">SCROLL</div>
@@ -2897,7 +3021,7 @@ body.menu-modal-open { overflow: hidden; }
       </div>
       <div class="trust-item">
         <div class="trust-item-icon">弐</div>
-        <p class="trust-item-text">遠赤外線<br>黄土の蒸し窯</p>
+        <p class="trust-item-text">遠赤外線<br>黄土の蒸し壺</p>
       </div>
       <div class="trust-item">
         <div class="trust-item-icon">参</div>
@@ -3150,15 +3274,15 @@ body.menu-modal-open { overflow: hidden; }
       <div class="pricing-list">
         <div class="pricing-row">
           <div class="pricing-row-name"><strong>よもぎ蒸し 月4回まで</strong><small>1名様／月額</small></div>
-          <div class="pricing-row-price"><span class="pricing-row-price-trial">創業会員 ¥12,000</span><span class="pricing-row-price-normal">¥13,000</span></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">¥13,000</span></div>
         </div>
         <div class="pricing-row">
           <div class="pricing-row-name"><strong>漢方蒸し・発酵蒸し 月4回まで</strong><small>1名様／月額</small></div>
-          <div class="pricing-row-price"><span class="pricing-row-price-trial">創業会員 ¥13,000</span><span class="pricing-row-price-normal">¥14,000</span></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">¥14,000</span></div>
         </div>
         <div class="pricing-row">
           <div class="pricing-row-name"><strong>産霊プラン 月4回まで</strong><small>カップル・夫婦／月額</small></div>
-          <div class="pricing-row-price"><span class="pricing-row-price-trial">創業会員 ¥25,000</span><span class="pricing-row-price-normal">¥27,000</span></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">¥27,000</span></div>
         </div>
       </div>
 
@@ -3180,7 +3304,6 @@ body.menu-modal-open { overflow: hidden; }
 
       <p class="pricing-note">
         ※ 表示はすべて税込価格です／お支払いは現金・PayPayがご利用いただけます<br>
-        ※ 創業会員：個人10名・産霊（カップル夫婦）10組限定。体験当日ご入会の方のみ適用。永続割引。<br>
         ※ 体験3回券は初回体験者限定／前日までのキャンセルは無料です
       </p>
 
@@ -3217,11 +3340,11 @@ body.menu-modal-open { overflow: hidden; }
       <div class="commitment reverse">
         <div>
           <span class="commitment-num">02</span>
-          <h3 class="commitment-title">黄土の座器・蒸し窯</h3>
-          <p class="commitment-desc">身体だけでなく心までほぐされるように、座器・蒸し窯にはすべて黄土を採用。遠赤外線でじんわりと身体の芯から温まる、深く穏やかな心地良さを感じていただけます。</p>
+          <h3 class="commitment-title">黄土の座器・蒸し壺</h3>
+          <p class="commitment-desc">身体だけでなく心までほぐされるように、座器・蒸し壺にはすべて黄土を採用。遠赤外線でじんわりと身体の芯から温まる、深く穏やかな心地良さを感じていただけます。</p>
         </div>
-        <!-- IMAGE: images/image-09.jpg ｜こだわり②黄土／湯気立ちのぼる蒸し窯／1200×900px -->
-        <img src="images/image-09.jpg" alt="黄土の座器・蒸し窯" class="commitment-img" loading="lazy" width="600" height="450">
+        <!-- IMAGE: images/image-09.jpg ｜こだわり②黄土／湯気立ちのぼる蒸し壺／1200×900px -->
+        <img src="images/image-09.jpg" alt="黄土の座器・蒸し壺" class="commitment-img" loading="lazy" width="600" height="450">
       </div>
 
       <div class="commitment">
@@ -3231,7 +3354,7 @@ body.menu-modal-open { overflow: hidden; }
           <p class="commitment-desc">よもぎ蒸しは経皮吸収が高い施術だからこそ、お水にもこだわりました。不純物を除き、30種類以上のミネラルを含んだ高品質のお水を、惜しみなく使用しています。</p>
         </div>
         <!-- IMAGE: images/image-10.jpg ｜こだわり③お水／水が注がれる瞬間／1200×900px -->
-        <img src="images/image-10.jpg" alt="黄土の蒸し窯に注がれるミネラル豊富な水" class="commitment-img" loading="lazy" width="600" height="450">
+        <img src="images/image-10.jpg" alt="黄土の蒸し壺に注がれるミネラル豊富な水" class="commitment-img" loading="lazy" width="600" height="450">
       </div>
 
     </div>
@@ -3275,41 +3398,42 @@ body.menu-modal-open { overflow: hidden; }
 
       <article class="voice-card">
         <div class="voice-stars" aria-label="評価 5段階中5">★★★★★</div>
-        <p class="voice-text">「半年通って、長年の冷え性が驚くほど改善しました。漢方ブレンドを毎回相談できるのが心強くて、自分の体と向き合う時間そのものがご褒美です。」</p>
+        <p class="voice-text">「ホルモンバランスが乱れ、生理が止まっていましたが、何度か通ううちに自然に生理が戻ってきました。」</p>
         <div class="voice-meta">
           <div class="voice-avatar" aria-hidden="true">A</div>
           <div class="voice-author">
             <strong>30代女性 A様</strong>
-            漢方よもぎ蒸し 月4回会員
+            漢方よもぎ蒸し
           </div>
         </div>
       </article>
 
       <article class="voice-card">
         <div class="voice-stars" aria-label="評価 5段階中5">★★★★★</div>
-        <p class="voice-text">「夫婦で産霊蒸しを体験しました。一緒に素材を選んで蒸す時間が、想像以上に静かで温かくて。妊活が義務感ではなく、楽しみに変わりました。」</p>
+        <p class="voice-text">「普段から便秘ではないのですが、施術後はいつも以上にお通じが良く、お腹がスッキリしてびっくりしました！」</p>
         <div class="voice-meta">
           <div class="voice-avatar" aria-hidden="true">M</div>
           <div class="voice-author">
-            <strong>30代ご夫婦 M様</strong>
-            産霊蒸し 体験コース
-          </div>
-        </div>
-      </article>
-
-      <article class="voice-card">
-        <div class="voice-stars" aria-label="評価 5段階中5">★★★★★</div>
-        <p class="voice-text">「PMSと更年期の入り口で揺らいでいた時期、友人に勧められて。発酵よもぎ蒸しは肌の調子も整って、心の重さも自然と軽くなっていきました。」</p>
-        <div class="voice-meta">
-          <div class="voice-avatar" aria-hidden="true">K</div>
-          <div class="voice-author">
-            <strong>40代女性 K様</strong>
+            <strong>30代女性 M様</strong>
             発酵よもぎ蒸し
           </div>
         </div>
       </article>
 
+      <article class="voice-card">
+        <div class="voice-stars" aria-label="評価 5段階中5">★★★★★</div>
+        <p class="voice-text">「生理前になると気分の落ち込みが激しかったのですが、よもぎ蒸しを受けてから気持ちが安定してきた気がします。以前は貧血のようなつらさもありましたが、仕事中も楽に過ごせるようになりました。毎月の生理がこんなに楽になるなら、続けてみようと思います。」</p>
+        <div class="voice-meta">
+          <div class="voice-avatar" aria-hidden="true">K</div>
+          <div class="voice-author">
+            <strong>40代女性 K様</strong>
+            漢方よもぎ蒸し
+          </div>
+        </div>
+      </article>
+
     </div>
+    <p class="voice-disclaimer">※ お客様個人の感想であり、体感には個人差があります。</p>
 
     <!-- ── 中段：写真ギャラリー（横スクロール式スナップスライダー） ── -->
     <div class="vm-gallery-head">
@@ -3333,7 +3457,7 @@ body.menu-modal-open { overflow: hidden; }
         <figcaption>したたる汗を体感してみて</figcaption>
       </figure>
       <figure class="vm-card">
-        <img src="images/voice/voice-02.jpg" alt="黄土の蒸し窯のあたたかさ" loading="lazy" width="800" height="800">
+        <img src="images/voice/voice-02.jpg" alt="黄土の蒸し壺のあたたかさ" loading="lazy" width="800" height="800">
         <figcaption>芯からポカポカ</figcaption>
       </figure>
       <figure class="vm-card vm-card--tall">
@@ -3457,7 +3581,7 @@ body.menu-modal-open { overflow: hidden; }
     <h2 class="section-title">ご来店から<br>お帰りまで。</h2>
     <p class="section-lead">
       初めての方も、安心してお過ごしいただける流れをご用意しています。<br>
-      所要時間はメニューにより60〜80分です。
+      所要時間はメニューにより60〜70分です。
     </p>
     <div class="flow-list">
 
@@ -3490,20 +3614,7 @@ body.menu-modal-open { overflow: hidden; }
       <div class="flow-step">
         <div class="flow-num">03</div>
         <div class="flow-img-wrap">
-          <!-- IMAGE: images/image-13.jpg ｜流れ③よもぎの調合／800×600px -->
-          <img src="images/image-13.jpg" alt="よもぎの調合" class="flow-step-img" loading="lazy" width="800" height="600">
-        </div>
-        <div class="flow-content">
-          <span class="duration">約5分</span>
-          <h3>よもぎの調合</h3>
-          <p>体質とお悩みに合わせて、その日のあなただけのブレンドを調合します。素材の香りと色を感じる、静かなひととき。</p>
-        </div>
-      </div>
-
-      <div class="flow-step">
-        <div class="flow-num">04</div>
-        <div class="flow-img-wrap">
-          <!-- IMAGE: images/image-14.jpg ｜流れ④お着替え／800×600px -->
+          <!-- IMAGE: images/image-14.jpg ｜流れ③お着替え／800×600px -->
           <img src="images/image-14.jpg" alt="お着替え" class="flow-step-img" loading="lazy" width="800" height="600">
         </div>
         <div class="flow-content">
@@ -3514,15 +3625,28 @@ body.menu-modal-open { overflow: hidden; }
       </div>
 
       <div class="flow-step">
-        <div class="flow-num">05</div>
+        <div class="flow-num">04</div>
         <div class="flow-img-wrap">
-          <!-- IMAGE: images/image-15.jpg ｜流れ⑤蒸し体験／800×600px -->
+          <!-- IMAGE: images/image-15.jpg ｜流れ④蒸し体験／800×600px -->
           <img src="images/image-15.jpg" alt="蒸し体験" class="flow-step-img" loading="lazy" width="800" height="600">
         </div>
         <div class="flow-content">
-          <span class="duration">30〜45分</span>
+          <span class="duration">40分</span>
           <h3>蒸し体験</h3>
           <p>黄土の座器に腰掛けて、立ちのぼる湯気にゆっくりと身を委ねていただきます。芯まで温まる、満ちる時間。</p>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-num">05</div>
+        <div class="flow-img-wrap">
+          <!-- IMAGE: images/image-13.jpg ｜流れ⑤アフターティー&アフターカウンセリング／800×600px -->
+          <img src="images/image-13.jpg" alt="アフターティー&アフターカウンセリング" class="flow-step-img" loading="lazy" width="800" height="600">
+        </div>
+        <div class="flow-content">
+          <span class="duration">約10分</span>
+          <h3>アフターティー &amp; アフターカウンセリング</h3>
+          <p>温まった身体にやさしいお茶をお召し上がりいただきながら、体調の変化や次回までのご相談など、ゆっくりとお話しします。</p>
         </div>
       </div>
 
@@ -3548,7 +3672,7 @@ body.menu-modal-open { overflow: hidden; }
         <div class="faq-a">
           <div class="faq-a-inner">
             <span class="a-mark">A.</span>
-            <p>生理中もご利用いただけます。よもぎ蒸しは、婦人科系のケアにも親しまれてきた温活法です。ご不安な点があれば、ご予約時にお気軽にご相談ください。</p>
+            <p>生理中も身体を温めることで、生理痛の緩和や血流促進による巡りのサポートが期待できます。ただし、当店では衛生面への配慮と身体への負担を考慮し、出血中は足蒸しと顔むしのみの対応とさせていただきます。ショーツを履いていただき、いつも通り温まっていただきます。汗をかきますので、必ず替えの下着をご持参ください。</p>
           </div>
         </div>
       </div>
@@ -3604,7 +3728,7 @@ body.menu-modal-open { overflow: hidden; }
         <div class="faq-a">
           <div class="faq-a-inner">
             <span class="a-mark">A.</span>
-            <p>特にご準備いただくものはございません。フェイスタオル・専用ガウン・お飲み物などはこちらでご用意しております。</p>
+            <p>お飲み物をご持参ください。</p>
           </div>
         </div>
       </div>
@@ -3618,7 +3742,7 @@ body.menu-modal-open { overflow: hidden; }
         <div class="faq-a">
           <div class="faq-a-inner">
             <span class="a-mark">A.</span>
-            <p>蒸しの間に汗をかきますので、メイクは落としてからのご利用をおすすめしております。クレンジングのご用意もございます。</p>
+            <p>素肌で受けていただくことをおすすめいたします。</p>
           </div>
         </div>
       </div>
@@ -3774,7 +3898,7 @@ body.menu-modal-open { overflow: hidden; }
     <p class="footer-info">
       〒359-1122 埼玉県所沢市寿町25-7 CENTRAL GINZA 201<br>
       Tel. 070-3643-1133｜営業時間 10:00 - 20:00（不定休）<br>
-      所沢駅・航空公園駅 徒歩12分／2017年〜運営
+      所沢駅・航空公園駅 徒歩12分／2017年よりLe lien運営
     </p>
     <div class="footer-sns">
       <a href="https://www.instagram.com/musuhi_yomogi/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
@@ -4025,7 +4149,7 @@ body.menu-modal-open { overflow: hidden; }
       <header class="menu-modal__head">
         <span class="menu-modal__en">Basic</span>
         <h2 class="menu-modal__title" id="menuModal-basic-title">よもぎ蒸し</h2>
-        <p class="menu-modal__lead">徳島県産・無農薬よもぎを使用した、むすひの基本メニューです。よもぎ本来の力強い香りと、黄土の蒸し窯から立ちのぼる温かな湯気で、身体を芯からじんわり温めます。はじめての方にもおすすめです。</p>
+        <p class="menu-modal__lead">徳島県産・無農薬よもぎを使用した、むすひの基本メニューです。よもぎ本来の力強い香りと、黄土の蒸し壺から立ちのぼる温かな湯気で、身体を芯からじんわり温めます。はじめての方にもおすすめです。</p>
       </header>
 
       <dl class="menu-modal__price">
@@ -4044,13 +4168,14 @@ body.menu-modal-open { overflow: hidden; }
       </dl>
 
       <div class="menu-modal__cards">
-        <section class="menu-modal__card">
+        <section class="menu-modal__card menu-modal__card--check">
           <h3>こんな方におすすめ</h3>
-          <ul>
-            <li>よもぎ蒸しが初めての方</li>
-            <li>冷えが気になる方</li>
-            <li>まずは基本メニューから試したい方</li>
-            <li>リラックスしたい方</li>
+          <ul class="menu-modal__check-list">
+            <li>冷え・むくみが気になる方</li>
+            <li>生理不順・生理痛に悩む方</li>
+            <li>肌荒れ・乾燥が続く方</li>
+            <li>自律神経の乱れ・ストレスを感じる方</li>
+            <li>産後のケア・体質改善をしたい方</li>
           </ul>
         </section>
         <section class="menu-modal__card">
@@ -4067,17 +4192,16 @@ body.menu-modal-open { overflow: hidden; }
           <ul>
             <li>徳島県産 無農薬よもぎ</li>
             <li>30種類以上のミネラルを含む水</li>
-            <li>黄土の座器・蒸し窯</li>
+            <li>黄土の座器・蒸し壺</li>
           </ul>
         </section>
         <section class="menu-modal__card">
           <h3>施術の流れ</h3>
           <ol>
             <li>カウンセリング</li>
-            <li>よもぎの準備</li>
             <li>お着替え</li>
-            <li>黄土座器で蒸し体験</li>
-            <li>アフターティー</li>
+            <li>黄土座器で蒸し体験(40分)</li>
+            <li>アフターティー &amp; アフターカウンセリング</li>
           </ol>
         </section>
       </div>
@@ -4130,13 +4254,15 @@ body.menu-modal-open { overflow: hidden; }
       </dl>
 
       <div class="menu-modal__cards">
-        <section class="menu-modal__card">
+        <section class="menu-modal__card menu-modal__card--check">
           <h3>こんな方におすすめ</h3>
-          <ul>
+          <ul class="menu-modal__check-list">
             <li>冷えや巡りの滞りが気になる方</li>
-            <li>月経前後の不調が気になる方</li>
-            <li>更年期のゆらぎが気になる方</li>
-            <li>体質に合わせたケアをしたい方</li>
+            <li>月経痛・PMS・生理不順が気になる方</li>
+            <li>更年期のゆらぎ・不調をケアしたい方</li>
+            <li>ダイエット・体質改善に取り組みたい方</li>
+            <li>肌荒れ・乾燥など肌のお悩みがある方</li>
+            <li>自分の体質に合ったケアをしたい方</li>
           </ul>
         </section>
         <section class="menu-modal__card">
@@ -4154,7 +4280,7 @@ body.menu-modal-open { overflow: hidden; }
             <li>国産無農薬よもぎ</li>
             <li>漢方素材</li>
             <li>30種類以上のミネラルを含む水</li>
-            <li>黄土の座器・蒸し窯</li>
+            <li>黄土の座器・蒸し壺</li>
           </ul>
         </section>
         <section class="menu-modal__card">
@@ -4164,13 +4290,13 @@ body.menu-modal-open { overflow: hidden; }
             <li>体質やお悩みに合わせたブレンド選択</li>
             <li>素材の香りを確認</li>
             <li>お着替え</li>
-            <li>蒸し体験</li>
-            <li>アフターティー</li>
+            <li>蒸し体験(40分)</li>
+            <li>アフターティー &amp; アフターカウンセリング</li>
           </ol>
         </section>
       </div>
 
-      <p class="menu-modal__note">漢方素材にアレルギーがある方は、事前にスタッフへお知らせください。</p>
+      <p class="menu-modal__note">素材にアレルギーがある方は、事前にスタッフへお知らせください。</p>
     </div>
 
     <footer class="menu-modal__footer">
@@ -4218,13 +4344,13 @@ body.menu-modal-open { overflow: hidden; }
       </dl>
 
       <div class="menu-modal__cards">
-        <section class="menu-modal__card">
+        <section class="menu-modal__card menu-modal__card--check">
           <h3>こんな方におすすめ</h3>
-          <ul>
+          <ul class="menu-modal__check-list">
             <li>美肌・美髪ケアに関心がある方</li>
-            <li>発酵素材が好きな方</li>
+            <li>腸活・便秘が気になる方</li>
             <li>ホルモンバランスのゆらぎが気になる方</li>
-            <li>少し贅沢なセルフケアをしたい方</li>
+            <li>自分へのご褒美時間を持ちたい方</li>
           </ul>
         </section>
         <section class="menu-modal__card">
@@ -4244,7 +4370,7 @@ body.menu-modal-open { overflow: hidden; }
             <li>豆麹</li>
             <li>米ぬか</li>
             <li>30種類以上のミネラルを含む水</li>
-            <li>黄土の座器・蒸し窯</li>
+            <li>黄土の座器・蒸し壺</li>
           </ul>
         </section>
         <section class="menu-modal__card">
@@ -4254,8 +4380,8 @@ body.menu-modal-open { overflow: hidden; }
             <li>発酵ブレンドの確認</li>
             <li>香りの確認</li>
             <li>お着替え</li>
-            <li>蒸し体験</li>
-            <li>アフターティー</li>
+            <li>蒸し体験(40分)</li>
+            <li>アフターティー &amp; アフターカウンセリング</li>
           </ol>
         </section>
       </div>
@@ -4334,12 +4460,12 @@ body.menu-modal-open { overflow: hidden; }
       </dl>
 
       <div class="menu-modal__cards">
-        <section class="menu-modal__card">
+        <section class="menu-modal__card menu-modal__card--check">
           <h3>こんな方におすすめ</h3>
-          <ul>
+          <ul class="menu-modal__check-list">
             <li>お友達と一緒に温活したい方</li>
             <li>ご家族とゆっくり過ごしたい方</li>
-            <li>男性も同伴で体験してみたい方</li>
+            <li>パートナーと同伴で体験してみたい方</li>
             <li>まずは気軽にペアで始めたい方</li>
           </ul>
         </section>
@@ -4359,7 +4485,7 @@ body.menu-modal-open { overflow: hidden; }
             <li>漢方素材（漢方ブレンド選択時）</li>
             <li>玄米・豆麹・米ぬか（発酵ブレンド選択時）</li>
             <li>30種類以上のミネラルを含む水</li>
-            <li>黄土の座器・蒸し窯</li>
+            <li>黄土の座器・蒸し壺</li>
           </ul>
         </section>
         <section class="menu-modal__card">
@@ -4369,8 +4495,8 @@ body.menu-modal-open { overflow: hidden; }
             <li>各自のブレンド選択</li>
             <li>素材の香りを確認</li>
             <li>お着替え</li>
-            <li>並んで蒸し体験</li>
-            <li>アフターティーをご一緒に</li>
+            <li>並んで蒸し体験(40分)</li>
+            <li>アフターティー &amp; アフターカウンセリング</li>
           </ol>
         </section>
       </div>
@@ -4423,9 +4549,9 @@ body.menu-modal-open { overflow: hidden; }
       </dl>
 
       <div class="menu-modal__cards">
-        <section class="menu-modal__card">
+        <section class="menu-modal__card menu-modal__card--check">
           <h3>こんな方におすすめ</h3>
-          <ul>
+          <ul class="menu-modal__check-list">
             <li>妊活に取り組まれているご夫婦</li>
             <li>パートナーと一緒に温活したい方</li>
             <li>男性側も体質改善に関心がある方</li>
@@ -4441,31 +4567,56 @@ body.menu-modal-open { overflow: hidden; }
             <li>「結ぶ」を体感する静かな心地よさ</li>
           </ul>
         </section>
-        <section class="menu-modal__card">
+        <section class="menu-modal__card menu-modal__card--wide">
           <h3>使用素材</h3>
-          <ul>
-            <li>国産無農薬よもぎ</li>
-            <li>女性用 妊活漢方ブレンド</li>
-            <li>男性用 妊活漢方ブレンド</li>
-            <li>発酵素材（玄米・豆麹・米ぬか）</li>
-            <li>30種類以上のミネラルを含む水</li>
-            <li>黄土の座器・蒸し窯</li>
-          </ul>
+          <div class="menu-modal__material-group">
+            <h4 class="menu-modal__material-title">女性用ブレンド</h4>
+            <ul>
+              <li>国産無農薬よもぎ（徳島県産）</li>
+              <li>よもぎもぐさ</li>
+              <li>米麹</li>
+              <li>豆麹</li>
+              <li>米ぬか</li>
+              <li>紅花</li>
+              <li>松葉</li>
+              <li>生姜（乾燥）</li>
+            </ul>
+          </div>
+          <div class="menu-modal__material-group">
+            <h4 class="menu-modal__material-title">男性用ブレンド</h4>
+            <ul>
+              <li>国産無農薬よもぎ（徳島県産）</li>
+              <li>ビーツパウダー</li>
+              <li>パンプキンシードパウダー</li>
+              <li>米麹</li>
+              <li>米ぬか</li>
+              <li>紅花</li>
+              <li>松葉</li>
+              <li>生姜（乾燥）</li>
+            </ul>
+          </div>
+          <div class="menu-modal__material-group">
+            <h4 class="menu-modal__material-title">共通素材</h4>
+            <ul>
+              <li>30種類以上のミネラルを含む水</li>
+              <li>黄土の座器・蒸し壺</li>
+            </ul>
+          </div>
         </section>
         <section class="menu-modal__card">
           <h3>施術の流れ</h3>
           <ol>
-            <li>ご夫婦カウンセリング（ご相談含む）</li>
-            <li>女性用・男性用それぞれの素材選び</li>
-            <li>お二人の手で調合</li>
-            <li>香りの確認とお着替え</li>
-            <li>並んで蒸し体験（70分）</li>
-            <li>アフターティーとご感想</li>
+            <li>カウンセリング（相談含む）</li>
+            <li>女性用、男性用の素材をお2人の手で結ぶ</li>
+            <li>素材の香りを確認</li>
+            <li>お着替え</li>
+            <li>並んで蒸し体験(40分)</li>
+            <li>アフターティー &amp; アフターカウンセリング</li>
           </ol>
         </section>
       </div>
 
-      <p class="menu-modal__note">本メニューはカップル・ご夫婦限定です。妊娠中の方のご利用はお控えください。漢方素材にアレルギーがある方は、事前にスタッフへお知らせください。</p>
+      <p class="menu-modal__note">本メニューはカップル・ご夫婦限定です。妊娠中の方のご利用はお控えください。素材に不安がある方は事前にご相談ください。</p>
     </div>
 
     <footer class="menu-modal__footer">
