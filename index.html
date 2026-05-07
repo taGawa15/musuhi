@@ -2880,6 +2880,336 @@ body.menu-modal-open { overflow: hidden; }
 }
 
 /* ============================================================
+   Marketing Improvements (v3) — CV最適化
+   ============================================================ */
+
+/* ── Hero offer 強化版 ── */
+.hero-offer--strong {
+  display: block;
+  padding: 16px 20px 14px;
+  border-radius: 14px;
+  background: rgba(245, 239, 230, 0.1);
+  border: 1px solid var(--color-gold);
+  backdrop-filter: blur(6px);
+}
+.hero-offer-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.hero-offer--strong .hero-offer-label {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: var(--color-gold);
+}
+.hero-offer--strong .hero-offer-price {
+  font-size: 30px;
+  color: var(--color-kinari);
+  font-family: var(--serif-en);
+}
+@media (min-width: 768px) {
+  .hero-offer--strong .hero-offer-price { font-size: 36px; }
+}
+.hero-offer--strong .hero-offer-price small {
+  font-size: 11px;
+  margin-left: 4px;
+  color: rgba(245, 239, 230, 0.7);
+}
+.hero-offer-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-family: var(--sans);
+  font-size: 11px;
+  color: rgba(245, 239, 230, 0.85);
+  letter-spacing: 0.06em;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(212, 175, 55, 0.4);
+}
+.hero-offer-points li {
+  position: relative;
+  padding-left: 14px;
+}
+.hero-offer-points li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+/* ── Hero CTA: メイン1本＋サブリンク2本 ── */
+.hero-cta-row--solo { max-width: 420px; }
+.hero-cta-main {
+  width: 100%;
+  padding: 22px 36px;
+  font-size: 16px;
+  letter-spacing: 0.15em;
+  box-shadow: 0 10px 26px rgba(122, 30, 30, 0.36);
+}
+.hero-cta-main:hover {
+  box-shadow: 0 14px 32px rgba(122, 30, 30, 0.48);
+}
+.hero-cta-sub {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0 24px;
+  flex-wrap: wrap;
+  font-family: var(--serif);
+  font-size: 13px;
+  color: rgba(245, 239, 230, 0.92);
+  letter-spacing: 0.06em;
+}
+.hero-cta-sub-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(245, 239, 230, 0.92);
+  border-bottom: 1px solid transparent;
+  transition: border-color .25s, color .25s;
+  padding: 4px 0;
+}
+.hero-cta-sub-link:hover {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+}
+.hero-cta-sub-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-size: 11px;
+  font-family: var(--serif-en);
+}
+.hero-cta-sub-icon--line {
+  background: #06c755;
+  border-color: #06c755;
+  color: #fff;
+  font-weight: 600;
+}
+.hero-cta-sub-note {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(245, 239, 230, 0.6);
+}
+.hero-cta-sub-divider {
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  background: rgba(245, 239, 230, 0.25);
+}
+@media (max-width: 480px) {
+  .hero-cta-sub-divider { display: none; }
+  .hero-cta-sub { gap: 6px 14px; }
+}
+
+/* ── Trust Stats (実績数値ライン) ── */
+.trust-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 0 auto 36px;
+  max-width: 1100px;
+  padding: 0 16px;
+  list-style: none;
+}
+@media (min-width: 768px) {
+  .trust-stats {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--color-ohdo-pale);
+  }
+}
+.trust-stats li {
+  text-align: center;
+  position: relative;
+}
+@media (min-width: 768px) {
+  .trust-stats li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -12px; top: 50%;
+    width: 1px; height: 36px;
+    background: var(--color-ohdo-pale);
+    transform: translateY(-50%);
+  }
+}
+.trust-stats__num {
+  display: block;
+  font-family: var(--serif-en);
+  font-size: 32px;
+  color: var(--color-kurenai);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+@media (min-width: 768px) {
+  .trust-stats__num { font-size: 38px; }
+}
+.trust-stats__num small {
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--color-ohdo);
+  margin-left: 2px;
+  font-weight: 400;
+}
+.trust-stats__label {
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--color-sumi-soft);
+  line-height: 1.6;
+  display: block;
+}
+@media (min-width: 768px) {
+  .trust-stats__label { font-size: 12px; }
+}
+
+/* ── メニュー直後のハイライトレビュー ── */
+.menu-highlight-voice {
+  margin: 56px auto 0;
+  max-width: 720px;
+  background: var(--color-kinari-light);
+  border: 1px solid var(--color-ohdo-pale);
+  border-radius: var(--radius-image);
+  padding: 28px 28px 22px;
+  position: relative;
+  box-shadow: var(--shadow-soft);
+}
+.menu-highlight-voice__quote {
+  font-family: var(--serif-en);
+  font-size: 56px;
+  line-height: 1;
+  color: var(--color-gold);
+  position: absolute;
+  top: 8px;
+  left: 18px;
+  opacity: 0.4;
+  font-style: italic;
+}
+.menu-highlight-voice__text {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 2.1;
+  color: var(--color-sumi);
+  letter-spacing: 0.06em;
+  margin: 0 0 14px;
+  position: relative;
+  z-index: 1;
+  padding-left: 8px;
+}
+@media (min-width: 768px) {
+  .menu-highlight-voice__text { font-size: 16px; }
+}
+.menu-highlight-voice__meta {
+  font-size: 12px;
+  color: var(--color-sumi-soft);
+  letter-spacing: 0.06em;
+  padding-top: 14px;
+  border-top: 1px dashed var(--color-ohdo-pale);
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: center;
+}
+.menu-highlight-voice__meta strong {
+  font-family: var(--serif);
+  color: var(--color-sumi);
+  font-weight: 500;
+}
+.menu-highlight-voice__link {
+  color: var(--color-kurenai);
+  font-family: var(--serif);
+  border-bottom: 1px solid var(--color-ohdo-pale);
+  padding-bottom: 1px;
+  margin-left: auto;
+  transition: color .25s, border-color .25s;
+}
+.menu-highlight-voice__link:hover {
+  color: var(--color-kurenai-deep);
+  border-color: var(--color-kurenai);
+}
+
+/* ── 最終CTAの特典まとめ ── */
+.final-cta-perks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  max-width: 540px;
+  margin: 0 auto 32px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(212, 175, 55, 0.35);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  list-style: none;
+}
+.final-cta-perks li {
+  text-align: center;
+  position: relative;
+}
+.final-cta-perks li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 50%;
+  width: 1px; height: 38px;
+  background: rgba(212, 175, 55, 0.3);
+  transform: translateY(-50%);
+}
+.final-cta-perks__num {
+  display: block;
+  font-family: var(--serif-en);
+  font-size: 24px;
+  color: var(--color-gold);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+  line-height: 1.1;
+}
+@media (min-width: 768px) {
+  .final-cta-perks__num { font-size: 30px; }
+}
+.final-cta-perks__num small {
+  font-size: 12px;
+  color: var(--color-gold);
+  margin-left: 2px;
+  opacity: 0.85;
+}
+.final-cta-perks__label {
+  font-family: var(--serif);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(245, 239, 230, 0.85);
+  line-height: 1.6;
+  display: block;
+}
+@media (min-width: 768px) {
+  .final-cta-perks__label { font-size: 11px; }
+}
+.final-cta-line {
+  margin-top: 24px;
+  font-family: var(--serif);
+  font-size: 13px;
+  color: rgba(245, 239, 230, 0.78);
+  letter-spacing: 0.06em;
+}
+.final-cta-line a {
+  color: var(--color-gold);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+.final-cta-line a:hover { color: var(--color-gold-bright); }
+
+/* ============================================================
    Mobile Card Slider — 通常メニュー / ペアメニューを横スワイプ化
    ============================================================ */
 .mobile-swipe-hint { display: none; }
@@ -3542,35 +3872,49 @@ body.menu-modal-open .float-gift-cta {
   </div>
   <div class="container hero-content">
     <div class="hero-badges">
-      <span class="hero-badge">埼玉・所沢</span>
+      <span class="hero-badge">埼玉・所沢｜駅徒歩12分</span>
       <span class="hero-badge">2017年よりLe lien運営</span>
-      <span class="hero-badge">2026年 専門店として新たに展開</span>
       <span class="hero-badge">妊活ペアコース有り</span>
     </div>
     <p class="hero-subtitle">黄土よもぎ蒸し専門サロン</p>
     <h1 class="hero-title">命はいつも、<br>温かい場所に宿る。</h1>
     <p class="hero-sub">
-      国産・無農薬のよもぎと黄土の蒸し壺で、<br>
-      冷え・巡り・心をまるごと整える温活サロン。<br>
-      所沢駅・航空公園駅から徒歩12分。
+      <strong>冷え・生理痛・妊活・美肌</strong>のお悩みに、<br>
+      国産無農薬よもぎと黄土の蒸し壺で寄り添うサロン。
     </p>
-    <div class="hero-offer">
-      <span class="hero-offer-label">初回限定</span>
-      <span class="hero-offer-price">¥3,000<small>〜（税込）</small></span>
+    <div class="hero-offer hero-offer--strong">
+      <div class="hero-offer-main">
+        <span class="hero-offer-label">初回限定 / 60分</span>
+        <span class="hero-offer-price">¥3,000<small>(税込)</small></span>
+      </div>
+      <ul class="hero-offer-points">
+        <li>追加料金なし</li>
+        <li>当日予約OK</li>
+        <li>前日までキャンセル無料</li>
+      </ul>
     </div>
-    <div class="hero-cta-row">
-      <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-gold">
-        初回体験を予約する <span class="arrow">→</span>
+    <div class="hero-cta-row hero-cta-row--solo">
+      <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary hero-cta-main">
+        初回 ¥3,000 で予約する <span class="arrow">→</span>
         <span class="btn-micro">24時間オンライン予約OK</span>
       </a>
-      <a href="tel:07036431133" class="btn btn-outline">
-        070-3643-1133
-        <span class="btn-micro">10:00 - 20:00</span>
+    </div>
+    <div class="hero-cta-sub">
+      <a href="tel:07036431133" class="hero-cta-sub-link">
+        <span class="hero-cta-sub-icon" aria-hidden="true">☎</span>
+        <span>070-3643-1133</span>
+        <span class="hero-cta-sub-note">10:00 - 20:00</span>
+      </a>
+      <span class="hero-cta-sub-divider" aria-hidden="true"></span>
+      <!-- LINE: 仮リンク。LINE公式アカウントURLに差し替えてください -->
+      <a href="#" target="_blank" rel="noopener" class="hero-cta-sub-link" data-placeholder="LINE公式URL未設定">
+        <span class="hero-cta-sub-icon hero-cta-sub-icon--line" aria-hidden="true">L</span>
+        <span>LINEで気軽に相談</span>
       </a>
     </div>
     <div class="hero-trust">
-      <span>前日までキャンセル無料</span>
       <span>女性専用個室</span>
+      <span>2026年 よもぎ蒸し専門店として新展開</span>
       <span>パートナーとのご来店もご相談ください</span>
     </div>
   </div>
@@ -3582,6 +3926,25 @@ body.menu-modal-open .float-gift-cta {
      ============================================================ -->
 <div class="trust-strip">
   <div class="container">
+    <!-- 具体実績ライン -->
+    <ul class="trust-stats" aria-label="むすひの実績">
+      <li>
+        <span class="trust-stats__num">9<small>年</small></span>
+        <span class="trust-stats__label">運営の実績</span>
+      </li>
+      <li>
+        <span class="trust-stats__num">24<small>h</small></span>
+        <span class="trust-stats__label">ネット予約OK</span>
+      </li>
+      <li>
+        <span class="trust-stats__num">徒歩12<small>分</small></span>
+        <span class="trust-stats__label">所沢駅・航空公園駅</span>
+      </li>
+      <li>
+        <span class="trust-stats__num">¥0</span>
+        <span class="trust-stats__label">前日まで<br>キャンセル無料</span>
+      </li>
+    </ul>
     <div class="trust-grid">
       <div class="trust-item">
         <div class="trust-item-icon">壱</div>
@@ -3615,14 +3978,12 @@ body.menu-modal-open .float-gift-cta {
       むすひは、その奥にある「冷え」と「巡り」から整える場所です。
     </p>
     <ul class="problems-list">
-      <li class="problem-item">手足の冷えがつらく、夏でも芯から冷えている</li>
-      <li class="problem-item">月経痛・PMS・周期の乱れに悩まされている</li>
+      <li class="problem-item">手足の冷え・むくみが、夏でもつらい</li>
+      <li class="problem-item">生理痛・PMS・周期の乱れに悩んでいる</li>
       <li class="problem-item">妊活中で、夫婦で取り組める温活を探している</li>
-      <li class="problem-item">産後の体調回復、ホルモンバランスが気になる</li>
-      <li class="problem-item">更年期の不調をやわらかく整えたい</li>
-      <li class="problem-item">疲れが抜けず、心がほどけない時間が続く</li>
-      <li class="problem-item">経皮吸収の施術だから、素材の安全性が気になる</li>
-      <li class="problem-item">自分のためだけの、静かな時間を持ちたい</li>
+      <li class="problem-item">産後・更年期のホルモンバランスを整えたい</li>
+      <li class="problem-item">肌荒れ・乾燥・腸の調子が気になる</li>
+      <li class="problem-item">自分のためだけの、静かな時間がほしい</li>
     </ul>
     <div class="problems-cta">
       <p class="problems-cta-text">ひとつでも当てはまる方へ。</p>
@@ -3761,10 +4122,17 @@ body.menu-modal-open .float-gift-cta {
       </aside>
     </article>
 
-    <div class="text-center mt-48">
-      <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-gold">
-        初回体験を予約する <span class="arrow">→</span>
-        <span class="btn-micro">前日までキャンセル無料</span>
+    <!-- ハイライトレビュー（メニュー検討中の信頼形成） -->
+    <aside class="menu-highlight-voice" aria-label="お客様の声ハイライト">
+      <span class="menu-highlight-voice__quote" aria-hidden="true">&ldquo;</span>
+      <p class="menu-highlight-voice__text">「半年通って、長年の冷えと生理痛が驚くほど楽になりました。自分の体と向き合う時間そのものがご褒美です。」</p>
+      <p class="menu-highlight-voice__meta"><strong>30代女性 A様</strong>　漢方よもぎ蒸し　<a href="#voice" class="menu-highlight-voice__link">他のお客様の声を見る →</a></p>
+    </aside>
+
+    <div class="text-center mt-48 menu-final-cta">
+      <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary">
+        初回 ¥3,000 で予約する <span class="arrow">→</span>
+        <span class="btn-micro">24時間オンライン予約OK ／ 前日までキャンセル無料</span>
       </a>
     </div>
   </div>
@@ -4492,12 +4860,19 @@ body.menu-modal-open .float-gift-cta {
   <div class="container">
     <img src="images/logo-white.png" alt="むすひ" class="final-cta-logo" width="88" height="116">
     <span class="section-label">Reservation</span>
-    <h2 class="section-title">あなたの「結ぶ」時間を、<br>むすひで。</h2>
+    <h2 class="section-title">迷ったら、まず<br>初回体験から。</h2>
     <p class="final-cta-msg">
-      命はいつも、温かい場所に宿る。<br>
       むすひの時間が、あなたと大切な人の<br>
       新しい一歩のきっかけになりますように。
     </p>
+
+    <!-- 特典まとめ -->
+    <ul class="final-cta-perks" aria-label="ご予約特典">
+      <li><span class="final-cta-perks__num">¥3,000</span><span class="final-cta-perks__label">初回 60分体験<br>(税込・追加料金なし)</span></li>
+      <li><span class="final-cta-perks__num">¥0</span><span class="final-cta-perks__label">前日まで<br>キャンセル無料</span></li>
+      <li><span class="final-cta-perks__num">24<small>h</small></span><span class="final-cta-perks__label">オンライン予約<br>当日も対応</span></li>
+    </ul>
+
     <div class="final-cta-buttons">
       <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-gold">
         初回 ¥3,000で予約する <span class="arrow">→</span>
@@ -4508,6 +4883,12 @@ body.menu-modal-open .float-gift-cta {
         <span class="btn-micro">10:00 - 20:00</span>
       </a>
     </div>
+    <!-- LINE: 仮リンク。LINE公式アカウントURLに差し替えてください -->
+    <p class="final-cta-line">
+      気になる点はお気軽に &gt;
+      <a href="#" target="_blank" rel="noopener" data-placeholder="LINE公式URL未設定">LINEでご相談</a>
+      も承っています。
+    </p>
   </div>
 </section>
 
