@@ -2879,6 +2879,371 @@ body.menu-modal-open { overflow: hidden; }
   .menu-modal__material-group ul { grid-template-columns: 1fr 1fr; gap: 0 16px; }
 }
 
+/* ============================================================
+   Gift Ticket — ギフトチケット（ワイドカード + 専用モーダル）
+   ============================================================ */
+.gift-menu {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  background: linear-gradient(135deg, var(--color-sakura-pale) 0%, var(--color-kinari-light) 60%);
+  border: 1px solid var(--color-ohdo-pale);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  transition: all .35s cubic-bezier(.4,0,.2,1);
+}
+.gift-menu:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--color-ohdo);
+}
+.gift-menu:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 4px;
+}
+@media (min-width: 768px) {
+  .gift-menu {
+    grid-template-columns: 1fr 280px;
+    margin-top: 64px;
+  }
+}
+
+/* 装飾 (背景の控えめな金粒) */
+.gift-menu__decor {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(212, 175, 55, 0.12) 0%, transparent 35%),
+    radial-gradient(circle at 8% 88%, rgba(122, 30, 30, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 本文側 */
+.gift-menu__body {
+  padding: 32px 28px 28px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media (min-width: 768px) {
+  .gift-menu__body { padding: 48px 48px 44px; }
+}
+.gift-menu__en {
+  font-family: var(--serif-en);
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--color-ohdo);
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-block;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  align-self: flex-start;
+}
+.gift-menu__en::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 32px;
+  height: 1px;
+  background: var(--color-gold);
+}
+.gift-menu__title {
+  font-family: var(--serif);
+  font-size: 22px;
+  letter-spacing: 0.14em;
+  color: var(--color-kurenai);
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+@media (min-width: 768px) {
+  .gift-menu__title { font-size: 26px; }
+}
+.gift-menu__lead {
+  font-size: 14px;
+  line-height: 2.05;
+  color: var(--color-sumi-soft);
+  letter-spacing: 0.05em;
+  margin: 0 0 18px;
+}
+@media (min-width: 768px) {
+  .gift-menu__lead { font-size: 15px; }
+}
+
+/* チップ (誕生日 / 母の日 ...) */
+.gift-menu__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 18px;
+  list-style: none;
+  padding: 0;
+}
+.gift-menu__chips li {
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--color-kurenai);
+  background: rgba(245, 239, 230, 0.85);
+  border: 1px solid var(--color-ohdo-pale);
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.gift-menu__copy {
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: var(--color-kurenai);
+  margin: 0 0 12px;
+  font-weight: 500;
+}
+.gift-menu .menu-card-more {
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--color-ohdo-pale);
+}
+
+/* 右側ギフト券風ビジュアル */
+.gift-menu__voucher {
+  position: relative;
+  z-index: 1;
+  background: var(--color-kurenai);
+  padding: 32px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  margin: 0 16px 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(122, 30, 30, 0.15);
+}
+@media (min-width: 768px) {
+  .gift-menu__voucher {
+    margin: 32px 32px 32px 0;
+    min-height: auto;
+    padding: 40px 28px;
+  }
+}
+.gift-menu__voucher-inner {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  border: 1px dashed rgba(212, 175, 55, 0.6);
+  border-radius: 12px;
+  padding: 22px 16px 26px;
+  color: var(--color-kinari);
+}
+.gift-menu__voucher-en {
+  font-family: var(--serif-en);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--color-gold);
+  font-weight: 500;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+.gift-menu__voucher-line {
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: var(--color-gold);
+  margin: 0 auto 10px;
+}
+.gift-menu__voucher-jp {
+  display: block;
+  font-family: var(--serif);
+  font-size: 15px;
+  letter-spacing: 0.22em;
+  line-height: 1.7;
+  color: var(--color-kinari);
+  margin-bottom: 14px;
+}
+.gift-menu__voucher-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: var(--color-kurenai-deep);
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   Gift Modal — 専用スタイル
+   ============================================================ */
+.menu-modal--gift .menu-modal__head--no-image {
+  margin-top: 0;
+  padding-top: 28px;
+}
+@media (min-width: 768px) {
+  .menu-modal--gift .menu-modal__head--no-image {
+    padding-top: 40px;
+  }
+}
+.gift-modal__catch {
+  font-family: var(--serif);
+  font-size: 18px;
+  letter-spacing: 0.16em;
+  color: var(--color-kurenai);
+  margin: 12px 0 18px;
+  line-height: 1.7;
+}
+@media (min-width: 768px) {
+  .gift-modal__catch { font-size: 22px; }
+}
+.gift-modal__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.gift-modal__chips li {
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--color-kurenai);
+  background: var(--color-sakura-pale);
+  border: 1px solid var(--color-ohdo-pale);
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+/* ギフト対応メニューリスト */
+.gift-modal__menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+.gift-modal__menu-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 4px;
+  border-bottom: 1px dashed var(--color-ohdo-pale);
+}
+.gift-modal__menu-list li:last-child { border-bottom: none; }
+.gift-modal__menu-name {
+  font-family: var(--serif);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--color-sumi);
+  font-weight: 500;
+}
+.gift-modal__menu-price {
+  font-family: var(--serif-en);
+  font-size: 18px;
+  color: var(--color-kurenai);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* 購入方法 (2つ) */
+.gift-modal__purchase { background: var(--color-kinari-warm); }
+.gift-modal__methods {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+@media (min-width: 600px) {
+  .gift-modal__methods { grid-template-columns: 1fr 1fr; gap: 22px; }
+}
+.gift-modal__method {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 14px;
+  align-items: flex-start;
+}
+.gift-modal__method-num {
+  font-family: var(--serif-en);
+  font-size: 22px;
+  color: var(--color-kurenai);
+  line-height: 1;
+  font-weight: 500;
+  font-style: italic;
+}
+.gift-modal__method h4 {
+  font-family: var(--serif);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: var(--color-kurenai);
+  margin: 0 0 8px;
+  font-weight: 500;
+}
+.gift-modal__method p {
+  font-size: 13px;
+  line-height: 1.95;
+  color: var(--color-sumi);
+  letter-spacing: 0.04em;
+  margin: 0 0 6px;
+}
+.gift-modal__method-note {
+  font-size: 12px !important;
+  color: var(--color-sumi-soft) !important;
+  margin: 0 !important;
+}
+
+/* LINE ID 表示 */
+.gift-modal__line-id {
+  text-align: center;
+  background: #06c755;
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 10px;
+  margin: 8px 0 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.gift-modal__line-label {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  opacity: 0.92;
+}
+.gift-modal__line-handle {
+  font-family: var(--serif-en);
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+/* ギフトモーダルのCTAをLINE色寄りに */
+.menu-modal--gift .menu-modal__cta {
+  background: #06c755;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(6, 199, 85, 0.25);
+}
+.menu-modal--gift .menu-modal__cta:hover {
+  background: #05b04c;
+  box-shadow: 0 10px 24px rgba(6, 199, 85, 0.35);
+}
+
 /* お客様の声 注釈 */
 .voice-disclaimer {
   font-family: var(--sans);
@@ -3162,6 +3527,32 @@ body.menu-modal-open { overflow: hidden; }
 
     </div>
 
+    <!-- Gift Ticket — 大切な人へ贈るワイドカード -->
+    <article class="gift-menu" data-menu-modal="gift" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="menuModal-gift" aria-label="ギフトチケットの詳細を開く">
+      <div class="gift-menu__decor" aria-hidden="true"></div>
+      <div class="gift-menu__body">
+        <span class="gift-menu__en">Gift Ticket</span>
+        <h3 class="gift-menu__title">よもぎ蒸しを、大切な人へ。</h3>
+        <p class="gift-menu__lead">「いつもありがとう」の気持ちを、よもぎ蒸し体験のギフトチケットに込めて贈れます。<br>お誕生日・母の日・出産祝い・友人へのプレゼントに。</p>
+        <ul class="gift-menu__chips">
+          <li>誕生日</li>
+          <li>母の日</li>
+          <li>出産祝い</li>
+          <li>友人への贈りもの</li>
+        </ul>
+        <p class="gift-menu__copy">大切な人の身体を想う、温かな贈りもの。</p>
+        <span class="menu-card-more" aria-hidden="true">ギフト詳細を見る <span class="arrow">→</span></span>
+      </div>
+      <aside class="gift-menu__voucher" aria-hidden="true">
+        <div class="gift-menu__voucher-inner">
+          <span class="gift-menu__voucher-en">Musuhi</span>
+          <span class="gift-menu__voucher-line"></span>
+          <span class="gift-menu__voucher-jp">ギフト<br>チケット</span>
+          <span class="gift-menu__voucher-mark">結</span>
+        </div>
+      </aside>
+    </article>
+
     <div class="text-center mt-48">
       <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-gold">
         初回体験を予約する <span class="arrow">→</span>
@@ -3299,6 +3690,26 @@ body.menu-modal-open { overflow: hidden; }
         <div class="pricing-row">
           <div class="pricing-row-name"><strong>体験3回券</strong><small>よもぎ→漢方→発酵／2ヶ月以内</small></div>
           <div class="pricing-row-price"><span class="pricing-row-price-trial">¥10,000</span><span class="pricing-row-price-normal">¥12,000</span></div>
+        </div>
+      </div>
+
+      <h4 class="pricing-group-title">ギフトチケット</h4>
+      <div class="pricing-list">
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>よもぎ蒸し体験</strong><small>大切な人への贈りもの</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">¥3,000</span></div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>漢方よもぎ蒸し体験</strong><small>大切な人への贈りもの</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">¥4,500</span></div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>発酵よもぎ蒸し体験</strong><small>大切な人への贈りもの</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">¥4,500</span></div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-row-name"><strong>3種体験チケット</strong><small>よもぎ・漢方・発酵の3メニュー</small></div>
+          <div class="pricing-row-price"><span class="pricing-row-price-trial">¥10,000</span></div>
         </div>
       </div>
 
@@ -4626,6 +5037,81 @@ body.menu-modal-open { overflow: hidden; }
       </div>
       <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary menu-modal__cta">
         ご予約はこちら <span class="arrow">→</span>
+      </a>
+    </footer>
+  </div>
+</div>
+
+<!-- ⑥ ギフトチケット -->
+<div class="menu-modal menu-modal--gift" id="menuModal-gift" role="dialog" aria-modal="true" aria-labelledby="menuModal-gift-title" aria-hidden="true">
+  <div class="menu-modal__backdrop" data-modal-close></div>
+  <div class="menu-modal__dialog" role="document">
+    <button type="button" class="menu-modal__close" data-modal-close aria-label="詳細を閉じる">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="menu-modal__body">
+      <header class="menu-modal__head menu-modal__head--no-image">
+        <span class="menu-modal__en">Gift Ticket</span>
+        <h2 class="menu-modal__title" id="menuModal-gift-title">ギフトチケット</h2>
+        <p class="gift-modal__catch">よもぎ蒸しを、大切な人へ。</p>
+        <p class="menu-modal__lead">「いつもありがとう」の気持ちを、よもぎ蒸し体験のギフトチケットに込めて贈れます。<br>お誕生日・母の日・出産祝い・友人へのプレゼントに。</p>
+        <ul class="gift-modal__chips">
+          <li>誕生日</li>
+          <li>母の日</li>
+          <li>出産祝い</li>
+          <li>友人への贈りもの</li>
+        </ul>
+      </header>
+
+      <div class="menu-modal__cards">
+        <section class="menu-modal__card menu-modal__card--check menu-modal__card--wide">
+          <h3>ギフト対応メニュー</h3>
+          <ul class="gift-modal__menu-list">
+            <li><span class="gift-modal__menu-name">よもぎ蒸し体験</span><span class="gift-modal__menu-price">¥3,000</span></li>
+            <li><span class="gift-modal__menu-name">漢方よもぎ蒸し体験</span><span class="gift-modal__menu-price">¥4,500</span></li>
+            <li><span class="gift-modal__menu-name">発酵よもぎ蒸し体験</span><span class="gift-modal__menu-price">¥4,500</span></li>
+            <li><span class="gift-modal__menu-name">3種体験チケット</span><span class="gift-modal__menu-price">¥10,000</span></li>
+          </ul>
+        </section>
+
+        <section class="menu-modal__card menu-modal__card--wide gift-modal__purchase">
+          <h3>ご購入方法は2つ</h3>
+          <div class="gift-modal__methods">
+            <div class="gift-modal__method">
+              <span class="gift-modal__method-num">①</span>
+              <div class="gift-modal__method-body">
+                <h4>ご来店での購入</h4>
+                <p>サロンにお越しの際に、スタッフにお声がけください。その場でチケットをご購入いただき、すぐにお渡しできます。</p>
+                <p class="gift-modal__method-note">お支払いは現金・PayPayにて承ります。</p>
+              </div>
+            </div>
+            <div class="gift-modal__method">
+              <span class="gift-modal__method-num">②</span>
+              <div class="gift-modal__method-body">
+                <h4>LINEでのご購入</h4>
+                <p>なかなかご来店できない方・むすひが初めての方も、LINEからギフトチケットをご購入いただけます。ご希望のメニューと To・From のお名前をお知らせください。</p>
+                <p class="gift-modal__method-note">お支払い確認後、専用のギフト画像をお送りします。</p>
+              </div>
+            </div>
+          </div>
+          <p class="gift-modal__line-id">
+            <span class="gift-modal__line-label">むすひ公式LINE</span>
+            <span class="gift-modal__line-handle">@514aepcr</span>
+          </p>
+        </section>
+      </div>
+
+      <p class="menu-modal__note">ギフトチケットの有効期限は発行日より6ヶ月です。詳細はLINEまたは店頭でお気軽にご相談ください。</p>
+    </div>
+
+    <footer class="menu-modal__footer">
+      <div class="menu-modal__footer-price">
+        <span class="menu-modal__footer-label">ギフトチケット</span>
+        <span class="menu-modal__footer-amount">¥3,000<small>〜</small></span>
+      </div>
+      <!-- LINE: 仮リンク。LINE公式アカウント (@514aepcr) のURLに差し替えてください -->
+      <a href="#" target="_blank" rel="noopener" class="btn btn-primary menu-modal__cta" data-placeholder="LINE公式URL未設定">
+        LINEで購入相談する <span class="arrow">→</span>
       </a>
     </footer>
   </div>
