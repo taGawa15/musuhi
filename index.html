@@ -3832,6 +3832,273 @@ body.menu-modal-open .float-gift-cta {
 @media (min-width: 768px) {
   .pricing-group-title { font-size: 14px; }
 }
+
+/* ============================================================
+   Japanese Typography on Mobile (v4) — 文字組み美化
+   ============================================================ */
+
+/* ── Utilities ── */
+.sp-only { display: none; }
+.pc-only { display: inline; }
+@media (max-width: 767px) {
+  .sp-only { display: inline; }
+  .pc-only { display: none; }
+  br.sp-only { display: inline; }
+  br.pc-only { display: none; }
+}
+
+/* 改行禁止フレーズ用 */
+.no-break {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+/* ── スマホ全体の組版基本設定 ── */
+@media (max-width: 767px) {
+  body {
+    font-size: 15px;
+    line-height: 1.95;
+    letter-spacing: 0.035em;
+    word-break: normal;
+    line-break: strict;
+    overflow-wrap: break-word;
+  }
+
+  /* 見出し共通: 助詞ぶらさげ防止 + バランス重視 */
+  .hero-title,
+  .section-title,
+  .menu-name,
+  .gift-menu__title,
+  .menu-modal__title,
+  .vm-gallery-ja,
+  .vm-closing-text,
+  .gift-modal__catch,
+  .pricing-summary-title,
+  .commitment-title,
+  .flow-content h3 {
+    line-height: 1.7;
+    letter-spacing: 0.06em;
+    word-break: normal;
+    line-break: strict;
+    overflow-wrap: normal;
+    text-wrap: balance;
+  }
+
+  /* H1 ヒーロー */
+  .hero-title {
+    font-size: 32px;
+    line-height: 1.65;
+    letter-spacing: 0.08em;
+  }
+
+  /* セクション見出し */
+  .section-title {
+    font-size: 24px;
+    line-height: 1.7;
+    letter-spacing: 0.08em;
+    padding: 0 8px;
+  }
+
+  /* セクションリード */
+  .section-lead {
+    font-size: 14px;
+    line-height: 2.05;
+    letter-spacing: 0.04em;
+    padding: 0 8px;
+    text-wrap: pretty;
+  }
+
+  /* 本文系: 行間広め + pretty */
+  .menu-desc,
+  .voice-text,
+  .commitment-desc,
+  .flow-content p,
+  .menu-modal__lead,
+  .menu-modal__card li,
+  .menu-modal__check-list li,
+  .faq-q .q-text,
+  .faq-a-inner p,
+  .gift-menu__lead,
+  .vm-instagram-sub,
+  .pricing-note,
+  .voice-disclaimer {
+    line-height: 2.0;
+    letter-spacing: 0.04em;
+    text-wrap: pretty;
+    word-break: normal;
+    line-break: strict;
+    overflow-wrap: break-word;
+  }
+
+  /* お客様の声カード */
+  .voice-card { padding: 24px 22px; }
+  .voice-text {
+    font-size: 14px;
+    line-height: 2.05;
+    letter-spacing: 0.04em;
+  }
+
+  /* FAQ */
+  .faq-q {
+    align-items: flex-start;
+    font-size: 14px;
+    line-height: 1.8;
+    letter-spacing: 0.04em;
+    padding: 22px 20px;
+  }
+  .faq-q .q-mark { margin-top: 2px; }
+  .faq-a-inner {
+    padding: 0 20px 22px;
+    line-height: 2.0;
+  }
+  .faq-a-inner p {
+    font-size: 13.5px;
+    letter-spacing: 0.035em;
+  }
+
+  /* メニューカード本文・見出し */
+  .menu-desc {
+    font-size: 13.5px;
+    line-height: 2.0;
+  }
+  .menu-name {
+    font-size: 19px;
+    line-height: 1.6;
+    letter-spacing: 0.1em;
+  }
+  .menu-name small { letter-spacing: 0.14em; }
+
+  /* メニューモーダル */
+  .menu-modal__lead {
+    font-size: 14px;
+    line-height: 2.05;
+  }
+  .menu-modal__card h3 {
+    font-size: 15px;
+    line-height: 1.7;
+    letter-spacing: 0.1em;
+  }
+  .menu-modal__card li {
+    font-size: 13.5px;
+    line-height: 2.0;
+  }
+
+  /* ボタン: 詰まりすぎ防止 + 折り返し許可 */
+  .btn {
+    padding: 17px 24px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    line-height: 1.5;
+    white-space: normal;
+    text-wrap: balance;
+    min-height: 52px;
+  }
+  .btn-micro {
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+  .hero-cta-main {
+    padding: 20px 28px;
+    font-size: 14.5px;
+    letter-spacing: 0.12em;
+  }
+  .menu-modal__cta {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+  }
+  .menu-final-cta .btn {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  /* Final CTA */
+  .final-cta .section-title {
+    font-size: 24px;
+    line-height: 1.7;
+    letter-spacing: 0.08em;
+  }
+
+  /* Voice & Moments */
+  .vm-gallery-ja {
+    font-size: 19px;
+    line-height: 1.7;
+    letter-spacing: 0.1em;
+  }
+  .vm-closing-text {
+    font-size: 17px;
+    line-height: 1.75;
+    letter-spacing: 0.1em;
+  }
+
+  /* ギフト */
+  .gift-menu__title {
+    font-size: 20px;
+    line-height: 1.7;
+    letter-spacing: 0.1em;
+  }
+  .gift-menu__lead {
+    font-size: 13.5px;
+    line-height: 2.0;
+  }
+  .gift-modal__catch {
+    font-size: 17px;
+    line-height: 1.7;
+    letter-spacing: 0.1em;
+  }
+
+  /* 価格関連は再保険として nowrap (既存ルール強化) */
+  .menu-meta-price,
+  .menu-meta-price-trial,
+  .menu-meta-price-normal,
+  .pricing-row-price,
+  .pricing-row-price-trial,
+  .pricing-row-price-normal,
+  .menu-modal__variant-trial,
+  .menu-modal__variant-normal,
+  .menu-modal__price-trial,
+  .menu-modal__price-normal,
+  .menu-modal__footer-amount,
+  .hero-offer-price,
+  .gift-modal__menu-price,
+  .trust-stats__num,
+  .final-cta-perks__num {
+    white-space: nowrap;
+    word-break: keep-all;
+  }
+
+  /* 流れ */
+  .flow-content h3 {
+    font-size: 17px;
+    line-height: 1.7;
+    letter-spacing: 0.1em;
+  }
+  .flow-content p {
+    font-size: 13.5px;
+    line-height: 2.0;
+  }
+
+  /* こだわり */
+  .commitment-title {
+    font-size: 21px;
+    line-height: 1.65;
+    letter-spacing: 0.1em;
+  }
+  .commitment-desc {
+    font-size: 13.5px;
+    line-height: 2.0;
+  }
+}
+
+/* 極小スクリーン (<375px) */
+@media (max-width: 374px) {
+  .hero-title { font-size: 28px; }
+  .section-title { font-size: 22px; }
+  .btn { padding: 16px 20px; font-size: 12.5px; }
+  .menu-modal__title { font-size: 24px; }
+  .menu-name { font-size: 18px; }
+}
 </style>
 </head>
 <body>
@@ -3896,8 +4163,8 @@ body.menu-modal-open .float-gift-cta {
     <p class="hero-subtitle">黄土よもぎ蒸し専門サロン</p>
     <h1 class="hero-title">命はいつも、<br>温かい場所に宿る。</h1>
     <p class="hero-sub">
-      <strong>冷え・生理痛・妊活・美肌</strong>のお悩みに、<br>
-      国産無農薬よもぎと黄土の蒸し壺で寄り添うサロン。
+      <strong>冷え・生理痛・<span class="no-break">妊活・美肌</span></strong>のお悩みに、<br class="pc-only">
+      国産無農薬よもぎと<span class="no-break">黄土の蒸し壺</span>で寄り添うサロン。
     </p>
     <div class="hero-offer hero-offer--strong">
       <div class="hero-offer-main">
@@ -3988,7 +4255,7 @@ body.menu-modal-open .float-gift-cta {
 <section class="problems" id="problems">
   <div class="container">
     <span class="section-label">Worries</span>
-    <h2 class="section-title">こんなお悩み、<br>ありませんか。</h2>
+    <h2 class="section-title">こんなお悩み、<br class="sp-only">ありませんか。</h2>
     <p class="section-lead">
       薬や運動だけでは届かない、もっと深いところにある体と心の不調。<br>
       むすひは、その奥にある「冷え」と「巡り」から整える場所です。
@@ -4014,7 +4281,7 @@ body.menu-modal-open .float-gift-cta {
 <section class="concept" id="concept">
   <div class="container">
     <span class="section-label">Concept</span>
-    <h2 class="section-title">むすひ、<br>という名前のこと。</h2>
+    <h2 class="section-title">むすひ、<br class="sp-only">という名前のこと。</h2>
     <p class="section-lead">
       「産霊（むすひ）」とは、万物の命を生み出す根源のエネルギー。<br>
       古来より日本人が大切にしてきた、目に見えない力の言葉です。
@@ -4041,7 +4308,7 @@ body.menu-modal-open .float-gift-cta {
 <section id="menu">
   <div class="container">
     <span class="section-label">Menu</span>
-    <h2 class="section-title">体質とお悩みに合わせて<br>選べる、3つのよもぎ蒸し。</h2>
+    <h2 class="section-title">体質とお悩みに合わせて<br class="pc-only">選べる、<br class="sp-only">3つのよもぎ蒸し。</h2>
     <p class="section-lead">
       シンプルな基本メニューから、漢方ブレンド、発酵素材まで。<br>
       初めての方には、お得な「初回体験価格」をご用意しています。
@@ -4117,7 +4384,7 @@ body.menu-modal-open .float-gift-cta {
       <div class="gift-menu__decor" aria-hidden="true"></div>
       <div class="gift-menu__body">
         <span class="gift-menu__en">Gift Ticket</span>
-        <h3 class="gift-menu__title">よもぎ蒸しを、大切な人へ。</h3>
+        <h3 class="gift-menu__title">よもぎ蒸しを、<br class="sp-only">大切な人へ。</h3>
         <p class="gift-menu__lead">「いつもありがとう」の気持ちを、よもぎ蒸し体験のギフトチケットに込めて贈れます。<br>お誕生日・母の日・出産祝い・友人へのプレゼントに。</p>
         <ul class="gift-menu__chips">
           <li>誕生日</li>
@@ -4348,11 +4615,11 @@ body.menu-modal-open .float-gift-cta {
       <div class="commitment reverse">
         <div>
           <span class="commitment-num">02</span>
-          <h3 class="commitment-title">黄土の座器・蒸し壺</h3>
+          <h3 class="commitment-title"><span class="no-break">黄土の座器・蒸し壺</span></h3>
           <p class="commitment-desc">身体だけでなく心までほぐされるように、座器・蒸し壺にはすべて黄土を採用。遠赤外線でじんわりと身体の芯から温まる、深く穏やかな心地良さを感じていただけます。</p>
         </div>
         <!-- IMAGE: images/image-09.jpg ｜こだわり②黄土／湯気立ちのぼる蒸し壺／1200×900px -->
-        <img src="images/image-09.jpg" alt="黄土の座器・蒸し壺" class="commitment-img" loading="lazy" width="600" height="450">
+        <img src="images/image-09.jpg" alt="<span class="no-break">黄土の座器・蒸し壺</span>" class="commitment-img" loading="lazy" width="600" height="450">
       </div>
 
       <div class="commitment">
@@ -4586,7 +4853,7 @@ body.menu-modal-open .float-gift-cta {
 <section id="flow">
   <div class="container">
     <span class="section-label">Flow</span>
-    <h2 class="section-title">ご来店から<br>お帰りまで。</h2>
+    <h2 class="section-title">ご来店から<br class="sp-only">お帰りまで。</h2>
     <p class="section-lead">
       初めての方も、安心してお過ごしいただける流れをご用意しています。<br>
       所要時間はメニューにより60〜70分です。
@@ -4653,7 +4920,7 @@ body.menu-modal-open .float-gift-cta {
         </div>
         <div class="flow-content">
           <span class="duration">約10分</span>
-          <h3>アフターティー &amp; アフターカウンセリング</h3>
+          <h3><span class="no-break">アフターティー</span> &amp; <span class="no-break">アフターカウンセリング</span></h3>
           <p>温まった身体にやさしいお茶をお召し上がりいただきながら、体調の変化や次回までのご相談など、ゆっくりとお話しします。</p>
         </div>
       </div>
@@ -4876,7 +5143,7 @@ body.menu-modal-open .float-gift-cta {
   <div class="container">
     <img src="images/logo-white.png" alt="むすひ" class="final-cta-logo" width="88" height="116">
     <span class="section-label">Reservation</span>
-    <h2 class="section-title">迷ったら、まず<br>初回体験から。</h2>
+    <h2 class="section-title">迷ったら、まず<br class="sp-only">初回体験から。</h2>
     <p class="final-cta-msg">
       むすひの時間が、あなたと大切な人の<br>
       新しい一歩のきっかけになりますように。
@@ -5256,7 +5523,7 @@ body.menu-modal-open .float-gift-cta {
           <ul>
             <li>徳島県産 無農薬よもぎ</li>
             <li>30種類以上のミネラルを含む水</li>
-            <li>黄土の座器・蒸し壺</li>
+            <li><span class="no-break">黄土の座器・蒸し壺</span></li>
           </ul>
         </section>
         <section class="menu-modal__card">
@@ -5265,7 +5532,7 @@ body.menu-modal-open .float-gift-cta {
             <li>カウンセリング</li>
             <li>お着替え</li>
             <li>黄土座器で蒸し体験(40分)</li>
-            <li>アフターティー &amp; アフターカウンセリング</li>
+            <li><span class="no-break">アフターティー</span> &amp; <span class="no-break">アフターカウンセリング</span></li>
           </ol>
         </section>
       </div>
@@ -5344,7 +5611,7 @@ body.menu-modal-open .float-gift-cta {
             <li>国産無農薬よもぎ</li>
             <li>漢方素材</li>
             <li>30種類以上のミネラルを含む水</li>
-            <li>黄土の座器・蒸し壺</li>
+            <li><span class="no-break">黄土の座器・蒸し壺</span></li>
           </ul>
         </section>
         <section class="menu-modal__card">
@@ -5355,7 +5622,7 @@ body.menu-modal-open .float-gift-cta {
             <li>素材の香りを確認</li>
             <li>お着替え</li>
             <li>蒸し体験(40分)</li>
-            <li>アフターティー &amp; アフターカウンセリング</li>
+            <li><span class="no-break">アフターティー</span> &amp; <span class="no-break">アフターカウンセリング</span></li>
           </ol>
         </section>
       </div>
@@ -5434,7 +5701,7 @@ body.menu-modal-open .float-gift-cta {
             <li>豆麹</li>
             <li>米ぬか</li>
             <li>30種類以上のミネラルを含む水</li>
-            <li>黄土の座器・蒸し壺</li>
+            <li><span class="no-break">黄土の座器・蒸し壺</span></li>
           </ul>
         </section>
         <section class="menu-modal__card">
@@ -5445,7 +5712,7 @@ body.menu-modal-open .float-gift-cta {
             <li>香りの確認</li>
             <li>お着替え</li>
             <li>蒸し体験(40分)</li>
-            <li>アフターティー &amp; アフターカウンセリング</li>
+            <li><span class="no-break">アフターティー</span> &amp; <span class="no-break">アフターカウンセリング</span></li>
           </ol>
         </section>
       </div>
@@ -5511,7 +5778,7 @@ body.menu-modal-open .float-gift-cta {
       <dl class="menu-modal__price">
         <div>
           <dt>所要時間</dt>
-          <dd>60分／2名</dd>
+          <dd class="no-break">60分／2名</dd>
         </div>
         <div>
           <dt>初回価格</dt>
@@ -5549,7 +5816,7 @@ body.menu-modal-open .float-gift-cta {
             <li>漢方素材（漢方ブレンド選択時）</li>
             <li>玄米・豆麹・米ぬか（発酵ブレンド選択時）</li>
             <li>30種類以上のミネラルを含む水</li>
-            <li>黄土の座器・蒸し壺</li>
+            <li><span class="no-break">黄土の座器・蒸し壺</span></li>
           </ul>
         </section>
         <section class="menu-modal__card">
@@ -5560,7 +5827,7 @@ body.menu-modal-open .float-gift-cta {
             <li>素材の香りを確認</li>
             <li>お着替え</li>
             <li>並んで蒸し体験(40分)</li>
-            <li>アフターティー &amp; アフターカウンセリング</li>
+            <li><span class="no-break">アフターティー</span> &amp; <span class="no-break">アフターカウンセリング</span></li>
           </ol>
         </section>
       </div>
@@ -5600,7 +5867,7 @@ body.menu-modal-open .float-gift-cta {
       <dl class="menu-modal__price">
         <div>
           <dt>所要時間</dt>
-          <dd>70分／2名</dd>
+          <dd class="no-break">70分／2名</dd>
         </div>
         <div>
           <dt>初回価格</dt>
@@ -5663,7 +5930,7 @@ body.menu-modal-open .float-gift-cta {
             <h4 class="menu-modal__material-title">共通素材</h4>
             <ul>
               <li>30種類以上のミネラルを含む水</li>
-              <li>黄土の座器・蒸し壺</li>
+              <li><span class="no-break">黄土の座器・蒸し壺</span></li>
             </ul>
           </div>
         </section>
@@ -5675,7 +5942,7 @@ body.menu-modal-open .float-gift-cta {
             <li>素材の香りを確認</li>
             <li>お着替え</li>
             <li>並んで蒸し体験(40分)</li>
-            <li>アフターティー &amp; アフターカウンセリング</li>
+            <li><span class="no-break">アフターティー</span> &amp; <span class="no-break">アフターカウンセリング</span></li>
           </ol>
         </section>
       </div>
@@ -5706,7 +5973,7 @@ body.menu-modal-open .float-gift-cta {
       <header class="menu-modal__head menu-modal__head--no-image">
         <span class="menu-modal__en">Gift Ticket</span>
         <h2 class="menu-modal__title" id="menuModal-gift-title">ギフトチケット</h2>
-        <p class="gift-modal__catch">よもぎ蒸しを、大切な人へ。</p>
+        <p class="gift-modal__catch">よもぎ蒸しを、<br class="sp-only">大切な人へ。</p>
         <p class="menu-modal__lead">「いつもありがとう」の気持ちを、よもぎ蒸し体験のギフトチケットに込めて贈れます。<br>お誕生日・母の日・出産祝い・友人へのプレゼントに。</p>
         <ul class="gift-modal__chips">
           <li>誕生日</li>
