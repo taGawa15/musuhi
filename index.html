@@ -1290,6 +1290,60 @@ iframe.map-image  { border: 1px solid var(--color-ohdo-pale); border-radius: var
   line-height: 2.1;
   letter-spacing: 0.05em;
 }
+.commitment-desc--lead {
+  margin-top: 18px;
+  color: var(--color-kurenai);
+  font-family: var(--serif);
+  letter-spacing: 0.08em;
+}
+
+/* こだわり04 びわの葉の効果リスト */
+.commitment-effects {
+  margin-top: 20px;
+  background: var(--color-sakura-pale);
+  border: 1px solid var(--color-ohdo-pale);
+  border-radius: var(--radius-image);
+  padding: 20px 22px 18px;
+}
+.commitment-effects__title {
+  font-family: var(--serif);
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  color: var(--color-kurenai);
+  font-weight: 500;
+  margin: 0 0 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-ohdo-pale);
+}
+.commitment-effects__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px 18px;
+}
+@media (min-width: 480px) {
+  .commitment-effects__list { grid-template-columns: 1fr 1fr; }
+}
+.commitment-effects__list li {
+  font-size: 13.5px;
+  line-height: 1.95;
+  color: var(--color-sumi);
+  letter-spacing: 0.04em;
+  padding-left: 20px;
+  position: relative;
+}
+.commitment-effects__list li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 12px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-gold);
+}
 
 /* Picture band — オートスライド (5枚クロスフェード) */
 .picture-band {
@@ -2917,15 +2971,28 @@ body.menu-modal-open { overflow: hidden; }
   flex-wrap: wrap;
   margin-bottom: 10px;
 }
+/* セット体験用: 縦積みレイアウト */
+.hero-offer-main--set {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
 .hero-offer--strong .hero-offer-label {
   font-size: 12px;
   letter-spacing: 0.22em;
   color: var(--color-gold);
 }
+.hero-offer-main--set .hero-offer-label {
+  line-height: 1.7;
+}
 .hero-offer--strong .hero-offer-price {
   font-size: 30px;
   color: var(--color-kinari);
   font-family: var(--serif-en);
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 8px;
 }
 @media (min-width: 768px) {
   .hero-offer--strong .hero-offer-price { font-size: 36px; }
@@ -2934,6 +3001,21 @@ body.menu-modal-open { overflow: hidden; }
   font-size: 11px;
   margin-left: 4px;
   color: rgba(245, 239, 230, 0.7);
+}
+/* 元値（消し線） */
+.hero-offer-price-was {
+  font-size: 19px;
+  color: rgba(245, 239, 230, 0.6);
+  text-decoration: line-through;
+  text-decoration-color: var(--color-gold);
+  letter-spacing: 0.02em;
+}
+@media (min-width: 768px) {
+  .hero-offer-price-was { font-size: 22px; }
+}
+.hero-offer-price-arrow {
+  font-size: 16px;
+  color: var(--color-gold);
 }
 .hero-offer-points {
   display: flex;
@@ -4167,9 +4249,13 @@ body.menu-modal-open .float-gift-cta {
       国産無農薬よもぎと<span class="no-break">黄土の蒸し壺</span>で寄り添うサロン。
     </p>
     <div class="hero-offer hero-offer--strong">
-      <div class="hero-offer-main">
-        <span class="hero-offer-label">初回限定 / 60分</span>
-        <span class="hero-offer-price">¥3,000<small>(税込)</small></span>
+      <div class="hero-offer-main hero-offer-main--set">
+        <span class="hero-offer-label">よもぎ・漢方・発酵<br class="sp-only"><span class="no-break">3種よもぎ蒸し体験（3回）</span></span>
+        <span class="hero-offer-price">
+          <span class="hero-offer-price-was">¥12,000</span>
+          <span class="hero-offer-price-arrow" aria-hidden="true">→</span>
+          ¥10,000<small>(税込)</small>
+        </span>
       </div>
       <ul class="hero-offer-points">
         <li>追加料金なし</li>
@@ -4179,7 +4265,7 @@ body.menu-modal-open .float-gift-cta {
     </div>
     <div class="hero-cta-row hero-cta-row--solo">
       <a href="https://airrsv.net/musuhi-yomogi/calendar" target="_blank" rel="noopener" class="btn btn-primary hero-cta-main">
-        初回 ¥3,000 で予約する <span class="arrow">→</span>
+        予約する <span class="arrow">→</span>
         <span class="btn-micro">24時間オンライン予約OK</span>
       </a>
     </div>
@@ -4630,6 +4716,28 @@ body.menu-modal-open .float-gift-cta {
         </div>
         <!-- IMAGE: images/image-10.jpg ｜こだわり③お水／水が注がれる瞬間／1200×900px -->
         <img src="images/image-10.jpg" alt="黄土の蒸し壺に注がれるミネラル豊富な水" class="commitment-img" loading="lazy" width="600" height="450">
+      </div>
+
+      <div class="commitment reverse">
+        <div>
+          <span class="commitment-num">04</span>
+          <h3 class="commitment-title">よもぎアレルギーの方へ、<br class="sp-only">びわの葉という選択</h3>
+          <p class="commitment-desc">よもぎアレルギー・キク科アレルギーの方へ、素材変更が可能になりました。よもぎの代わりに、びわの葉をご用意しています。びわの葉は古来より「万能薬草」として親しまれてきた素材。びわは<span class="no-break">バラ科</span>ですので、キク科のよもぎアレルギーの方にも安心してご利用いただけます。</p>
+          <div class="commitment-effects">
+            <p class="commitment-effects__title">びわの葉の効果</p>
+            <ul class="commitment-effects__list">
+              <li>抗炎症・鎮痛作用</li>
+              <li>免疫力サポート</li>
+              <li>美肌・肌トラブルケア</li>
+              <li>デトックス・血液浄化</li>
+              <li>体の芯から温める</li>
+            </ul>
+          </div>
+          <p class="commitment-desc commitment-desc--lead">よもぎ蒸しを諦めていた方、ぜひ一度ご相談ください。</p>
+        </div>
+        <!-- IMAGE: images/image-biwa.jpg ｜こだわり④びわの葉／びわの葉の静物／1200×900px ※びわの葉の写真に差し替えてください（未配置時は image-05.jpg を仮表示） -->
+        <img src="images/image-biwa.jpg" alt="よもぎの代わりに使えるびわの葉" class="commitment-img" loading="lazy" width="600" height="450"
+             onerror="this.onerror=null;this.src='images/image-05.jpg';">
       </div>
 
     </div>
